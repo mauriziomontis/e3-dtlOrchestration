@@ -1,0 +1,21 @@
+# Records for State machine
+#
+#
+# Stages Code:
+# 	0   -> INIT
+# 	101 -> STAND-BY
+# 	202 -> RF CONDITIONING
+# 	303 -> RF START-UP
+# 	404 -> READY FOR OPERATION
+# 	505 -> NO ACCELERATED BEAM
+# 	606 -> MAINTENANCE
+#
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+record(ai, "DTL::StateMachine") {
+	field(DESC, "DTL State machine code")
+	field(VAL, "0")
+	field(PINI, "YES")
+}
