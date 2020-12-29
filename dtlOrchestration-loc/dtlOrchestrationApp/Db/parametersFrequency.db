@@ -8,7 +8,7 @@
 
 # RF Freq Low Threshold Δf1
 record(ai, "DTL:RFS:BeamOpLDeltaFreq") {
-	field(DESC, "RF Freq Low Threshold")
+	field(DESC, "RF Freq Low Threshold Δf1")
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(EGU, "kHz")
@@ -17,7 +17,7 @@ record(ai, "DTL:RFS:BeamOpLDeltaFreq") {
 
 # RF Freq High Threshold Δf2
 record(ai, "DTL:RFS:BeamOpHDeltaFreq") {
-	field(DESC, "RF Freq High Threshold")
+	field(DESC, "RF Freq High Threshold Δf2")
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(EGU, "kHz")
