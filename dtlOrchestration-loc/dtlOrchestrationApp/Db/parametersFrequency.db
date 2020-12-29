@@ -1,0 +1,25 @@
+# Records for Tuners and Cooling Sub-System
+#
+# Condition:  | Δf1 | < | Δf2 |
+#
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+# RF Freq Low Threshold Δf1
+record(ai, "DTL:RFS:BeamOpLDeltaFreq") {
+	field(DESC, "RF Freq Low Threshold")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "kHz")
+	field(PREC, "4")
+}
+
+# RF Freq High Threshold Δf2
+record(ai, "DTL:RFS:BeamOpHDeltaFreq") {
+	field(DESC, "RF Freq High Threshold")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "kHz")
+	field(PREC, "4")
+}
