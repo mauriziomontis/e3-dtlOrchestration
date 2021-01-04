@@ -1,0 +1,83 @@
+# DTL ORCHESTRATION Application
+# developed by Maurizio Montis | INFN-LNL
+#
+# the application provides the main state machine devoted to manage
+#   the entire DTL apparatus.
+# controls and logic are based on the documentation "DTL Concept of Operations"
+#
+
+
+#
+# Parameters and Configurations
+#
+
+epicsEnvSet("AUTOSAVE_VERSION", "5.10.0")
+epicsEnvSet("IOCSTATS_VERSION", "3.1.16")
+epicsEnvSet("RECSYNC_VERSION", "1.3.0-9705e52")
+epicsEnvSet("DTLORCHESTRATION_VERSION", "master")
+
+epicsEnvSet("AUTOSAVE_TOP", "/iocs/dtl-skid/autosave/")
+epicsEnvSet("IOCNAME", "dtl-ctrl-ioc-001")
+
+epicsEnvSet("SCRIPTEXEC",        "${SCRIPTEXEC=iocshLoad}")
+epicsEnvSet("DTL_ORCHESTRATION_ROOT",     "${E3_SITEMODS_PATH}/dtlOrchestration/${DTLORCHESTRATION_VERSION}/")
+epicsEnvSet("DTL_ORCHESTRATION_DB",       "${DTL_ORCHESTRATION_ROOT}db/")
+
+#
+# Required Modules
+#
+require dtlOrchestration, ${DTLORCHESTRATION_VERSION}
+require autosave, ${AUTOSAVE_VERSION}
+require iocStats, ${IOCSTATS_VERSION}
+require recsync, ${RECSYNC_VERSION}
+
+#
+# Start autosave module
+#
+loadIocsh("autosave.iocsh", "AS_TOP=$(AUTOSAVE_TOP),IOCNAME=$(IOCNAME)")
+
+#
+# Start iocStats module
+#
+loadIocsh("iocStats.iocsh", "IOCNAME=$(IOCNAME)")
+
+#
+# Start recsync module
+#
+loadIocsh("recsync.iocsh", "IOCNAME=$(IOCNAME)")
+
+
+#
+# Databases and Template
+#
+
+# Main State Machine code
+dbLoadRecords("StateMachineCode.db")
+
+# Parameters Vacuum
+dbLoadRecords("")
+
+# Parameters Cooling
+dbLoadRecords("parametersCooling.db")
+
+# Parameters Temperatures
+dbLoadRecords("")
+
+# Parameters Steerers
+dbLoadRecords("")
+
+# Parameters Tuners
+dbLoadRecords("")
+
+# Parameters RF and Arc Detection
+dbLoadRecords("parametersFrequency.db")
+
+
+#
+# Post Init - Set Record Fields
+#
+
+#
+# SQL State Machine
+#
+afterInit(seq orchestration_statemachine)
