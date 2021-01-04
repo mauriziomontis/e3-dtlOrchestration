@@ -55,13 +55,13 @@ loadIocsh("recsync.iocsh", "IOCNAME=$(IOCNAME)")
 dbLoadRecords("StateMachineCode.db")
 
 # Parameters Vacuum
-dbLoadRecords("")
+dbLoadRecords("parametersVacuum.db")
 
 # Parameters Cooling
 dbLoadRecords("parametersCooling.db")
 
 # Parameters Temperatures
-dbLoadRecords("")
+dbLoadRecords("parametersTemperature.db")
 
 # Parameters Steerers
 dbLoadRecords("")

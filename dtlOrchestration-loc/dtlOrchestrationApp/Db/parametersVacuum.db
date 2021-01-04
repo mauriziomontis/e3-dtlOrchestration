@@ -1,0 +1,31 @@
+# Records for Vacuum Sub-System
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+# RF Conditioning Pressure P0 [mBar]
+record(ai, "DTL:VacS:RFCondWorkingPrs") {
+	field(DESC, "RF Cond Working Pressure")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "mBar")
+	field(PREC, "2")
+}
+
+# RF Start-Up Pressure P1 [mBar]
+record(ai, "DTL:VacS:RFStartUpWorkingPrs") {
+	field(DESC, "RF Startup Working Pressure")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "mBar")
+	field(PREC, "2")
+}
+
+# RF Beam Operation && No Accelerated Beam Pressure P2 [mBar]
+record(ai, "DTL:VacS:RFBeamOpWorkingPrs") {
+	field(DESC, "RF Beam Op Working Pressure")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "mBar")
+	field(PREC, "2")
+}

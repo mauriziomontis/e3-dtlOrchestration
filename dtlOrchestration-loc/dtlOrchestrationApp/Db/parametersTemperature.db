@@ -1,0 +1,31 @@
+# Records for Thermo Sensors Sub-System
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+# RF Conditioning Max Temperature T0_MAX [degC]
+record(ai, "DTL:EMR-TT:RFCondWorkingTmp") {
+	field(DESC, "RF Cond Max Temperature")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "degC")
+	field(PREC, "2")
+}
+
+# RF Start-Up && RF Bema Operation Max Temperature T1_MAX [degC]
+record(ai, "DTL:EMR-TT:RFBeamOpWorkingTmp") {
+	field(DESC, "RF Beam Op Max Temperature")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "degC")
+	field(PREC, "2")
+}
+
+# No Accelerated Beam Max Temperature T2_MAX [degC]
+record(ai, "DTL:EMR-TT:RFNoBeamWorkingTmp") {
+	field(DESC, "RF No Beam Max Temperature ")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(EGU, "degC")
+	field(PREC, "2")
+}
