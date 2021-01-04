@@ -3,7 +3,7 @@
 # Defined by Maurizio Montis | INFN-LNL
 # mail: maurizio.montis@lnl.infn.it
 
-# RF Conditioning Working Temperatire t0
+# RF Conditioning Working Temperature t0
 record(ai, "DTL:WtrC:RFCondWorkingTmp") {
 	field(DESC, "RF Cond Working Temperature")
 	field(VAL, "0")
@@ -12,7 +12,7 @@ record(ai, "DTL:WtrC:RFCondWorkingTmp") {
 	field(PREC, "2")
 }
 
-# RF Start-up and Ready for Operations Working Temperatire t1
+# RF Start-up and Ready for Operations Working Temperature t1
 record(ai, "DTL:WtrC:BeamOpWorkingTmp") {
 	field(DESC, "Beam Op Working Temperature")
 	field(VAL, "0")
@@ -21,7 +21,7 @@ record(ai, "DTL:WtrC:BeamOpWorkingTmp") {
 	field(PREC, "2")
 }
 
-# No Accelerated Beam Working Temperatire t2
+# No Accelerated Beam Working Temperature t2
 record(ai, "DTL:WtrC:NoBeamWorkingTmp") {
 	field(DESC, "No Beam Working Temperature")
 	field(VAL, "0")
@@ -30,7 +30,7 @@ record(ai, "DTL:WtrC:NoBeamWorkingTmp") {
 	field(PREC, "2")
 }
 
-# Delta Temperatire Δt
+# Delta Temperature Δt
 record(ai, "DTL:WtrC:DeltaWorkingTmp") {
 	field(DESC, "Delta Working Temperature")
 	field(VAL, "0")

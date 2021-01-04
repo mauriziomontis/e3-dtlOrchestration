@@ -23,3 +23,15 @@ record(ai, "DTL:RFS:BeamOpHDeltaFreq") {
 	field(EGU, "kHz")
 	field(PREC, "4")
 }
+
+# RF Frequency Mode (Code)
+# 909 --> Frequency Following Mode (FF Mode)
+# 808 --> Fixed Frequency
+#
+record(ai, "DTL:RFS:FreqMode") {
+	field(DESC,	"RF Frequency Mode")
+	field(VAL,	"0")
+	field(PINI,	"YES")
+	field(EGU,	"")
+	field(PREC,	"0")
+}

@@ -276,7 +276,7 @@ assign ArcDetection_FaultReset to "DTL:RFS-AD:FaultRst";
 monitor ArcDetection_FaultReset;
 
 
-/* Delta Frequency Detuning */
+/* -------- Delta Frequency Detuning -------- */
 /*
  * RF Freq Low Threshold Δf1
  * RF Freq High Threshold Δf2
@@ -293,6 +293,73 @@ monitor Freq_Low_Delta;
 double DTL_Frequency_Detuning;
 assign  DTL_Frequency_Detuning to "";
 monitor DTL_Frequency_Detuning;
+
+/* DTL Frequency Mode */
+/*
+ * Code:
+ *  909 --> Frequency Following Mode (FF Mode)
+ *  808 --> Fixed Frequency
+*/
+int DTL_Frequency_Mode;
+assign DTL_Frequency_Mode to "DTL:RFS:FreqMode";
+monitor DTL_Frequency_Mode;
+
+
+/* -------- Vacuum Working Parameters -------- */
+/*
+ * RF Conditioning Pressure P0 [mBar]
+ * RF Start-Up Pressure P1 [mBar]
+ * RF Beam Operation && No Accelerated Beam Pressure P2 [mBar]
+*/
+double DTL_Vacuum_RF_Conditioning_Working_Pressure;
+assign DTL_Vacuum_RF_Conditioning_Working_Pressure to "DTL:VacS:RFCondWorkingPrs";
+monitor DTL_Vacuum_RF_Conditioning_Working_Pressure;
+double DTL_Vacuum_StartUp_Working_Pressure;
+assign DTL_Vacuum_StartUp_Working_Pressure to "DTL:VacS:RFStartUpWorkingPrs";
+monitor DTL_Vacuum_StartUp_Working_Pressure;
+double DTL_Vacuum_RF_Beam_Operation_Working_Pressure;
+assign DTL_Vacuum_RF_Beam_Operation_Working_Pressure to "DTL:VacS:RFBeamOpWorkingPrs";
+monitor DTL_Vacuum_RF_Beam_Operation_Working_Pressure;
+
+
+/* -------- Cooling Working Parameters -------- */
+/*
+ * RF Conditioning Working Temperature t0
+ * RF Start-up and Ready for Operations Working Temperature t1
+ * No Accelerated Beam Working Temperature t2
+ * Delta Temperature Δt
+*/
+double DTL_Cooling_RF_Conditioning_Working_Temperature;
+assign DTL_Cooling_RF_Conditioning_Working_Temperature to "DTL:WtrC:RFCondWorkingTmp";
+monitor DTL_Cooling_RF_Conditioning_Working_Temperature;
+double DTL_Cooling_RF_Beam_Operation_Working_Temperature;
+assign DTL_Cooling_RF_Beam_Operation_Working_Temperature to "DTL:WtrC:BeamOpWorkingTmp";
+monitor DTL_Cooling_RF_Beam_Operation_Working_Temperature;
+double DTL_Cooling_RF_No_Beam_Working_Temperature;
+assign DTL_Cooling_RF_No_Beam_Working_Temperature to "DTL:WtrC:NoBeamWorkingTmp";
+monitor DTL_Cooling_RF_No_Beam_Working_Temperature;
+double DTL_Cooling_RF_Delta_Working_Temperature;
+assign DTL_Cooling_RF_Delta_Working_Temperature to "DTL:WtrC:DeltaWorkingTmp";
+monitor DTL_Cooling_RF_Delta_Working_Temperature;
+
+
+/* -------- Temperature Working Parameters -------- */
+/*
+ * RF Conditioning Max Temperature T0_MAX [degC]
+ * RF Start-Up && RF Bema Operation Max Temperature T1_MAX [degC]
+ * No Accelerated Beam Max Temperature T2_MAX [degC]
+*/
+double DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+assign DTL_Thermosensors_RF_Conditioning_Max_Temperature to "DTL:EMR-TT:RFCondWorkingTmp";
+monitor DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+double DTL_Thermosensors_RF_Beam_Operation_Max_Temperature;
+assign DTL_Thermosensors_RF_Beam_Operation_Max_Temperature to "DTL:EMR-TT:RFBeamOpWorkingTmp";
+monitor DTL_Thermosensors_RF_Beam_Operation_Max_Temperature;
+double DTL_Thermosensors_RF_No_Beam_Max_Temperature;
+assign DTL_Thermosensors_RF_No_Beam_Max_Temperature to "DTL:EMR-TT:RFNoBeamWorkingTmp";
+monitor DTL_Thermosensors_RF_No_Beam_Max_Temperature;
+
+
 
 /*
 # Stages Code:
@@ -360,13 +427,13 @@ monitor dtlOperationalCode;
 
 
 
-/* Constants */
+/* -------- Constants -------- */
 
 
 /* Internal Variables */
 int dtl_operation_code_prev=0;
 
-/* Debug Mode: */
+/* -------- Debug Mode: -------- */
 double DEBUG=1;
 
 
@@ -386,16 +453,61 @@ ss  orchestration_statemachine {
       }
 
       /* Start control only when skid is in remote control */
-      when ( (pvConnectCount()==pvAssignCount()) ) {
+      when ( (pvConnectCount()==pvAssignCount()) && (PLC_Message == -108) ) {
         printf("[SEQ ORCHESTRATION] All PVs connected and System in Remote Control\n");
-        printf("[SEQ ORCHESTRATION] Starting Self Check Process\n");
+        printf("[SEQ ORCHESTRATION] Starting Initialization Process\n");
 
         /* Actual man|auto control initialization */
+        printf("[SEQ ORCHESTRATION] MAN|AUTO control initialization: set systems to MANUAL Mode\n");
+        // Cooling
+        Cooling_AutoControlCmd=0;
+        Cooling_AutoControl_ActualStatus=Cooling_AutoControlCmd;
+        pvPut(Cooling_AutoControlCmd);
+        pvPut(Cooling_AutoControl_ActualStatus);
+        // Steerers
+        Steerer_AutoControlCmd=0;
+        Steerer_AutoControl_ActualStatus=Steerer_AutoControlCmd;
+        pvPut(Steerer_AutoControlCmd);
+        pvPut(Steerer_AutoControl_ActualStatus);
+        // Tuners
+        Tuners_AutoControlCmd=0;
+        Tuners_AutoControl_ActualStatus=Tuners_AutoControlCmd;
+        pvPut(Tuners_AutoControlCmd);
+        pvPut(Tuners_AutoControl_ActualStatus);
+        // Arc Detection
+        ArcDetection_AutoControlCmd=0;
+        ArcDetection_AutoControl_ActualStatus=ArcDetection_AutoControlCmd;
+        pvPut(ArcDetection_AutoControlCmd);
+        pvPut(ArcDetection_AutoControl_ActualStatus);
 
 
-        /*
-         *  Set all Man|Auto controls to Zero (MAN)
-         */
+        /* Maintenance and Fault Reset Buttons initialization */
+        printf("[SEQ ORCHESTRATION] Maintenance and Fault Buttons: set to Zero Reset commands\n");
+        // Cooling
+        Cooling_MaintenanceReset=0;
+        pvPut(Cooling_MaintenanceReset);
+        Cooling_FaultReset=0;
+        pvPut(Cooling_FaultReset);
+        // Thermosensors
+        Temperature_MaintenanceReset=0;
+        pvPut(Temperature_MaintenanceReset);
+        Temperature_FaultReset=0;
+        pvPut(Temperature_FaultReset);
+        // Steerers
+        Steerer_MaintenanceReset=0;
+        pvPut(Steerer_MaintenanceReset);
+        Steerer_FaultReset=0;
+        pvPut(Steerer_FaultReset);
+        // Tuners
+        Tuners_MaintenanceReset=0;
+        pvPut(Tuners_MaintenanceReset);
+        Tuners_FaultReset=0;
+        pvPut(Tuners_FaultReset);
+        // Arc Detection
+        ArcDetection_MaintenanceReset=0;
+        pvPut(ArcDetection_MaintenanceReset);
+        ArcDetection_FaultReset=0;
+        pvPut(ArcDetection_FaultReset);
 
       } state stand_by
 	}
