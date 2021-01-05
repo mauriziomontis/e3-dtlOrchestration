@@ -51,8 +51,10 @@ loadIocsh("recsync.iocsh", "IOCNAME=$(IOCNAME)")
 # Databases and Template
 #
 
-# Main State Machine code
+# Main State Machine
 dbLoadRecords("StateMachineCode.db")
+dbLoadRecords("dtlMaintenance.db")
+dbLoadRecords("dtlTemporaryRecords.db")
 
 # Parameters Vacuum
 dbLoadRecords("parametersVacuum.db")

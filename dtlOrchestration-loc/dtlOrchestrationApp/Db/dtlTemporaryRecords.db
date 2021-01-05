@@ -1,0 +1,26 @@
+# Temporary Records for DTL State Machine
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+
+record(mbbo, "DTL::Operation") {
+	field(DESC, "DTL Opeation Stage Cmd")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(OMSL,	"supervisory")
+	field(ZRVL,	"0")
+	field(ZRST,	"INITIALIZATION")
+	field(ONVL,	"101")
+	field(ONST,	"STAND-BY")
+	field(TWVL,	"202")
+	field(TWST,	"RF CONDITIONING")
+	field(THVL,	"303")
+	field(THST,	"RF START-UP")
+	field(FRVL,	"404")
+	field(FRST,	"READY FOR OPERATION")
+	field(FVVL,	"505")
+	field(FVST,	"NO ACCELERATED BEAM")
+	field(SXVL,	"606")
+	field(SXST,	"MAINTENANCE")
+}

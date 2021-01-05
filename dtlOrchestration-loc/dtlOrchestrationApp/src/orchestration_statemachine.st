@@ -361,7 +361,14 @@ monitor DTL_Thermosensors_RF_No_Beam_Max_Temperature;
 
 
 /* -------- RF Presence -------- */
-int RF_Presence
+int RF_Ready;
+assign RF_Ready to "";
+monitor RF_Ready;
+
+/* -------- 1Beam Presence -------- */
+int Beam_Ready;
+assign Bea,_Ready to "";
+monitor Beam_Ready;
 
 
 
@@ -428,6 +435,12 @@ monitor ArcDetection_StateMachineCode;
 int dtlOperationalCode;
 assign dtlOperationalCode to "DTL::StateMachine";
 monitor dtlOperationalCode;
+
+// note: PV "DTL::Operation" to temporary
+int dtlOperationalCode_Command;
+assign dtlOperationalCode_Command to "DTL::Operation";
+monitor dtlOperationalCode_Command;
+
 
 
 /* -------- DTL Maintenance -------- */

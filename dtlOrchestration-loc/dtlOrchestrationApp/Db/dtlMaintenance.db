@@ -12,7 +12,7 @@ record(bo, "DTL::Maintenance") {
 	field(ONAM,	"MAINTENANCE")
 }
 
-record(bo, "DTL::Maintenance-RB") {
+record(bi, "DTL::Maintenance-RB") {
 	field(DESC, "DTL Maintenance RB")
 	field(VAL, "0")
 	field(PINI, "YES")
