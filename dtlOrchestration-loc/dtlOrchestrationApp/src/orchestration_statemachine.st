@@ -360,6 +360,10 @@ assign DTL_Thermosensors_RF_No_Beam_Max_Temperature to "DTL:EMR-TT:RFNoBeamWorki
 monitor DTL_Thermosensors_RF_No_Beam_Max_Temperature;
 
 
+/* -------- RF Presence -------- */
+int RF_Presence
+
+
 
 /*
 # Stages Code:
@@ -426,6 +430,14 @@ assign dtlOperationalCode to "DTL::StateMachine";
 monitor dtlOperationalCode;
 
 
+/* -------- DTL Maintenance -------- */
+int DTL_Maintenance_Command;
+assign DTL_Maintenance_Command to "DTL::Maintenance";
+monitor DTL_Maintenance_Command;
+int DTL_Maintenance_Readback;
+assign DTL_Maintenance_Readback to "DTL::Maintenance-RB";
+monitor DTL_Maintenance_Readback;
+
 
 /* -------- Constants -------- */
 
@@ -450,12 +462,6 @@ ss  orchestration_statemachine {
         printf("\n\nPreliminary controls executed due to Application Startup - Intialization\n\n");
         dtlOperationalCode=0;
         pvPut(dtlOperationalCode);
-      }
-
-      /* Start control only when skid is in remote control */
-      when ( (pvConnectCount()==pvAssignCount()) && (PLC_Message == -108) ) {
-        printf("[SEQ ORCHESTRATION] All PVs connected and System in Remote Control\n");
-        printf("[SEQ ORCHESTRATION] Starting Initialization Process\n");
 
         /* Actual man|auto control initialization */
         printf("[SEQ ORCHESTRATION] MAN|AUTO control initialization: set systems to MANUAL Mode\n");
@@ -509,6 +515,28 @@ ss  orchestration_statemachine {
         ArcDetection_FaultReset=0;
         pvPut(ArcDetection_FaultReset);
 
+        /* Main Maintenance readback initialization */
+        DTL_Maintenance_Readback=DTL_Maintenance_Command;
+        pvPut(DTL_Maintenance_Readback);
+
+      }
+
+      /* DTL Maintenance Status Request */
+      when (DTL_Maintenance_Command == 1) {
+        printf("[SEQ ORCHESTRATION] DTL request for maintenance by operator\n");
+        printf("[SEQ ORCHESTRATION] Main System goed to MAINTENANCE stage. \n");
+        DTL_Maintenance_Readback=DTL_Maintenance_Command;
+        pvPut(DTL_Maintenance_Readback);
+
+      } status maintenance
+
+      /* Start control only when skid is in remote control */
+      /* Check if all functional sub-systems have OK Status */
+      when ( (pvConnectCount()==pvAssignCount()) && (PLC_Message == -108) && (T1_Vacuum_OK_Status == 1) && (T2_Vacuum_OK_Status == 1) && (T3_Vacuum_OK_Status == 1) && (T4_Vacuum_OK_Status == 1) && (T5_Vacuum_OK_Status == 1) && (T0_Coolong_OK_Status == 1) && (T1_Cooling_OK_Status == 1) && (T2_Cooling_OK_Status == 1) && (T3_Cooling_OK_Status == 1) && (T4_Cooling_OK_Status == 1) && (T5_Cooling_OK_Status == 1) && (T1_RFSlow_OK_Status == 1) && (T2_RFSlow_OK_Status == 1) && (T3_RFSlow_OK_Status == 1) && (T4_RFSlow_OK_Status == 1) && (T5_RFSlow_OK_Status == 1) && (T1_Steerer_OK_Status == 1) && (T2_Steerer_OK_Status == 1) && (T3_Steerer_OK_Status == 1) && (T4_Steerer_OK_Status == 1) && (T5_Steerer_OK_Status == 1) && (T1_Tuner_OK_Status == 1) && (T2_Tuner_OK_Status == 1) && (T3_Tuner_OK_Status == 1) && (T4_Tuner_OK_Status == 1) && (T5_Tuner_OK_Status == 1) && (T1_ArcDetection_OK_Status == 1) && (T2_ArcDetection_OK_Status == 1) && (T3_ArcDetection_OK_Status == 1) && (T4_ArcDetection_OK_Status == 1) && (T5_ArcDetection_OK_Status == 1) ) {
+        printf("[SEQ ORCHESTRATION] All PVs connected and System in Remote Control\n");
+        printf("[SEQ ORCHESTRATION] All functional sub-systems are in OK Status\n");
+        printf("[SEQ ORCHESTRATION] Self Check Passed. \n");
+
       } state stand_by
 	}
 
@@ -522,12 +550,12 @@ ss  orchestration_statemachine {
 
       }
 
-      /* Check if all functional sub-systems have OK Status */
-      when( ... ) {
-          printf("[SEQ ORCHESTRATION] Self Check Passed. \n");
+      /* If there is at least one sub-system is not ok, come back to initialization stage */
+      when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+          printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to INITIALIZATION stage. \n");
 
-
-    } state conditioning
+      } state initialization
 
   }
 
@@ -539,6 +567,19 @@ ss  orchestration_statemachine {
       dtlOperationalCode=202;
       pvPut(dtlOperationalCode);
     }
+
+
+    /* If there is at least one sub-system is not ok, come back to stand_by stage */
+    when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+        /*
+         *  Additional cmds
+         */
+
+    } state stand_by
+
 
     /* ... */
     when ( ... ) {
@@ -557,6 +598,17 @@ state rf_start_up {
     dtlOperationalCode=303;
     pvPut(dtlOperationalCode);
   }
+
+  /* If there is at least one sub-system is not ok, come back to stand_by stage */
+  when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+      printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+      printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+      /*
+       *  Additional cmds
+       */
+
+  } state stand_by
 
   /* ... */
   when ( ... ) {
@@ -580,6 +632,17 @@ state ready_for_operation {
 
     }
 
+    /* If there is at least one sub-system is not ok, come back to stand_by stage */
+    when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+        /*
+         *  Additional cmds
+         */
+
+    } state stand_by
+
     /*  ... */
     when ( ... ) {
 
@@ -599,6 +662,18 @@ state no_accelerated_beam {
 
     }
 
+    /* If there is at least one sub-system is not ok, come back to stand_by stage */
+    when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+        /*
+         *  Additional cmds
+         */
+
+    } state stand_by
+
+
     /* ... */
     when ( .. ) {
 
@@ -617,13 +692,14 @@ state no_accelerated_beam {
         pvPut(dtlOperationalCode);
     }
 
-    /* ... */
-    when ( ... ) {
-      printf("[SEQ ORCHESTRATION] ... \n");
-      printf("[SEQ ORCHESTRATION] Reset conditions satisfied.\n");
+    /* DTL Maintenance Status Reset */
+    when (DTL_Maintenance_Command == 0) {
+      printf("[SEQ ORCHESTRATION] DTL maintenance reset required by operator\n");
+      printf("[SEQ ORCHESTRATION] Main System goed to INITIALIZATION stage. \n");
+      DTL_Maintenance_Readback=DTL_Maintenance_Command;
+      pvPut(DTL_Maintenance_Readback);
 
-
-    } state initialization
+    } status initialization
 
   }
 

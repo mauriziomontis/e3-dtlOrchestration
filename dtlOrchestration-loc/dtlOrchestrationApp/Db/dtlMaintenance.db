@@ -1,0 +1,21 @@
+# Records for Maintenance Operations
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+
+record(bo, "DTL::Maintenance") {
+	field(DESC, "DTL Maintenance Cmd")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ZNAM,	"NOT MAINTENANCE")
+	field(ONAM,	"MAINTENANCE")
+}
+
+record(bo, "DTL::Maintenance-RB") {
+	field(DESC, "DTL Maintenance RB")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ZNAM,	"NOT MAINTENANCE")
+	field(ONAM,	"MAINTENANCE")
+}
