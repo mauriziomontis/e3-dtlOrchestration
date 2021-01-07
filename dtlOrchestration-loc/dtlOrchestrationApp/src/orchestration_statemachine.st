@@ -436,7 +436,12 @@ int dtlOperationalCode;
 assign dtlOperationalCode to "DTL::StateMachine";
 monitor dtlOperationalCode;
 
-// note: PV "DTL::Operation" to temporary
+// PV "DTL::Operation" to temporary (to be changed)
+/*
+  Notes:
+    - stage INITIALIZATION cannot be forced to change (only automatic setup)
+    - stage MAINTENACE cannot be forced to change (only maintenance reset allowed)
+*/
 int dtlOperationalCode_Command;
 assign dtlOperationalCode_Command to "DTL::Operation";
 monitor dtlOperationalCode_Command;
@@ -457,6 +462,7 @@ monitor DTL_Maintenance_Readback;
 
 /* Internal Variables */
 int dtl_operation_code_prev=0;
+int dtl_operation_command_prev=0;
 
 /* -------- Debug Mode: -------- */
 double DEBUG=1;
@@ -543,6 +549,20 @@ ss  orchestration_statemachine {
 
       } status maintenance
 
+      /* Request for Maintenance stage by the Operator */
+      when (dtlOperationalCode_Command == 606) {
+          printf("[SEQ ORCHESTRATION] Request for Maintenance operation by the user. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to MAINTENANCE stage. \n");
+
+          /* Arm Maintenance Reset Command */
+          DTL_Maintenance_Command=1;
+          DTL_Maintenance_Readback=DTL_Maintenance_Command;
+          pvPut(DTL_Maintenance_Command);
+          pvPut(DTL_Maintenance_Readback);
+
+      } state maintenance
+
+
       /* Start control only when skid is in remote control */
       /* Check if all functional sub-systems have OK Status */
       when ( (pvConnectCount()==pvAssignCount()) && (PLC_Message == -108) && (T1_Vacuum_OK_Status == 1) && (T2_Vacuum_OK_Status == 1) && (T3_Vacuum_OK_Status == 1) && (T4_Vacuum_OK_Status == 1) && (T5_Vacuum_OK_Status == 1) && (T0_Coolong_OK_Status == 1) && (T1_Cooling_OK_Status == 1) && (T2_Cooling_OK_Status == 1) && (T3_Cooling_OK_Status == 1) && (T4_Cooling_OK_Status == 1) && (T5_Cooling_OK_Status == 1) && (T1_RFSlow_OK_Status == 1) && (T2_RFSlow_OK_Status == 1) && (T3_RFSlow_OK_Status == 1) && (T4_RFSlow_OK_Status == 1) && (T5_RFSlow_OK_Status == 1) && (T1_Steerer_OK_Status == 1) && (T2_Steerer_OK_Status == 1) && (T3_Steerer_OK_Status == 1) && (T4_Steerer_OK_Status == 1) && (T5_Steerer_OK_Status == 1) && (T1_Tuner_OK_Status == 1) && (T2_Tuner_OK_Status == 1) && (T3_Tuner_OK_Status == 1) && (T4_Tuner_OK_Status == 1) && (T5_Tuner_OK_Status == 1) && (T1_ArcDetection_OK_Status == 1) && (T2_ArcDetection_OK_Status == 1) && (T3_ArcDetection_OK_Status == 1) && (T4_ArcDetection_OK_Status == 1) && (T5_ArcDetection_OK_Status == 1) ) {
@@ -570,6 +590,47 @@ ss  orchestration_statemachine {
 
       } state initialization
 
+      /* Error in operation request  the Operator */
+      when ( (dtlOperationalCode_Command != 202) || (dtlOperationalCode_Command != 303) || (dtlOperationalCode_Command != 505) || (dtlOperationalCode_Command != 606) ) {
+          printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+          printf("[SEQ ORCHESTRATION] Main system remains in STAND_BY stage. \n");
+
+      } state stand_by
+
+      /* Request for RF Conditioning stage by the Operator */
+      when (dtlOperationalCode_Command == 202) {
+          printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to RF_CONDITIONING stage. \n");
+
+      } state rf_conditioning
+
+      /* Request for RF Startup stage by the Operator */
+      when (dtlOperationalCode_Command == 303) {
+          printf("[SEQ ORCHESTRATION] Request for RF Start-up operation by the user. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to RF STARTUP stage. \n");
+
+      } state rf_start_up
+
+      /* Request for No Accelerated Beam stage by the Operator */
+      when (dtlOperationalCode_Command == 505) {
+          printf("[SEQ ORCHESTRATION] Request for No Accelerated Beam operation by the user. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to NO_ACCELERATED_BEAM stage. \n");
+
+      } state no_accelerated_beam
+
+      /* Request for Maintenance stage by the Operator */
+      when (dtlOperationalCode_Command == 606) {
+          printf("[SEQ ORCHESTRATION] Request for Maintenance operation by the user. \n");
+          printf("[SEQ ORCHESTRATION] Main system goes to MAINTENANCE stage. \n");
+
+          /* Arm Maintenance Reset Command */
+          DTL_Maintenance_Command=1;
+          DTL_Maintenance_Readback=DTL_Maintenance_Command;
+          pvPut(DTL_Maintenance_Command);
+          pvPut(DTL_Maintenance_Readback);
+
+      } state maintenance
+
   }
 
 
@@ -580,7 +641,6 @@ ss  orchestration_statemachine {
       dtlOperationalCode=202;
       pvPut(dtlOperationalCode);
     }
-
 
     /* If there is at least one sub-system is not ok, come back to stand_by stage */
     when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
@@ -594,42 +654,79 @@ ss  orchestration_statemachine {
     } state stand_by
 
 
+    /* Error in operation request  the Operator */
+    when ( dtlOperationalCode_Command != 101 ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in RF_CONDITIONING stage. \n");
+
+    } state rf_conditioning
+
+    /* Request for RF stand_by stage by the Operator */
+    when (dtlOperationalCode_Command == 101) {
+        printf("[SEQ ORCHESTRATION] Request for Stand By operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+    } state stand_by
+
     /* ... */
     when ( ... ) {
 
-    } state rf_start_up
+    } state rf_
 
   }
 
 
 
-/* state RF STARTUP	*/
+/* state RF START-UP	*/
 state rf_start_up {
 
-  entry {
-    printf("\n[SEQ ORCHESTRATION] Enter in RF START-UP status\n");
-    dtlOperationalCode=303;
-    pvPut(dtlOperationalCode);
-  }
+    entry {
+      printf("\n[SEQ ORCHESTRATION] Enter in RF START-UP status\n");
+      dtlOperationalCode=303;
+      pvPut(dtlOperationalCode);
+    }
 
-  /* If there is at least one sub-system is not ok, come back to stand_by stage */
-  when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
-      printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
-      printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+    /* If there is at least one sub-system is not ok, come back to stand_by stage */
+    when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
+        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
-      /*
-       *  Additional cmds
-       */
+        /*
+         *  Additional cmds
+         */
 
-  } state stand_by
-
-  /* ... */
-  when ( ... ) {
-		printf("[SEQ ORCHESTRATION] ... \n");
+    } state stand_by
 
 
+    /* Error in operation request  the Operator */
+    when ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 404) ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in RF START-UP stage. \n");
 
-  } state ready_for_operation
+    } state rf_start_up
+
+    /* Request for Stand By stage by the Operator */
+    when (dtlOperationalCode_Command == 101) {
+        printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+    } state stand_by
+
+    /* Request for Ready for Operation by the Operator */
+    when (dtlOperationalCode_Command == 404) {
+        printf("[SEQ ORCHESTRATION] Request for Ready for Operation operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to READY_FOR_OPERATION stage. \n");
+
+    } state ready_for_operation
+
+
+    /* ... */
+    when ( ... ) {
+  		printf("[SEQ ORCHESTRATION] ... \n");
+
+
+
+    } state ready_for_operation
 
 }
 
@@ -655,6 +752,31 @@ state ready_for_operation {
          */
 
     } state stand_by
+
+
+
+    /* Error in operation request  the Operator */
+    when ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 303) ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in RF READY_FOR_OPERATION stage. \n");
+
+    } state ready_for_operation
+
+    /* Request for Stand By stage by the Operator */
+    when (dtlOperationalCode_Command == 101) {
+        printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+    } state stand_by
+
+    /* Request for RF Startup by the Operator */
+    when (dtlOperationalCode_Command == 303) {
+        printf("[SEQ ORCHESTRATION] Request for RF Start-up operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to START-UP stage. \n");
+
+    } state ready_for_operation
+
+
 
     /*  ... */
     when ( ... ) {
@@ -687,6 +809,20 @@ state no_accelerated_beam {
     } state stand_by
 
 
+    /* Error in operation request  the Operator */
+    when ( (dtlOperationalCode_Command != 101) ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in NO_ACCELERATED_BEAM stage. \n");
+
+    } state ready_for_operation
+
+    /* Request for Stand By stage by the Operator */
+    when (dtlOperationalCode_Command == 101) {
+        printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+    } state stand_by
+
     /* ... */
     when ( .. ) {
 
@@ -708,7 +844,7 @@ state no_accelerated_beam {
     /* DTL Maintenance Status Reset */
     when (DTL_Maintenance_Command == 0) {
       printf("[SEQ ORCHESTRATION] DTL maintenance reset required by operator\n");
-      printf("[SEQ ORCHESTRATION] Main System goed to INITIALIZATION stage. \n");
+      printf("[SEQ ORCHESTRATION] Main System goes to INITIALIZATION stage. \n");
       DTL_Maintenance_Readback=DTL_Maintenance_Command;
       pvPut(DTL_Maintenance_Readback);
 
