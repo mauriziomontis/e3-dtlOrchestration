@@ -1915,6 +1915,7 @@ ss  orchestration_statemachine {
        * Setup Cooling System
        * - check if sub-system is in MANUAL or AUTO mode
        * - set start operation command to ENABLE
+       * - working temperature set in cooling state machine (ready for operations stage)
       */
       Cooling_StartOperationCmd=1;
       pvPut(Cooling_StartOperationCmd);
@@ -1922,13 +1923,13 @@ ss  orchestration_statemachine {
       /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
       if (Cooling_StateMachineCode == 30) {
         if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Wait for test parameters control \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
         }
         else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Test check already set on DONE \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
         }
         else if (Cooling_AutoControlCmd == 1) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
           Cooling_Manual_Test_Done=1;
         }
         else {
@@ -1968,15 +1969,15 @@ ss  orchestration_statemachine {
       pvPut(DTL_T5_RF_Ready);
       DTL_RF_Ready=1;
       pvPut(DTL_RF_Ready);
-      DTL_T1_Beam_Ready=1;
+      DTL_T1_Beam_Ready=0;
       pvPut(DTL_T1_Beam_Ready);
-      DTL_T2_Beam_Ready=1;
+      DTL_T2_Beam_Ready=0;
       pvPut(DTL_T2_Beam_Ready);
-      DTL_T3_Beam_Ready=1;
+      DTL_T3_Beam_Ready=0;
       pvPut(DTL_T3_Beam_Ready);
-      DTL_T4_Beam_Ready=1;
+      DTL_T4_Beam_Ready=0;
       pvPut(DTL_T4_Beam_Ready);
-      DTL_T5_Beam_Ready=1;
+      DTL_T5_Beam_Ready=0;
       pvPut(DTL_T5_Beam_Ready);
       DTL_Beam_Ready=0;
       pvPut(DTL_Beam_Ready);
@@ -2029,7 +2030,7 @@ ss  orchestration_statemachine {
 
     } status stand_by
 
-    /* Error in operation request  the Operator */
+    /* Error in operation request by the Operator */
     when ( (dtlOperationalCode_Command != 101) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in RF_CONDITIONING stage. \n");
@@ -2038,7 +2039,7 @@ ss  orchestration_statemachine {
 
     /* Request for RF stand_by stage by the Operator */
     when (dtlOperationalCode_Command == 101) {
-        printf("[SEQ ORCHESTRATION] Request for Stand By operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Request for Stand-by operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
         /* Stop operation commands for cooling, tuners and steerer sub-systems */
@@ -2342,6 +2343,7 @@ state rf_start_up {
        * Setup Cooling System
        * - check if sub-system is in MANUAL or AUTO mode
        * - set start operation command to ENABLE
+       * - working temperature set in cooling state machine (ready for operations stage)
       */
       Cooling_StartOperationCmd=1;
       pvPut(Cooling_StartOperationCmd);
@@ -2349,13 +2351,13 @@ state rf_start_up {
       /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
       if (Cooling_StateMachineCode == 30) {
         if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Wait for test parameters control \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
         }
         else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Test check already set on DONE \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
         }
         else if (Cooling_AutoControlCmd == 1) {
-          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
           Cooling_Manual_Test_Done=1;
         }
         else {
@@ -2372,13 +2374,13 @@ state rf_start_up {
 
       /*
        * Setup Temperature System
-       * - set Alarm Temperature to T0_MAX (used HIHI limit)
+       * - set Alarm Temperature to T1_MAX (used HIHI limit)
       */
-      set_temperature_tank1(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank2(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank3(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank4(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank5(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank1(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
+      set_temperature_tank2(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
+      set_temperature_tank3(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
+      set_temperature_tank4(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
+      set_temperature_tank5(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
 
       /*
        * Indicate DTL ready for RF (not BEAM)
@@ -2395,15 +2397,15 @@ state rf_start_up {
       pvPut(DTL_T5_RF_Ready);
       DTL_RF_Ready=1;
       pvPut(DTL_RF_Ready);
-      DTL_T1_Beam_Ready=1;
+      DTL_T1_Beam_Ready=0;
       pvPut(DTL_T1_Beam_Ready);
-      DTL_T2_Beam_Ready=1;
+      DTL_T2_Beam_Ready=0;
       pvPut(DTL_T2_Beam_Ready);
-      DTL_T3_Beam_Ready=1;
+      DTL_T3_Beam_Ready=0;
       pvPut(DTL_T3_Beam_Ready);
-      DTL_T4_Beam_Ready=1;
+      DTL_T4_Beam_Ready=0;
       pvPut(DTL_T4_Beam_Ready);
-      DTL_T5_Beam_Ready=1;
+      DTL_T5_Beam_Ready=0;
       pvPut(DTL_T5_Beam_Ready);
       DTL_Beam_Ready=0;
       pvPut(DTL_Beam_Ready);
@@ -2415,15 +2417,49 @@ state rf_start_up {
         printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* Stop Operations for sub-systems */
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+
         /*
          *  Additional cmds
          */
 
     } state stand_by
 
+    /* Execute cooling manual start-up test on fluxes and pressures */
+    when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
 
-    /* Error in operation request  the Operator */
-    when ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 404) ) {
+    } status rf_start_up
+
+    /* Error: cooling system not in ready for operation stage */
+    when (Cooling_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
+
+    /* Error: tuner system not in ready for operation stage */
+    when (Tuners_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
+
+    /* Error: steerer system not in ready for operation stage */
+    when (Steerer_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Steerer sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
+
+    /* Error in operation request by the Operator */
+    when ( ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 404) ) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in RF START-UP stage. \n");
 
@@ -2431,26 +2467,43 @@ state rf_start_up {
 
     /* Request for Stand By stage by the Operator */
     when (dtlOperationalCode_Command == 101) {
-        printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
+        printf("[SEQ ORCHESTRATION] Request for Stand-by operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
+
+        /* Stop operation commands for cooling, tuners and steerer sub-systems */
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
 
     } state stand_by
 
     /* Request for Ready for Operation by the Operator */
-    when (dtlOperationalCode_Command == 404) {
+    /* Error if request is done when the frequency error (detuning) is less the Low Threshold Δf1: | f | >= | Δf1 |  */
+    when ( (dtlOperationalCode_Command == 404) && (DTL_Frequency_Detuning >= Freq_Low_Delta) ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: frequency error higher than threshold. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in RF START-UP stage. \n");
+
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
+
+    } state rf_start_up
+
+    /* it is mandatory the frequency error (detuning) is lower than the Low Threshold Δf1: | f | < | Δf1 | */
+    when ( (dtlOperationalCode_Command == 404) && (DTL_Frequency_Detuning < Freq_Low_Delta) ) {
         printf("[SEQ ORCHESTRATION] Request for Ready for Operation operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to READY_FOR_OPERATION stage. \n");
 
-    } state ready_for_operation
-
-
-    /* ... */
-    when ( ... ) {
-  		printf("[SEQ ORCHESTRATION] ... \n");
-
-
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
 
     } state ready_for_operation
+
 
 }
 
@@ -2465,6 +2518,146 @@ state ready_for_operation {
       dtlOperationalCode=404;
       pvPut(dtlOperationalCode);
 
+      /*
+       * Setup Tuner System
+       * - set autoControl to AUTO [0]
+       * - set start operation is already ENABLE
+       * - Motors are already ENABLE
+       * - ENABLE PID control
+      */
+      /* Case sub-system in idle */
+      if (Tuners_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Tuner System in IDLE: set AUTO control and enable operation\n");
+
+        Tuners_AutoControlCmd=1;
+        pvPut(Tuners_AutoControlCmd);
+        Tuners_StartOperationCmd=1;
+        pvPut(Tuners_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Tuners_StateMachineCode == 30) && (Tuners_AutoControl_ActualStatus == 0) ) {
+        printf("[SEQ ORCHESTRATION] Tuner System in READY FOR OPERATION: set only AUTO control \n");
+        Tuners_AutoControlCmd=1;
+        pvPut(Tuners_AutoControlCmd);
+
+      }
+      printf("[SEQ ORCHESTRATION] Enable Tuners PID control \n");
+      Tuners_T1_M1_PID_Enable=1;
+      pvPut(Tuners_T1_M1_PID_Enable);
+      Tuners_T1_M2_PID_Enable=1;
+      pvPut(Tuners_T1_M2_PID_Enable);
+      Tuners_T1_M3_PID_Enable=1;
+      pvPut(Tuners_T1_M3_PID_Enable);
+      Tuners_T2_M1_PID_Enable=1;
+      pvPut(Tuners_T2_M1_PID_Enable);
+      Tuners_T2_M2_PID_Enable=1;
+      pvPut(Tuners_T2_M2_PID_Enable);
+      Tuners_T2_M3_PID_Enable=1;
+      pvPut(Tuners_T2_M3_PID_Enable);
+      Tuners_T3_M1_PID_Enable=1;
+      pvPut(Tuners_T3_M1_PID_Enable);
+      Tuners_T3_M2_PID_Enable=1;
+      pvPut(Tuners_T3_M2_PID_Enable);
+      Tuners_T3_M3_PID_Enable=1;
+      pvPut(Tuners_T3_M3_PID_Enable);
+      Tuners_T4_M1_PID_Enable=1;
+      pvPut(Tuners_T4_M1_PID_Enable);
+      Tuners_T4_M2_PID_Enable=1;
+      pvPut(Tuners_T4_M2_PID_Enable);
+      Tuners_T4_M3_PID_Enable=1;
+      pvPut(Tuners_T4_M3_PID_Enable);
+      Tuners_T5_M1_PID_Enable=1;
+      pvPut(Tuners_T5_M1_PID_Enable);
+      Tuners_T5_M2_PID_Enable=1;
+      pvPut(Tuners_T5_M2_PID_Enable);
+      Tuners_T5_M3_PID_Enable=1;
+      pvPut(Tuners_T5_M3_PID_Enable);
+
+      /*
+       * Setup Steerer System
+       * - set autoControl to AUTO [1]
+       * - start operation command already ENABLE
+       * - steerers already ENABLED
+      */
+      /* Case sub-system in idle */
+      if (Steerer_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Steerer System in IDLE: set MANUAL control and enable operation\n");
+
+        Steerer_AutoControlCmd=1;
+        pvPut(Steerer_AutoControlCmd);
+        Steerer_StartOperationCmd=1;
+        pvPut(Steerer_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Steerer_StateMachineCode == 30) && (Steerer_AutoControl_ActualStatus == 0) ) {
+        printf("[SEQ ORCHESTRATION] Steerer System in READY FOR OPERATION: set only AUTO control \n");
+        Steerer_AutoControlCmd=1;
+        pvPut(Steerer_AutoControlCmd);
+
+      }
+
+      /*
+       * Setup Cooling System
+       * - check if sub-system is in MANUAL or AUTO mode
+       * - start operation command already ENABLE
+       * - working temperature already set in cooling state machine (ready for operations stage)
+      */
+
+      /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
+      /* To Be Checked */
+      if (Cooling_StateMachineCode == 30) {
+        if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (Cooling_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          Cooling_Manual_Test_Done=1;
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+        }
+      }
+
+      /*
+       * Setup RF System
+       * - set control in Fixed Frequency
+       * - RF system works in amplitude and phase closed loop --> To be check
+      */
+      DTL_Frequency_Mode=808;
+      pvPut(DTL_Frequency_Mode);
+
+      /*
+       * Setup Temperature System
+       * - Alarm Temperature already set to T1_MAX (used HIHI limit)
+      */
+
+      /*
+       * Indicate DTL ready for BEAM (already ready for RF)
+      */
+      DTL_T1_Beam_Ready=1;
+      pvPut(DTL_T1_Beam_Ready);
+      DTL_T2_Beam_Ready=1;
+      pvPut(DTL_T2_Beam_Ready);
+      DTL_T3_Beam_Ready=1;
+      pvPut(DTL_T3_Beam_Ready);
+      DTL_T4_Beam_Ready=1;
+      pvPut(DTL_T4_Beam_Ready);
+      DTL_T5_Beam_Ready=1;
+      pvPut(DTL_T5_Beam_Ready);
+      DTL_Beam_Ready=1;
+      pvPut(DTL_Beam_Ready);
+
+      /*
+       * Setup Vacuum System
+       * - Check Intertank valves are OPENED
+      */
+
+
     }
 
     /* If there is at least one sub-system is not ok, come back to stand_by stage */
@@ -2472,16 +2665,36 @@ state ready_for_operation {
         printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* Stop Operations for sub-systems */
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+
         /*
          *  Additional cmds
          */
 
     } state stand_by
 
+    /* Error: cooling system not in ready for operation stage */
+    when (Cooling_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to RF STARTUP stage. \n");
 
+    } status rf_start_up
+
+    /* Error: tuner system not in ready for operation stage */
+    when (Tuners_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to RF STARTUP stage. \n");
+
+    } status rf_start_up
 
     /* Error in operation request  the Operator */
-    when ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 303) ) {
+    when ( ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 303) ) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in RF READY_FOR_OPERATION stage. \n");
 
@@ -2492,22 +2705,60 @@ state ready_for_operation {
         printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
-    } state stand_by
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
+
+    } state rf_start_up
 
     /* Request for RF Startup by the Operator */
     when (dtlOperationalCode_Command == 303) {
         printf("[SEQ ORCHESTRATION] Request for RF Start-up operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to START-UP stage. \n");
 
-    } state ready_for_operation
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
+
+    } state rf_start_up
 
 
+    /* it is mandatory the frequency error (detuning) is bigger than the High Threshold Δf2: | f | > | Δf2 | */
+    when (DTL_Frequency_Detuning > Freq_High_Delta) {
+        printf("[SEQ ORCHESTRATION] Frequency error higher than High Threshold. \n");
+        printf("[SEQ ORCHESTRATION] Main system goes to RF STARTUP stage. \n");
 
-    /*  ... */
-    when ( ... ) {
+        /* Disable PID control */
+        Tuners_T1_M1_PID_Enable=0;
+        pvPut(Tuners_T1_M1_PID_Enable);
+        Tuners_T1_M2_PID_Enable=0;
+        pvPut(Tuners_T1_M2_PID_Enable);
+        Tuners_T1_M3_PID_Enable=0;
+        pvPut(Tuners_T1_M3_PID_Enable);
+        Tuners_T2_M1_PID_Enable=0;
+        pvPut(Tuners_T2_M1_PID_Enable);
+        Tuners_T2_M2_PID_Enable=0;
+        pvPut(Tuners_T2_M2_PID_Enable);
+        Tuners_T2_M3_PID_Enable=0;
+        pvPut(Tuners_T2_M3_PID_Enable);
+        Tuners_T3_M1_PID_Enable=0;
+        pvPut(Tuners_T3_M1_PID_Enable);
+        Tuners_T3_M2_PID_Enable=0;
+        pvPut(Tuners_T3_M2_PID_Enable);
+        Tuners_T3_M3_PID_Enable=0;
+        pvPut(Tuners_T3_M3_PID_Enable);
+        Tuners_T4_M1_PID_Enable=0;
+        pvPut(Tuners_T4_M1_PID_Enable);
+        Tuners_T4_M2_PID_Enable=0;
+        pvPut(Tuners_T4_M2_PID_Enable);
+        Tuners_T4_M3_PID_Enable=0;
+        pvPut(Tuners_T4_M3_PID_Enable);
+        Tuners_T5_M1_PID_Enable=0;
+        pvPut(Tuners_T5_M1_PID_Enable);
+        Tuners_T5_M2_PID_Enable=0;
+        pvPut(Tuners_T5_M2_PID_Enable);
+        Tuners_T5_M3_PID_Enable=0;
+        pvPut(Tuners_T5_M3_PID_Enable);
 
-
-      } state ready_for_operation
+    } state rf_start_up
 
   }
 
