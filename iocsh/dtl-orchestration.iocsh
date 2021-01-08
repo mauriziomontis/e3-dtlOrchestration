@@ -66,10 +66,10 @@ dbLoadRecords("parametersCooling.db")
 dbLoadRecords("parametersTemperature.db")
 
 # Parameters Steerers
-dbLoadRecords("")
+dbLoadRecords("parametersSteerer.db")
 
 # Parameters Tuners
-dbLoadRecords("")
+dbLoadRecords("parametersTuners.db")
 
 # Parameters RF and Arc Detection
 dbLoadRecords("parametersFrequency.db")

@@ -3,9 +3,10 @@
 # Defined by Maurizio Montis | INFN-LNL
 # mail: maurizio.montis@lnl.infn.it
 
-
+# LINAC operation setup:
+# the actual value reflecs the code used in the state machine
 record(mbbo, "DTL::Operation") {
-	field(DESC, "DTL Opeation Stage Cmd")
+	field(DESC, "DTL Operation Stage Cmd")
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(OMSL,	"supervisory")
@@ -23,4 +24,108 @@ record(mbbo, "DTL::Operation") {
 	field(FVST,	"NO ACCELERATED BEAM")
 	field(SXVL,	"606")
 	field(SXST,	"MAINTENANCE")
+}
+
+
+# RF Ready used for DTL operations
+# PVs can be used as output for DTL system to indicate OK to accept RF
+# Main
+record(bo, "DTL::RFOKStat") {
+	field(DESC,	"DTL can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank1
+record(bo, "DTL-010::RFOKStat") {
+	field(DESC,	"DTL Tank1 can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank2
+record(bo, "DTL-020::RFOKStat") {
+	field(DESC,	"DTL Tank2 can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank3
+record(bo, "DTL-030::RFOKStat") {
+	field(DESC,	"DTL Tank3 can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank4
+record(bo, "DTL-040::RFOKStat") {
+	field(DESC,	"DTL Tank4 can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank5
+record(bo, "DTL-050::RFOKStat") {
+	field(DESC,	"DTL Tank5 can accept RF")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+
+
+# Beam Ready used for DTL operations
+# PVs can be used as output for DTL system to indicate OK to accept Beam
+# Main
+record(bo, "DTL::BeamOKStat") {
+	field(DESC,	"DTL can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank1
+record(bo, "DTL-010::BeamOKStat") {
+	field(DESC,	"DTL Tank1 can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank2
+record(bo, "DTL-020::BeamOKStat") {
+	field(DESC,	"DTL Tank2 can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank3
+record(bo, "DTL-030::BeamOKStat") {
+	field(DESC,	"DTL Tank3 can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank4
+record(bo, "DTL-040::BeamOKStat") {
+	field(DESC,	"DTL Tank4 can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
+}
+# Tank5
+record(bo, "DTL-050::BeamOKStat") {
+	field(DESC,	"DTL Tank5 can accept Beam")
+	field(VAL, "0")
+	field(PINI, "YES")
+	field(ONAM,	"ACCEPTED")
+	field(ZANM,	"NOT ACCEPTED")
 }

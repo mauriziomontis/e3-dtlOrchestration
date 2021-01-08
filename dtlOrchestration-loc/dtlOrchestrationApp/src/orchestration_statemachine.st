@@ -207,6 +207,10 @@ monitor Cooling_StartOperationCmd;
 int Cooling_StopOperationCmd;
 assign Cooling_StopOperationCmd to "DTL:WtrC:OpStop";
 monitor Cooling_StopOperationCmd;
+/* Manual Test Procedure Completed Command*/
+int Cooling_Manual_Test_Done;
+assign Cooling_Manual_Test_Done to "DTL:WtrC:TestDone";
+monitor Cooling_Manual_Test_Done;
 
 // Temperatures System - not defined
 
@@ -360,16 +364,934 @@ assign DTL_Thermosensors_RF_No_Beam_Max_Temperature to "DTL:EMR-TT:RFNoBeamWorki
 monitor DTL_Thermosensors_RF_No_Beam_Max_Temperature;
 
 
-/* -------- RF Presence -------- */
-int RF_Ready;
-assign RF_Ready to "";
-monitor RF_Ready;
+/* -------- Tuners Positions Working Parameters -------- */
+/*
+ * RF Conditioning in homing by default
+ * RF Start-Up Position Pos0 [mm]
+*/
+double DTL_Tuners_RF_Startup_Working_Position;
+assign DTL_Tuners_RF_Startup_Working_Position to "DTL:MC-MCU:RFStartUpWorkingPos";
+monitor DTL_Tuners_RF_Startup_Working_Position;
 
-/* -------- 1Beam Presence -------- */
-int Beam_Ready;
-assign Bea,_Ready to "";
-monitor Beam_Ready;
 
+
+/* -------- Steerer Current Working Parameters -------- */
+/*
+ * RF Conditioning is disabled (0A)
+ * RF Start-Up Position Cur0 [A]
+*/
+double DTL_Steerer_RF_Startup_Working_Current;
+assign DTL_Steerer_RF_Startup_Working_Current to "DTL:PwrC-PSCV:RFStartUpWorkingCur";
+monitor DTL_Steerer_RF_Startup_Working_Current;
+
+
+
+/* -------- RF Operations -------- */
+/* Missing PV from main system */
+int DTL_RF_Ready;
+assign DTL_RF_Ready to "DTL::RFOKStat";
+monitor DTL_RF_Ready;
+int DTL_T1_RF_Ready;
+assign DTL_T1_RF_Ready to "DTL-010::RFOKStat";
+monitor DTL_T1_RF_Ready;
+int DTL_T2_RF_Ready;
+assign DTL_T2_RF_Ready to "DTL-020::RFOKStat";
+monitor DTL_T2_RF_Ready;
+int DTL_T3_RF_Ready;
+assign DTL_T3_RF_Ready to "DTL-030::RFOKStat";
+monitor DTL_T3_RF_Ready;
+int DTL_T4_RF_Ready;
+assign DTL_T4_RF_Ready to "DTL-040::RFOKStat";
+monitor DTL_T4_RF_Ready;
+int DTL_T5_RF_Ready;
+assign DTL_T5_RF_Ready to "DTL-050::RFOKStat";
+monitor DTL_T5_RF_Ready;
+
+/* -------- Beam Operations -------- */
+/* Missing PV from main system */
+int DTL_Beam_Ready;
+assign DTL_Beam_Ready to "DTL::BeamOKStat";
+monitor DTL_Beam_Ready;
+int DTL_T1_Beam_Ready;
+assign DTL_T1_Beam_Ready to "DTL-010::BeamOKStat";
+monitor DTL_T1_Beam_Ready;
+int DTL_T2_Beam_Ready;
+assign DTL_T2_Beam_Ready to "DTL-020::BeamOKStat";
+monitor DTL_T2_Beam_Ready;
+int DTL_T3_Beam_Ready;
+assign DTL_T3_Beam_Ready to "DTL-030::BeamOKStat";
+monitor DTL_T3_Beam_Ready;
+int DTL_T4_Beam_Ready;
+assign DTL_T4_Beam_Ready to "DTL-040::BeamOKStat";
+monitor DTL_T4_Beam_Ready;
+int DTL_T5_Beam_Ready;
+assign DTL_T5_Beam_Ready to "DTL-050::BeamOKStat";
+monitor DTL_T5_Beam_Ready;
+
+
+
+/* -------- Tuner PID enable commands -------- */
+int Tuners_T1_M1_PID_Enable;
+assing Tuners_T1_M1_PID_Enable to "DTL-010:EMR-SM-001:CtrlPID-En";
+monitor Tuners_T1_M1_PID_Enable;
+int Tuners_T1_M2_PID_Enable;
+assing Tuners_T1_M2_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T1_M2_PID_Enable;
+int Tuners_T1_M3_PID_Enable;
+assing Tuners_T1_M3_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T1_M3_PID_Enable;
+int Tuners_T2_M1_PID_Enable;
+assing Tuners_T2_M1_PID_Enable to "DTL-010:EMR-SM-001:CtrlPID-En";
+monitor Tuners_T2_M1_PID_Enable;
+int Tuners_T2_M2_PID_Enable;
+assing Tuners_T2_M2_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T2_M2_PID_Enable;
+int Tuners_T2_M3_PID_Enable;
+assing Tuners_T2_M3_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T2_M3_PID_Enable;
+int Tuners_T3_M1_PID_Enable;
+assing Tuners_T3_M1_PID_Enable to "DTL-010:EMR-SM-001:CtrlPID-En";
+monitor Tuners_T3_M1_PID_Enable;
+int Tuners_T3_M2_PID_Enable;
+assing Tuners_T3_M2_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T3_M2_PID_Enable;
+int Tuners_T3_M3_PID_Enable;
+assing Tuners_T3_M3_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T3_M3_PID_Enable;
+int Tuners_T4_M1_PID_Enable;
+assing Tuners_T4_M1_PID_Enable to "DTL-010:EMR-SM-001:CtrlPID-En";
+monitor Tuners_T4_M1_PID_Enable;
+int Tuners_T4_M2_PID_Enable;
+assing Tuners_T4_M2_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T4_M2_PID_Enable;
+int Tuners_T4_M3_PID_Enable;
+assing Tuners_T4_M3_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T4_M3_PID_Enable;
+int Tuners_T5_M1_PID_Enable;
+assing Tuners_T5_M1_PID_Enable to "DTL-010:EMR-SM-001:CtrlPID-En";
+monitor Tuners_T5_M1_PID_Enable;
+int Tuners_T5_M2_PID_Enable;
+assing Tuners_T5_M2_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T5_M2_PID_Enable;
+int Tuners_T5_M3_PID_Enable;
+assing Tuners_T5_M3_PID_Enable to "DTL-010:EMR-SM-002:CtrlPID-En";
+monitor Tuners_T5_M3_PID_Enable;
+
+/* -------- Tuner motor enable commands -------- */
+int Tuners_T1_M1_Axis_Enable;
+assign Tuners_T1_M1_Axis_Enable to "DTL-010:EMR-SM-001.CNEN";
+monitor Tuners_T1_M1_Axis_Enable;
+int Tuners_T1_M2_Axis_Enable;
+assign Tuners_T1_M2_Axis_Enable to "DTL-010:EMR-SM-002.CNEN";
+monitor Tuners_T1_M2_Axis_Enable;
+int Tuners_T1_M3_Axis_Enable;
+assign Tuners_T1_M3_Axis_Enable to "DTL-010:EMR-SM-003.CNEN";
+monitor Tuners_T1_M3_Axis_Enable;
+int Tuners_T2_M1_Axis_Enable;
+assign Tuners_T2_M1_Axis_Enable to "DTL-020:EMR-SM-001.CNEN";
+monitor Tuners_T2_M1_Axis_Enable;
+int Tuners_T2_M2_Axis_Enable;
+assign Tuners_T2_M2_Axis_Enable to "DTL-020:EMR-SM-002.CNEN";
+monitor Tuners_T2_M2_Axis_Enable;
+int Tuners_T2_M3_Axis_Enable;
+assign Tuners_T2_M3_Axis_Enable to "DTL-020:EMR-SM-003.CNEN";
+monitor Tuners_T2_M3_Axis_Enable;
+int Tuners_T3_M1_Axis_Enable;
+assign Tuners_T3_M1_Axis_Enable to "DTL-030:EMR-SM-001.CNEN";
+monitor Tuners_T3_M1_Axis_Enable;
+int Tuners_T3_M2_Axis_Enable;
+assign Tuners_T3_M2_Axis_Enable to "DTL-030:EMR-SM-002.CNEN";
+monitor Tuners_T3_M2_Axis_Enable;
+int Tuners_T3_M3_Axis_Enable;
+assign Tuners_T3_M3_Axis_Enable to "DTL-030:EMR-SM-003.CNEN";
+monitor Tuners_T3_M3_Axis_Enable;
+int Tuners_T4_M1_Axis_Enable;
+assign Tuners_T4_M1_Axis_Enable to "DTL-040:EMR-SM-001.CNEN";
+monitor Tuners_T4_M1_Axis_Enable;
+int Tuners_T4_M2_Axis_Enable;
+assign Tuners_T4_M2_Axis_Enable to "DTL-040:EMR-SM-002.CNEN";
+monitor Tuners_T4_M2_Axis_Enable;
+int Tuners_T4_M3_Axis_Enable;
+assign Tuners_T4_M3_Axis_Enable to "DTL-040:EMR-SM-003.CNEN";
+monitor Tuners_T4_M3_Axis_Enable;
+int Tuners_T5_M1_Axis_Enable;
+assign Tuners_T5_M1_Axis_Enable to "DTL-050:EMR-SM-001.CNEN";
+monitor Tuners_T5_M1_Axis_Enable;
+int Tuners_T5_M2_Axis_Enable;
+assign Tuners_T5_M2_Axis_Enable to "DTL-050:EMR-SM-002.CNEN";
+monitor Tuners_T5_M2_Axis_Enable;
+int Tuners_T5_M3_Axis_Enable;
+assign Tuners_T5_M3_Axis_Enable to "DTL-050:EMR-SM-003.CNEN";
+monitor Tuners_T5_M3_Axis_Enable;
+
+/* -------- Tuner motor position -------- */
+double Tuners_T1_M1_Axis_Position;
+assign Tuners_T1_M1_Axis_Position to "DTL-010:EMR-SM-001.VAL";
+monitor Tuners_T1_M1_Axis_Position;
+double Tuners_T1_M2_Axis_Position;
+assign Tuners_T1_M2_Axis_Position to "DTL-010:EMR-SM-002.VAL";
+monitor Tuners_T1_M2_Axis_Position;
+double Tuners_T1_M3_Axis_Position;
+assign Tuners_T1_M3_Axis_Position to "DTL-010:EMR-SM-003.VAL";
+monitor Tuners_T1_M3_Axis_Position;
+double Tuners_T2_M1_Axis_Position;
+assign Tuners_T2_M1_Axis_Position to "DTL-020:EMR-SM-001.VAL";
+monitor Tuners_T2_M1_Axis_Position;
+double Tuners_T2_M2_Axis_Position;
+assign Tuners_T2_M2_Axis_Position to "DTL-020:EMR-SM-002.VAL";
+monitor Tuners_T2_M2_Axis_Position;
+double Tuners_T2_M3_Axis_Position;
+assign Tuners_T2_M3_Axis_Position to "DTL-020:EMR-SM-003.VAL";
+monitor Tuners_T2_M3_Axis_Position;
+double Tuners_T3_M1_Axis_Position;
+assign Tuners_T3_M1_Axis_Position to "DTL-030:EMR-SM-001.VAL";
+monitor Tuners_T3_M1_Axis_Position;
+double Tuners_T3_M2_Axis_Position;
+assign Tuners_T3_M2_Axis_Position to "DTL-030:EMR-SM-002.VAL";
+monitor Tuners_T3_M2_Axis_Position;
+double Tuners_T3_M3_Axis_Position;
+assign Tuners_T3_M3_Axis_Position to "DTL-030:EMR-SM-003.VAL";
+monitor Tuners_T3_M3_Axis_Position;
+double Tuners_T4_M1_Axis_Position;
+assign Tuners_T4_M1_Axis_Position to "DTL-040:EMR-SM-001.VAL";
+monitor Tuners_T4_M1_Axis_Position;
+double Tuners_T4_M2_Axis_Position;
+assign Tuners_T4_M2_Axis_Position to "DTL-040:EMR-SM-002.VAL";
+monitor Tuners_T4_M2_Axis_Position;
+double Tuners_T4_M3_Axis_Position;
+assign Tuners_T4_M3_Axis_Position to "DTL-040:EMR-SM-003.VAL";
+monitor Tuners_T4_M3_Axis_Position;
+double Tuners_T5_M1_Axis_Position;
+assign Tuners_T5_M1_Axis_Position to "DTL-050:EMR-SM-001.VAL";
+monitor Tuners_T5_M1_Axis_Position;
+double Tuners_T5_M2_Axis_Position;
+assign Tuners_T5_M2_Axis_Position to "DTL-050:EMR-SM-002.VAL";
+monitor Tuners_T5_M2_Axis_Position;
+double Tuners_T5_M3_Axis_Position;
+assign Tuners_T5_M3_Axis_Position to "DTL-050:EMR-SM-003.VAL";
+monitor Tuners_T5_M3_Axis_Position;
+
+
+/* -------- Steerers enable commands -------- */
+int Steerer_T1_V1_ChEnableCmd;
+assign Steerer_T1_V1_ChEnableCmd  to "DTL-010:BMD-CV-001:EnCmd";
+monitor Steerer_T1_V1_ChEnableCmd;
+int Steerer_T1_H1_ChEnableCmd;
+assign Steerer_T1_H1_ChEnableCmd  to "DTL-010:BMD-CH-001:EnCmd";
+monitor Steerer_T1_H1_ChEnableCmd;
+int Steerer_T1_V2_ChEnableCmd;
+assign Steerer_T1_V2_ChEnableCmd  to "DTL-010:BMD-CV-002:EnCmd";
+monitor Steerer_T1_V2_ChEnableCmd;
+int Steerer_T1_H2_ChEnableCmd;
+assign Steerer_T1_H2_ChEnableCmd  to "DTL-010:BMD-CH-002:EnCmd";
+monitor Steerer_T1_H2_ChEnableCmd;
+int Steerer_T1_V3_ChEnableCmd;
+assign Steerer_T1_V3_ChEnableCmd  to "DTL-010:BMD-CV-003:EnCmd";
+monitor Steerer_T1_V3_ChEnableCmd;
+int Steerer_T1_H3_ChEnableCmd;
+assign Steerer_T1_H3_ChEnableCmd  to "DTL-010:BMD-CH-003:EnCmd";
+monitor Steerer_T1_H3_ChEnableCmd;
+int Steerer_T1_V4_ChEnableCmd;
+assign Steerer_T1_V4_ChEnableCmd  to "DTL-010:BMD-CV-004:EnCmd";
+monitor Steerer_T1_V4_ChEnableCmd;
+int Steerer_T1_H4_ChEnableCmd;
+assign Steerer_T1_H4_ChEnableCmd  to "DTL-010:BMD-CH-004:EnCmd";
+monitor Steerer_T1_H4_ChEnableCmd;
+int Steerer_T1_V5_ChEnableCmd;
+assign Steerer_T1_V5_ChEnableCmd  to "DTL-010:BMD-CV-005:EnCmd";
+monitor Steerer_T1_V5_ChEnableCmd;
+int Steerer_T1_H5_ChEnableCmd;
+assign Steerer_T1_H5_ChEnableCmd  to "DTL-010:BMD-CH-005:EnCmd";
+monitor Steerer_T1_H5_ChEnableCmd;
+int Steerer_T1_V6_ChEnableCmd;
+assign Steerer_T1_V6_ChEnableCmd  to "DTL-010:BMD-CV-001:EnCmd";
+monitor Steerer_T1_V6_ChEnableCmd;
+int Steerer_T1_H6_ChEnableCmd;
+assign Steerer_T1_H6_ChEnableCmd  to "DTL-010:BMD-CH-001:EnCmd";
+monitor Steerer_T1_H6_ChEnableCmd;
+int Steerer_T2_V1_ChEnableCmd;
+assign Steerer_T2_V1_ChEnableCmd  to "DTL-020:BMD-CV-001:EnCmd";
+monitor Steerer_T2_V1_ChEnableCmd;
+int Steerer_T2_H1_ChEnableCmd;
+assign Steerer_T2_H1_ChEnableCmd  to "DTL-020:BMD-CH-001:EnCmd";
+monitor Steerer_T2_H1_ChEnableCmd;
+int Steerer_T2_V2_ChEnableCmd;
+assign Steerer_T2_V2_ChEnableCmd  to "DTL-020:BMD-CV-002:EnCmd";
+monitor Steerer_T2_V2_ChEnableCmd;
+int Steerer_T2_H2_ChEnableCmd;
+assign Steerer_T2_H2_ChEnableCmd  to "DTL-020:BMD-CH-002:EnCmd";
+monitor Steerer_T2_H2_ChEnableCmd;
+int Steerer_T2_V3_ChEnableCmd;
+assign Steerer_T2_V3_ChEnableCmd  to "DTL-020:BMD-CV-003:EnCmd";
+monitor Steerer_T2_V3_ChEnableCmd;
+int Steerer_T2_H3_ChEnableCmd;
+assign Steerer_T2_H3_ChEnableCmd  to "DTL-020:BMD-CH-003:EnCmd";
+monitor Steerer_T2_H3_ChEnableCmd;
+int Steerer_T3_V1_ChEnableCmd;
+assign Steerer_T3_V1_ChEnableCmd  to "DTL-030:BMD-CV-001:EnCmd";
+monitor Steerer_T3_V1_ChEnableCmd;
+int Steerer_T3_H1_ChEnableCmd;
+assign Steerer_T3_H1_ChEnableCmd  to "DTL-030:BMD-CH-001:EnCmd";
+monitor Steerer_T3_H1_ChEnableCmd;
+int Steerer_T3_V2_ChEnableCmd;
+assign Steerer_T3_V2_ChEnableCmd  to "DTL-030:BMD-CV-002:EnCmd";
+monitor Steerer_T3_V2_ChEnableCmd;
+int Steerer_T3_H2_ChEnableCmd;
+assign Steerer_T3_H2_ChEnableCmd  to "DTL-030:BMD-CH-002:EnCmd";
+monitor Steerer_T3_H2_ChEnableCmd;
+int Steerer_T4_V1_ChEnableCmd;
+assign Steerer_T4_V1_ChEnableCmd  to "DTL-040:BMD-CV-001:EnCmd";
+monitor Steerer_T4_V1_ChEnableCmd;
+int Steerer_T4_H1_ChEnableCmd;
+assign Steerer_T4_H1_ChEnableCmd  to "DTL-040:BMD-CH-001:EnCmd";
+monitor Steerer_T4_H1_ChEnableCmd;
+int Steerer_T4_V2_ChEnableCmd;
+assign Steerer_T4_V2_ChEnableCmd  to "DTL-040:BMD-CV-002:EnCmd";
+monitor Steerer_T4_V2_ChEnableCmd;
+int Steerer_T4_H2_ChEnableCmd;
+assign Steerer_T4_H2_ChEnableCmd  to "DTL-040:BMD-CH-002:EnCmd";
+monitor Steerer_T4_H2_ChEnableCmd;
+int Steerer_T5_V1_ChEnableCmd;
+assign Steerer_T5_V1_ChEnableCmd  to "DTL-050:BMD-CV-001:EnCmd";
+monitor Steerer_T5_V1_ChEnableCmd;
+int Steerer_T5_H1_ChEnableCmd;
+assign Steerer_T5_H1_ChEnableCmd  to "DTL-050:BMD-CH-001:EnCmd";
+monitor Steerer_T5_H1_ChEnableCmd;
+int Steerer_T5_V2_ChEnableCmd;
+assign Steerer_T5_V2_ChEnableCmd  to "DTL-050:BMD-CV-002:EnCmd";
+monitor Steerer_T5_V2_ChEnableCmd;
+int Steerer_T5_H2_ChEnableCmd;
+assign Steerer_T5_H2_ChEnableCmd  to "DTL-050:BMD-CH-002:EnCmd";
+monitor Steerer_T5_H2_ChEnableCmd;
+
+/* -------- Steerers current setpoint -------- */
+double Steerer_T1_V1_CurrentSet;
+assign Steerer_T1_V1_CurrentSet  to "DTL-010:BMD-CV-001:CurSet";
+monitor Steerer_T1_V1_CurrentSet;
+double Steerer_T1_H1_CurrentSet;
+assign Steerer_T1_H1_CurrentSet  to "DTL-010:BMD-CH-001:CurSet";
+monitor Steerer_T1_H1_CurrentSet;
+double Steerer_T1_V2_CurrentSet;
+assign Steerer_T1_V2_CurrentSet  to "DTL-010:BMD-CV-002:CurSet";
+monitor Steerer_T1_V2_CurrentSet;
+double Steerer_T1_H2_CurrentSet;
+assign Steerer_T1_H2_CurrentSet  to "DTL-010:BMD-CH-002:CurSet";
+monitor Steerer_T1_H2_CurrentSet;
+double Steerer_T1_V3_CurrentSet;
+assign Steerer_T1_V3_CurrentSet  to "DTL-010:BMD-CV-003:CurSet";
+monitor Steerer_T1_V3_CurrentSet;
+double Steerer_T1_H3_CurrentSet;
+assign Steerer_T1_H3_CurrentSet  to "DTL-010:BMD-CH-003:CurSet";
+monitor Steerer_T1_H3_CurrentSet;
+double Steerer_T1_V4_CurrentSet;
+assign Steerer_T1_V4_CurrentSet  to "DTL-010:BMD-CV-004:CurSet";
+monitor Steerer_T1_V4_CurrentSet;
+double Steerer_T1_H4_CurrentSet;
+assign Steerer_T1_H4_CurrentSet  to "DTL-010:BMD-CH-004:CurSet";
+monitor Steerer_T1_H4_CurrentSet;
+double Steerer_T1_V5_CurrentSet;
+assign Steerer_T1_V5_CurrentSet  to "DTL-010:BMD-CV-005:CurSet";
+monitor Steerer_T1_V5_CurrentSet;
+double Steerer_T1_H5_CurrentSet;
+assign Steerer_T1_H5_CurrentSet  to "DTL-010:BMD-CH-005:CurSet";
+monitor Steerer_T1_H5_CurrentSet;
+double Steerer_T1_V6_CurrentSet;
+assign Steerer_T1_V6_CurrentSet  to "DTL-010:BMD-CV-001:CurSet";
+monitor Steerer_T1_V6_CurrentSet;
+double Steerer_T1_H6_CurrentSet;
+assign Steerer_T1_H6_CurrentSet  to "DTL-010:BMD-CH-001:CurSet";
+monitor Steerer_T1_H6_CurrentSet;
+double Steerer_T2_V1_CurrentSet;
+assign Steerer_T2_V1_CurrentSet  to "DTL-020:BMD-CV-001:CurSet";
+monitor Steerer_T2_V1_CurrentSet;
+double Steerer_T2_H1_CurrentSet;
+assign Steerer_T2_H1_CurrentSet  to "DTL-020:BMD-CH-001:CurSet";
+monitor Steerer_T2_H1_CurrentSet;
+double Steerer_T2_V2_CurrentSet;
+assign Steerer_T2_V2_CurrentSet  to "DTL-020:BMD-CV-002:CurSet";
+monitor Steerer_T2_V2_CurrentSet;
+double Steerer_T2_H2_CurrentSet;
+assign Steerer_T2_H2_CurrentSet  to "DTL-020:BMD-CH-002:CurSet";
+monitor Steerer_T2_H2_CurrentSet;
+double Steerer_T2_V3_CurrentSet;
+assign Steerer_T2_V3_CurrentSet  to "DTL-020:BMD-CV-003:CurSet";
+monitor Steerer_T2_V3_CurrentSet;
+double Steerer_T2_H3_CurrentSet;
+assign Steerer_T2_H3_CurrentSet  to "DTL-020:BMD-CH-003:CurSet";
+monitor Steerer_T2_H3_CurrentSet;
+double Steerer_T3_V1_CurrentSet;
+assign Steerer_T3_V1_CurrentSet  to "DTL-030:BMD-CV-001:CurSet";
+monitor Steerer_T3_V1_CurrentSet;
+double Steerer_T3_H1_CurrentSet;
+assign Steerer_T3_H1_CurrentSet  to "DTL-030:BMD-CH-001:CurSet";
+monitor Steerer_T3_H1_CurrentSet;
+double Steerer_T3_V2_CurrentSet;
+assign Steerer_T3_V2_CurrentSet  to "DTL-030:BMD-CV-002:CurSet";
+monitor Steerer_T3_V2_CurrentSet;
+double Steerer_T3_H2_CurrentSet;
+assign Steerer_T3_H2_CurrentSet  to "DTL-030:BMD-CH-002:CurSet";
+monitor Steerer_T3_H2_CurrentSet;
+double Steerer_T4_V1_CurrentSet;
+assign Steerer_T4_V1_CurrentSet  to "DTL-040:BMD-CV-001:CurSet";
+monitor Steerer_T4_V1_CurrentSet;
+double Steerer_T4_H1_CurrentSet;
+assign Steerer_T4_H1_CurrentSet  to "DTL-040:BMD-CH-001:CurSet";
+monitor Steerer_T4_H1_CurrentSet;
+double Steerer_T4_V2_CurrentSet;
+assign Steerer_T4_V2_CurrentSet  to "DTL-040:BMD-CV-002:CurSet";
+monitor Steerer_T4_V2_CurrentSet;
+double Steerer_T4_H2_CurrentSet;
+assign Steerer_T4_H2_CurrentSet  to "DTL-040:BMD-CH-002:CurSet";
+monitor Steerer_T4_H2_CurrentSet;
+double Steerer_T5_V1_CurrentSet;
+assign Steerer_T5_V1_CurrentSet  to "DTL-050:BMD-CV-001:CurSet";
+monitor Steerer_T5_V1_CurrentSet;
+double Steerer_T5_H1_CurrentSet;
+assign Steerer_T5_H1_CurrentSet  to "DTL-050:BMD-CH-001:CurSet";
+monitor Steerer_T5_H1_CurrentSet;
+double Steerer_T5_V2_CurrentSet;
+assign Steerer_T5_V2_CurrentSet  to "DTL-050:BMD-CV-002:CurSet";
+monitor Steerer_T5_V2_CurrentSet;
+double Steerer_T5_H2_CurrentSet;
+assign Steerer_T5_H2_CurrentSet  to "DTL-050:BMD-CH-002:CurSet";
+monitor Steerer_T5_H2_CurrentSet;
+
+
+/* -------- Temperature Max level -------- */
+double Thermosensors_T1_Max_Temp_001;
+assign Thermosensors_T1_Max_Temp_001  to "DTL-010:EMR-TT-001:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_001;
+double Thermosensors_T1_Max_Temp_002;
+assign Thermosensors_T1_Max_Temp_002 to "DTL-010:EMR-TT-002:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_002;
+double Thermosensors_T1_Max_Temp_003;
+assign Thermosensors_T1_Max_Temp_003 to "DTL-010:EMR-TT-003:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_003;
+double Thermosensors_T1_Max_Temp_004;
+assign Thermosensors_T1_Max_Temp_004 to "DTL-010:EMR-TT-004:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_004;
+double Thermosensors_T1_Max_Temp_005;
+assign Thermosensors_T1_Max_Temp_005 to "DTL-010:EMR-TT-005:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_005;
+double Thermosensors_T1_Max_Temp_006;
+assign Thermosensors_T1_Max_Temp_006 to "DTL-010:EMR-TT-006:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_006;
+double Thermosensors_T1_Max_Temp_007;
+assign Thermosensors_T1_Max_Temp_007 to "DTL-010:EMR-TT-007:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_007;
+double Thermosensors_T1_Max_Temp_008;
+assign Thermosensors_T1_Max_Temp_008 to "DTL-010:EMR-TT-008:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_008;
+double Thermosensors_T1_Max_Temp_009;
+assign Thermosensors_T1_Max_Temp_009 to "DTL-010:EMR-TT-009:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_009;
+double Thermosensors_T1_Max_Temp_010;
+assign Thermosensors_T1_Max_Temp_010 to "DTL-010:EMR-TT-010:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_010;
+double Thermosensors_T1_Max_Temp_011;
+assign Thermosensors_T1_Max_Temp_011 to "DTL-010:EMR-TT-011:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_011;
+double Thermosensors_T1_Max_Temp_012;
+assign Thermosensors_T1_Max_Temp_012 to "DTL-010:EMR-TT-012:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_012;
+double Thermosensors_T1_Max_Temp_013;
+assign Thermosensors_T1_Max_Temp_013 to "DTL-010:EMR-TT-013:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_013;
+double Thermosensors_T1_Max_Temp_014;
+assign Thermosensors_T1_Max_Temp_014 to "DTL-010:EMR-TT-014:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_014;
+double Thermosensors_T1_Max_Temp_015;
+assign Thermosensors_T1_Max_Temp_015  to "DTL-010:EMR-TT-015:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_015;
+double Thermosensors_T1_Max_Temp_016;
+assign Thermosensors_T1_Max_Temp_016 to "DTL-010:EMR-TT-016:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_016;
+double Thermosensors_T1_Max_Temp_017;
+assign Thermosensors_T1_Max_Temp_017 to "DTL-010:EMR-TT-017:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_017;
+double Thermosensors_T1_Max_Temp_018;
+assign Thermosensors_T1_Max_Temp_018 to "DTL-010:EMR-TT-018:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_018;
+double Thermosensors_T1_Max_Temp_019;
+assign Thermosensors_T1_Max_Temp_019 to "DTL-010:EMR-TT-019:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_019;
+double Thermosensors_T1_Max_Temp_020;
+assign Thermosensors_T1_Max_Temp_020 to "DTL-010:EMR-TT-020:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_020;
+double Thermosensors_T1_Max_Temp_021;
+assign Thermosensors_T1_Max_Temp_021 to "DTL-010:EMR-TT-021:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_021;
+double Thermosensors_T1_Max_Temp_022;
+assign Thermosensors_T1_Max_Temp_022 to "DTL-010:EMR-TT-022:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_022;
+double Thermosensors_T1_Max_Temp_023;
+assign Thermosensors_T1_Max_Temp_023 to "DTL-010:EMR-TT-023:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_023;
+double Thermosensors_T1_Max_Temp_024;
+assign Thermosensors_T1_Max_Temp_024 to "DTL-010:EMR-TT-024:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_024;
+double Thermosensors_T1_Max_Temp_025;
+assign Thermosensors_T1_Max_Temp_025 to "DTL-010:EMR-TT-025:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_025;
+double Thermosensors_T1_Max_Temp_026;
+assign Thermosensors_T1_Max_Temp_026 to "DTL-010:EMR-TT-026:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_026;
+double Thermosensors_T1_Max_Temp_027;
+assign Thermosensors_T1_Max_Temp_027 to "DTL-010:EMR-TT-027:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_027;
+double Thermosensors_T1_Max_Temp_028;
+assign Thermosensors_T1_Max_Temp_028 to "DTL-010:EMR-TT-028:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_028;
+double Thermosensors_T1_Max_Temp_029;
+assign Thermosensors_T1_Max_Temp_029 to "DTL-010:EMR-TT-029:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_029;
+double Thermosensors_T1_Max_Temp_030;
+assign Thermosensors_T1_Max_Temp_030 to "DTL-010:EMR-TT-030:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_030;
+double Thermosensors_T1_Max_Temp_031;
+assign Thermosensors_T1_Max_Temp_031 to "DTL-010:EMR-TT-031:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_031;
+double Thermosensors_T1_Max_Temp_032;
+assign Thermosensors_T1_Max_Temp_032 to "DTL-010:EMR-TT-032:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_032;
+double Thermosensors_T1_Max_Temp_033;
+assign Thermosensors_T1_Max_Temp_033 to "DTL-010:EMR-TT-033:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_033;
+double Thermosensors_T1_Max_Temp_034;
+assign Thermosensors_T1_Max_Temp_034 to "DTL-010:EMR-TT-034:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_034;
+double Thermosensors_T1_Max_Temp_035;
+assign Thermosensors_T1_Max_Temp_035 to "DTL-010:EMR-TT-035:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_035;
+double Thermosensors_T1_Max_Temp_036;
+assign Thermosensors_T1_Max_Temp_036 to "DTL-010:EMR-TT-036:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_036;
+double Thermosensors_T1_Max_Temp_037;
+assign Thermosensors_T1_Max_Temp_037 to "DTL-010:EMR-TT-037:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_037;
+double Thermosensors_T1_Max_Temp_038;
+assign Thermosensors_T1_Max_Temp_038 to "DTL-010:EMR-TT-038:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_038;
+double Thermosensors_T1_Max_Temp_039;
+assign Thermosensors_T1_Max_Temp_039 to "DTL-010:EMR-TT-039:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_039;
+double Thermosensors_T1_Max_Temp_040;
+assign Thermosensors_T1_Max_Temp_040 to "DTL-010:EMR-TT-040:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_040;
+double Thermosensors_T1_Max_Temp_041;
+assign Thermosensors_T1_Max_Temp_041 to "DTL-010:EMR-TT-041:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_041;
+double Thermosensors_T1_Max_Temp_042;
+assign Thermosensors_T1_Max_Temp_042 to "DTL-010:EMR-TT-042:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_042;
+double Thermosensors_T1_Max_Temp_043;
+assign Thermosensors_T1_Max_Temp_043 to "DTL-010:EMR-TT-043:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_043;
+double Thermosensors_T1_Max_Temp_044;
+assign Thermosensors_T1_Max_Temp_044 to "DTL-010:EMR-TT-044:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_044;
+double Thermosensors_T1_Max_Temp_045;
+assign Thermosensors_T1_Max_Temp_045  to "DTL-010:EMR-TT-045:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_045;
+double Thermosensors_T1_Max_Temp_046;
+assign Thermosensors_T1_Max_Temp_046  to "DTL-010:EMR-TT-046:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_046;
+double Thermosensors_T1_Max_Temp_047;
+assign Thermosensors_T1_Max_Temp_047 to "DTL-010:EMR-TT-047:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_047;
+double Thermosensors_T1_Max_Temp_048;
+assign Thermosensors_T1_Max_Temp_048 to "DTL-010:EMR-TT-048:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_048;
+double Thermosensors_T1_Max_Temp_049;
+assign Thermosensors_T1_Max_Temp_049 to "DTL-010:EMR-TT-049:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_049;
+double Thermosensors_T1_Max_Temp_050;
+assign Thermosensors_T1_Max_Temp_050 to "DTL-010:EMR-TT-050:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_050;
+double Thermosensors_T1_Max_Temp_051;
+assign Thermosensors_T1_Max_Temp_051 to "DTL-010:EMR-TT-051:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_051;
+double Thermosensors_T1_Max_Temp_052;
+assign Thermosensors_T1_Max_Temp_052 to "DTL-010:EMR-TT-052:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_052;
+double Thermosensors_T1_Max_Temp_053;
+assign Thermosensors_T1_Max_Temp_053 to "DTL-010:EMR-TT-053:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_053;
+double Thermosensors_T1_Max_Temp_054;
+assign Thermosensors_T1_Max_Temp_054 to "DTL-010:EMR-TT-054:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_054;
+double Thermosensors_T1_Max_Temp_055;
+assign Thermosensors_T1_Max_Temp_055 to "DTL-010:EMR-TT-055:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_055;
+double Thermosensors_T1_Max_Temp_056;
+assign Thermosensors_T1_Max_Temp_056 to "DTL-010:EMR-TT-056:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_056;
+double Thermosensors_T1_Max_Temp_057;
+assign Thermosensors_T1_Max_Temp_057 to "DTL-010:EMR-TT-057:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_057;
+double Thermosensors_T1_Max_Temp_058;
+assign Thermosensors_T1_Max_Temp_058 to "DTL-010:EMR-TT-058:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_058;
+double Thermosensors_T1_Max_Temp_059;
+assign Thermosensors_T1_Max_Temp_059 to "DTL-010:EMR-TT-059:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_059;
+double Thermosensors_T1_Max_Temp_060;
+assign Thermosensors_T1_Max_Temp_060 to "DTL-010:EMR-TT-060:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_060;
+double Thermosensors_T1_Max_Temp_100;
+assign Thermosensors_T1_Max_Temp_100 to "DTL-010:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_100;
+double Thermosensors_T1_Max_Temp_200;
+assign Thermosensors_T1_Max_Temp_200 to "DTL-010:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp_200;
+double Thermosensors_T2_Max_Temp_001;
+assign Thermosensors_T2_Max_Temp_001  to "DTL-020:EMR-TT-001:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_001;
+double Thermosensors_T2_Max_Temp_002;
+assign Thermosensors_T2_Max_Temp_002 to "DTL-020:EMR-TT-002:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_002;
+double Thermosensors_T2_Max_Temp_003;
+assign Thermosensors_T2_Max_Temp_003 to "DTL-020:EMR-TT-003:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_003;
+double Thermosensors_T2_Max_Temp_004;
+assign Thermosensors_T2_Max_Temp_004 to "DTL-020:EMR-TT-004:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_004;
+double Thermosensors_T2_Max_Temp_005;
+assign Thermosensors_T2_Max_Temp_005 to "DTL-020:EMR-TT-005:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_005;
+double Thermosensors_T2_Max_Temp_006;
+assign Thermosensors_T2_Max_Temp_006 to "DTL-020:EMR-TT-006:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_006;
+double Thermosensors_T2_Max_Temp_007;
+assign Thermosensors_T2_Max_Temp_007 to "DTL-020:EMR-TT-007:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_007;
+double Thermosensors_T2_Max_Temp_008;
+assign Thermosensors_T2_Max_Temp_008 to "DTL-020:EMR-TT-008:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_008;
+double Thermosensors_T2_Max_Temp_009;
+assign Thermosensors_T2_Max_Temp_009 to "DTL-020:EMR-TT-009:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_009;
+double Thermosensors_T2_Max_Temp_010;
+assign Thermosensors_T2_Max_Temp_010 to "DTL-020:EMR-TT-010:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_010;
+double Thermosensors_T2_Max_Temp_011;
+assign Thermosensors_T2_Max_Temp_011 to "DTL-020:EMR-TT-011:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_011;
+double Thermosensors_T2_Max_Temp_012;
+assign Thermosensors_T2_Max_Temp_012 to "DTL-020:EMR-TT-012:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_012;
+double Thermosensors_T2_Max_Temp_013;
+assign Thermosensors_T2_Max_Temp_013 to "DTL-020:EMR-TT-013:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_013;
+double Thermosensors_T2_Max_Temp_014;
+assign Thermosensors_T2_Max_Temp_014 to "DTL-020:EMR-TT-014:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_014;
+double Thermosensors_T2_Max_Temp_015;
+assign Thermosensors_T2_Max_Temp_015  to "DTL-020:EMR-TT-015:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_015;
+double Thermosensors_T2_Max_Temp_016;
+assign Thermosensors_T2_Max_Temp_016 to "DTL-020:EMR-TT-016:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_016;
+double Thermosensors_T2_Max_Temp_017;
+assign Thermosensors_T2_Max_Temp_017 to "DTL-020:EMR-TT-017:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_017;
+double Thermosensors_T2_Max_Temp_018;
+assign Thermosensors_T2_Max_Temp_018 to "DTL-020:EMR-TT-018:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_018;
+double Thermosensors_T2_Max_Temp_019;
+assign Thermosensors_T2_Max_Temp_019 to "DTL-020:EMR-TT-019:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_019;
+double Thermosensors_T2_Max_Temp_020;
+assign Thermosensors_T2_Max_Temp_020 to "DTL-020:EMR-TT-020:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_020;
+double Thermosensors_T2_Max_Temp_021;
+assign Thermosensors_T2_Max_Temp_021 to "DTL-020:EMR-TT-021:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_021;
+double Thermosensors_T2_Max_Temp_022;
+assign Thermosensors_T2_Max_Temp_022 to "DTL-020:EMR-TT-022:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_022;
+double Thermosensors_T2_Max_Temp_023;
+assign Thermosensors_T2_Max_Temp_023 to "DTL-020:EMR-TT-023:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_023;
+double Thermosensors_T2_Max_Temp_024;
+assign Thermosensors_T2_Max_Temp_024 to "DTL-020:EMR-TT-024:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_024;
+double Thermosensors_T2_Max_Temp_025;
+assign Thermosensors_T2_Max_Temp_025 to "DTL-020:EMR-TT-025:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_025;
+double Thermosensors_T2_Max_Temp_026;
+assign Thermosensors_T2_Max_Temp_026 to "DTL-020:EMR-TT-026:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_026;
+double Thermosensors_T2_Max_Temp_027;
+assign Thermosensors_T2_Max_Temp_027 to "DTL-020:EMR-TT-027:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_027;
+double Thermosensors_T2_Max_Temp_028;
+assign Thermosensors_T2_Max_Temp_028 to "DTL-020:EMR-TT-028:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_028;
+double Thermosensors_T2_Max_Temp_029;
+assign Thermosensors_T2_Max_Temp_029 to "DTL-020:EMR-TT-029:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_029;
+double Thermosensors_T2_Max_Temp_030;
+assign Thermosensors_T2_Max_Temp_030 to "DTL-020:EMR-TT-030:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_030;
+double Thermosensors_T2_Max_Temp_031;
+assign Thermosensors_T2_Max_Temp_031 to "DTL-020:EMR-TT-031:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_031;
+double Thermosensors_T2_Max_Temp_032;
+assign Thermosensors_T2_Max_Temp_032 to "DTL-020:EMR-TT-032:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_032;
+double Thermosensors_T2_Max_Temp_033;
+assign Thermosensors_T2_Max_Temp_033 to "DTL-020:EMR-TT-033:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_033;
+double Thermosensors_T2_Max_Temp_100;
+assign Thermosensors_T2_Max_Temp_100 to "DTL-020:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_100;
+double Thermosensors_T2_Max_Temp_200;
+assign Thermosensors_T2_Max_Temp_200 to "DTL-020:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp_200;
+double Thermosensors_T3_Max_Temp_001;
+assign Thermosensors_T3_Max_Temp_001  to "DTL-030:EMR-TT-001:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_001;
+double Thermosensors_T3_Max_Temp_002;
+assign Thermosensors_T3_Max_Temp_002 to "DTL-030:EMR-TT-002:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_002;
+double Thermosensors_T3_Max_Temp_003;
+assign Thermosensors_T3_Max_Temp_003 to "DTL-030:EMR-TT-003:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_003;
+double Thermosensors_T3_Max_Temp_004;
+assign Thermosensors_T3_Max_Temp_004 to "DTL-030:EMR-TT-004:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_004;
+double Thermosensors_T3_Max_Temp_005;
+assign Thermosensors_T3_Max_Temp_005 to "DTL-030:EMR-TT-005:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_005;
+double Thermosensors_T3_Max_Temp_006;
+assign Thermosensors_T3_Max_Temp_006 to "DTL-030:EMR-TT-006:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_006;
+double Thermosensors_T3_Max_Temp_007;
+assign Thermosensors_T3_Max_Temp_007 to "DTL-030:EMR-TT-007:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_007;
+double Thermosensors_T3_Max_Temp_008;
+assign Thermosensors_T3_Max_Temp_008 to "DTL-030:EMR-TT-008:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_008;
+double Thermosensors_T3_Max_Temp_009;
+assign Thermosensors_T3_Max_Temp_009 to "DTL-030:EMR-TT-009:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_009;
+double Thermosensors_T3_Max_Temp_010;
+assign Thermosensors_T3_Max_Temp_010 to "DTL-030:EMR-TT-010:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_010;
+double Thermosensors_T3_Max_Temp_011;
+assign Thermosensors_T3_Max_Temp_011 to "DTL-030:EMR-TT-011:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_011;
+double Thermosensors_T3_Max_Temp_012;
+assign Thermosensors_T3_Max_Temp_012 to "DTL-030:EMR-TT-012:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_012;
+double Thermosensors_T3_Max_Temp_013;
+assign Thermosensors_T3_Max_Temp_013 to "DTL-030:EMR-TT-013:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_013;
+double Thermosensors_T3_Max_Temp_014;
+assign Thermosensors_T3_Max_Temp_014 to "DTL-030:EMR-TT-014:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_014;
+double Thermosensors_T3_Max_Temp_015;
+assign Thermosensors_T3_Max_Temp_015  to "DTL-030:EMR-TT-015:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_015;
+double Thermosensors_T3_Max_Temp_016;
+assign Thermosensors_T3_Max_Temp_016 to "DTL-030:EMR-TT-016:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_016;
+double Thermosensors_T3_Max_Temp_017;
+assign Thermosensors_T3_Max_Temp_017 to "DTL-030:EMR-TT-017:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_017;
+double Thermosensors_T3_Max_Temp_018;
+assign Thermosensors_T3_Max_Temp_018 to "DTL-030:EMR-TT-018:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_018;
+double Thermosensors_T3_Max_Temp_019;
+assign Thermosensors_T3_Max_Temp_019 to "DTL-030:EMR-TT-019:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_019;
+double Thermosensors_T3_Max_Temp_020;
+assign Thermosensors_T3_Max_Temp_020 to "DTL-030:EMR-TT-020:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_020;
+double Thermosensors_T3_Max_Temp_021;
+assign Thermosensors_T3_Max_Temp_021 to "DTL-030:EMR-TT-021:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_021;
+double Thermosensors_T3_Max_Temp_022;
+assign Thermosensors_T3_Max_Temp_022 to "DTL-030:EMR-TT-022:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_022;
+double Thermosensors_T3_Max_Temp_023;
+assign Thermosensors_T3_Max_Temp_023 to "DTL-030:EMR-TT-023:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_023;
+double Thermosensors_T3_Max_Temp_024;
+assign Thermosensors_T3_Max_Temp_024 to "DTL-030:EMR-TT-024:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_024;
+double Thermosensors_T3_Max_Temp_025;
+assign Thermosensors_T3_Max_Temp_025 to "DTL-030:EMR-TT-025:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_025;
+double Thermosensors_T3_Max_Temp_026;
+assign Thermosensors_T3_Max_Temp_026 to "DTL-030:EMR-TT-026:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_026;
+double Thermosensors_T3_Max_Temp_027;
+assign Thermosensors_T3_Max_Temp_027 to "DTL-030:EMR-TT-027:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_027;
+double Thermosensors_T3_Max_Temp_028;
+assign Thermosensors_T3_Max_Temp_028 to "DTL-030:EMR-TT-028:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_028;
+double Thermosensors_T3_Max_Temp_100;
+assign Thermosensors_T3_Max_Temp_100 to "DTL-030:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_100;
+double Thermosensors_T3_Max_Temp_200;
+assign Thermosensors_T3_Max_Temp_200 to "DTL-030:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp_200;
+double Thermosensors_T4_Max_Temp_001;
+assign Thermosensors_T4_Max_Temp_001  to "DTL-040:EMR-TT-001:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_001;
+double Thermosensors_T4_Max_Temp_002;
+assign Thermosensors_T4_Max_Temp_002 to "DTL-040:EMR-TT-002:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_002;
+double Thermosensors_T4_Max_Temp_003;
+assign Thermosensors_T4_Max_Temp_003 to "DTL-040:EMR-TT-003:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_003;
+double Thermosensors_T4_Max_Temp_004;
+assign Thermosensors_T4_Max_Temp_004 to "DTL-040:EMR-TT-004:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_004;
+double Thermosensors_T4_Max_Temp_005;
+assign Thermosensors_T4_Max_Temp_005 to "DTL-040:EMR-TT-005:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_005;
+double Thermosensors_T4_Max_Temp_006;
+assign Thermosensors_T4_Max_Temp_006 to "DTL-040:EMR-TT-006:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_006;
+double Thermosensors_T4_Max_Temp_007;
+assign Thermosensors_T4_Max_Temp_007 to "DTL-040:EMR-TT-007:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_007;
+double Thermosensors_T4_Max_Temp_008;
+assign Thermosensors_T4_Max_Temp_008 to "DTL-040:EMR-TT-008:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_008;
+double Thermosensors_T4_Max_Temp_009;
+assign Thermosensors_T4_Max_Temp_009 to "DTL-040:EMR-TT-009:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_009;
+double Thermosensors_T4_Max_Temp_010;
+assign Thermosensors_T4_Max_Temp_010 to "DTL-040:EMR-TT-010:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_010;
+double Thermosensors_T4_Max_Temp_011;
+assign Thermosensors_T4_Max_Temp_011 to "DTL-040:EMR-TT-011:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_011;
+double Thermosensors_T4_Max_Temp_012;
+assign Thermosensors_T4_Max_Temp_012 to "DTL-040:EMR-TT-012:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_012;
+double Thermosensors_T4_Max_Temp_013;
+assign Thermosensors_T4_Max_Temp_013 to "DTL-040:EMR-TT-013:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_013;
+double Thermosensors_T4_Max_Temp_014;
+assign Thermosensors_T4_Max_Temp_014 to "DTL-040:EMR-TT-014:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_014;
+double Thermosensors_T4_Max_Temp_015;
+assign Thermosensors_T4_Max_Temp_015  to "DTL-040:EMR-TT-015:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_015;
+double Thermosensors_T4_Max_Temp_016;
+assign Thermosensors_T4_Max_Temp_016 to "DTL-040:EMR-TT-016:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_016;
+double Thermosensors_T4_Max_Temp_017;
+assign Thermosensors_T4_Max_Temp_017 to "DTL-040:EMR-TT-017:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_017;
+double Thermosensors_T4_Max_Temp_018;
+assign Thermosensors_T4_Max_Temp_018 to "DTL-040:EMR-TT-018:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_018;
+double Thermosensors_T4_Max_Temp_019;
+assign Thermosensors_T4_Max_Temp_019 to "DTL-040:EMR-TT-019:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_019;
+double Thermosensors_T4_Max_Temp_020;
+assign Thermosensors_T4_Max_Temp_020 to "DTL-040:EMR-TT-020:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_020;
+double Thermosensors_T4_Max_Temp_021;
+assign Thermosensors_T4_Max_Temp_021 to "DTL-040:EMR-TT-021:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_021;
+double Thermosensors_T4_Max_Temp_022;
+assign Thermosensors_T4_Max_Temp_022 to "DTL-040:EMR-TT-022:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_022;
+double Thermosensors_T4_Max_Temp_023;
+assign Thermosensors_T4_Max_Temp_023 to "DTL-040:EMR-TT-023:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_023;
+double Thermosensors_T4_Max_Temp_024;
+assign Thermosensors_T4_Max_Temp_024 to "DTL-040:EMR-TT-024:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_024;
+double Thermosensors_T4_Max_Temp_025;
+assign Thermosensors_T4_Max_Temp_025 to "DTL-040:EMR-TT-025:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_025;
+double Thermosensors_T4_Max_Temp_100;
+assign Thermosensors_T4_Max_Temp_100 to "DTL-040:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_100;
+double Thermosensors_T4_Max_Temp_200;
+assign Thermosensors_T4_Max_Temp_200 to "DTL-040:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp_200;
+double Thermosensors_T5_Max_Temp_001;
+assign Thermosensors_T5_Max_Temp_001  to "DTL-050:EMR-TT-001:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_001;
+double Thermosensors_T5_Max_Temp_002;
+assign Thermosensors_T5_Max_Temp_002 to "DTL-050:EMR-TT-002:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_002;
+double Thermosensors_T5_Max_Temp_003;
+assign Thermosensors_T5_Max_Temp_003 to "DTL-050:EMR-TT-003:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_003;
+double Thermosensors_T5_Max_Temp_004;
+assign Thermosensors_T5_Max_Temp_004 to "DTL-050:EMR-TT-004:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_004;
+double Thermosensors_T5_Max_Temp_005;
+assign Thermosensors_T5_Max_Temp_005 to "DTL-050:EMR-TT-005:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_005;
+double Thermosensors_T5_Max_Temp_006;
+assign Thermosensors_T5_Max_Temp_006 to "DTL-050:EMR-TT-006:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_006;
+double Thermosensors_T5_Max_Temp_007;
+assign Thermosensors_T5_Max_Temp_007 to "DTL-050:EMR-TT-007:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_007;
+double Thermosensors_T5_Max_Temp_008;
+assign Thermosensors_T5_Max_Temp_008 to "DTL-050:EMR-TT-008:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_008;
+double Thermosensors_T5_Max_Temp_009;
+assign Thermosensors_T5_Max_Temp_009 to "DTL-050:EMR-TT-009:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_009;
+double Thermosensors_T5_Max_Temp_010;
+assign Thermosensors_T5_Max_Temp_010 to "DTL-050:EMR-TT-010:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_010;
+double Thermosensors_T5_Max_Temp_011;
+assign Thermosensors_T5_Max_Temp_011 to "DTL-050:EMR-TT-011:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_011;
+double Thermosensors_T5_Max_Temp_012;
+assign Thermosensors_T5_Max_Temp_012 to "DTL-050:EMR-TT-012:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_012;
+double Thermosensors_T5_Max_Temp_013;
+assign Thermosensors_T5_Max_Temp_013 to "DTL-050:EMR-TT-013:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_013;
+double Thermosensors_T5_Max_Temp_014;
+assign Thermosensors_T5_Max_Temp_014 to "DTL-050:EMR-TT-014:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_014;
+double Thermosensors_T5_Max_Temp_015;
+assign Thermosensors_T5_Max_Temp_015  to "DTL-050:EMR-TT-015:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_015;
+double Thermosensors_T5_Max_Temp_016;
+assign Thermosensors_T5_Max_Temp_016 to "DTL-050:EMR-TT-016:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_016;
+double Thermosensors_T5_Max_Temp_017;
+assign Thermosensors_T5_Max_Temp_017 to "DTL-050:EMR-TT-017:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_017;
+double Thermosensors_T5_Max_Temp_018;
+assign Thermosensors_T5_Max_Temp_018 to "DTL-050:EMR-TT-018:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_018;
+double Thermosensors_T5_Max_Temp_019;
+assign Thermosensors_T5_Max_Temp_019 to "DTL-050:EMR-TT-019:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_019;
+double Thermosensors_T5_Max_Temp_020;
+assign Thermosensors_T5_Max_Temp_020 to "DTL-050:EMR-TT-020:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_020;
+double Thermosensors_T5_Max_Temp_021;
+assign Thermosensors_T5_Max_Temp_021 to "DTL-050:EMR-TT-021:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_021;
+double Thermosensors_T5_Max_Temp_022;
+assign Thermosensors_T5_Max_Temp_022 to "DTL-050:EMR-TT-022:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_022;
+double Thermosensors_T5_Max_Temp_100;
+assign Thermosensors_T5_Max_Temp_100 to "DTL-050:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_100;
+double Thermosensors_T5_Max_Temp_200;
+assign Thermosensors_T5_Max_Temp_200 to "DTL-050:EMR-TT-100:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp_200;
 
 
 /*
@@ -468,6 +1390,98 @@ int dtl_operation_command_prev=0;
 double DEBUG=1;
 
 
+/* -------- Internal Functions -------- */
+%{
+
+static void set_temperature_tank1(float value) {
+    char prefix_name[30]="Thermosensors_T1_Max_Temp_0";
+    for (int i=1; i <= 60; i++) {
+      char pv_name[30];
+      if (i<10) {
+        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
+      }
+      else {
+        sprintf(pv_name, "%s%d", prefix_name, i);
+      }
+      seq_pvPut(pv_name, value);
+      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
+      seq_pvPut("Thermosensors_T1_Max_Temp_100", value);
+      seq_pvPut("Thermosensors_T1_Max_Temp_200", value);
+    }
+}
+
+static void set_temperature_tank2(float value) {
+    char prefix_name[30]="Thermosensors_T2_Max_Temp_0";
+    for (int i=1; i <= 33; i++) {
+      char pv_name[30];
+      if (i<10) {
+        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
+      }
+      else {
+        sprintf(pv_name, "%s%d", prefix_name, i);
+      }
+      seq_pvPut(pv_name, value);
+      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
+      seq_pvPut("Thermosensors_T2_Max_Temp_100", value);
+      seq_pvPut("Thermosensors_T2_Max_Temp_200", value);
+    }
+}
+
+static void set_temperature_tank3(float value) {
+    char prefix_name[30]="Thermosensors_T3_Max_Temp_0";
+    for (int i=1; i <= 28; i++) {
+      char pv_name[30];
+      if (i<10) {
+        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
+      }
+      else {
+        sprintf(pv_name, "%s%d", prefix_name, i);
+      }
+      seq_pvPut(pv_name, value);
+      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
+      seq_pvPut("Thermosensors_T3_Max_Temp_100", value);
+      seq_pvPut("Thermosensors_T3_Max_Temp_200", value);
+    }
+}
+
+static void set_temperature_tank4(float value) {
+    char prefix_name[30]="Thermosensors_T4_Max_Temp_0";
+    for (int i=1; i <= 25; i++) {
+      char pv_name[30];
+      if (i<10) {
+        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
+      }
+      else {
+        sprintf(pv_name, "%s%d", prefix_name, i);
+      }
+      seq_pvPut(pv_name, value);
+      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
+      seq_pvPut("Thermosensors_T4_Max_Temp_100", value);
+      seq_pvPut("Thermosensors_T4_Max_Temp_200", value);
+    }
+}
+
+static void set_temperature_tank5(float value) {
+    char prefix_name[30]="Thermosensors_T5_Max_Temp_0";
+    for (int i=1; i <= 22; i++) {
+      char pv_name[30];
+      if (i<10) {
+        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
+      }
+      else {
+        sprintf(pv_name, "%s%d", prefix_name, i);
+      }
+      seq_pvPut(pv_name, value);
+      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
+      seq_pvPut("Thermosensors_T5_Max_Temp_100", value);
+      seq_pvPut("Thermosensors_T5_Max_Temp_200", value);
+    }
+}
+
+
+}%
+
+
 
 /*
 # State Machine Definition
@@ -479,8 +1493,10 @@ ss  orchestration_statemachine {
 	state initialization {
       entry {
         printf("\n\nPreliminary controls executed due to Application Startup - Intialization\n\n");
+        dtl_operation_code_prev=dtlOperationalCode;
         dtlOperationalCode=0;
         pvPut(dtlOperationalCode);
+        dtl_operation_command_prev=dtlOperationalCode_Command;
 
         /* Actual man|auto control initialization */
         printf("[SEQ ORCHESTRATION] MAN|AUTO control initialization: set systems to MANUAL Mode\n");
@@ -562,7 +1578,6 @@ ss  orchestration_statemachine {
 
       } state maintenance
 
-
       /* Start control only when skid is in remote control */
       /* Check if all functional sub-systems have OK Status */
       when ( (pvConnectCount()==pvAssignCount()) && (PLC_Message == -108) && (T1_Vacuum_OK_Status == 1) && (T2_Vacuum_OK_Status == 1) && (T3_Vacuum_OK_Status == 1) && (T4_Vacuum_OK_Status == 1) && (T5_Vacuum_OK_Status == 1) && (T0_Coolong_OK_Status == 1) && (T1_Cooling_OK_Status == 1) && (T2_Cooling_OK_Status == 1) && (T3_Cooling_OK_Status == 1) && (T4_Cooling_OK_Status == 1) && (T5_Cooling_OK_Status == 1) && (T1_RFSlow_OK_Status == 1) && (T2_RFSlow_OK_Status == 1) && (T3_RFSlow_OK_Status == 1) && (T4_RFSlow_OK_Status == 1) && (T5_RFSlow_OK_Status == 1) && (T1_Steerer_OK_Status == 1) && (T2_Steerer_OK_Status == 1) && (T3_Steerer_OK_Status == 1) && (T4_Steerer_OK_Status == 1) && (T5_Steerer_OK_Status == 1) && (T1_Tuner_OK_Status == 1) && (T2_Tuner_OK_Status == 1) && (T3_Tuner_OK_Status == 1) && (T4_Tuner_OK_Status == 1) && (T5_Tuner_OK_Status == 1) && (T1_ArcDetection_OK_Status == 1) && (T2_ArcDetection_OK_Status == 1) && (T3_ArcDetection_OK_Status == 1) && (T4_ArcDetection_OK_Status == 1) && (T5_ArcDetection_OK_Status == 1) ) {
@@ -578,6 +1593,7 @@ ss  orchestration_statemachine {
 	state stand_by {
       entry {
         printf("\n[SEQ ORCHESTRATION] Enter in STAND BY status\n");
+        dtl_operation_code_prev=dtlOperationalCode;
         dtlOperationalCode=101;
         pvPut(dtlOperationalCode);
 
@@ -601,6 +1617,8 @@ ss  orchestration_statemachine {
       when (dtlOperationalCode_Command == 202) {
           printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to RF_CONDITIONING stage. \n");
+          /* save last operational code command sent */
+          dtl_operation_command_prev=dtlOperationalCode_Command;
 
       } state rf_conditioning
 
@@ -608,6 +1626,8 @@ ss  orchestration_statemachine {
       when (dtlOperationalCode_Command == 303) {
           printf("[SEQ ORCHESTRATION] Request for RF Start-up operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to RF STARTUP stage. \n");
+          /* save last operational code command sent */
+          dtl_operation_command_prev=dtlOperationalCode_Command;
 
       } state rf_start_up
 
@@ -615,6 +1635,8 @@ ss  orchestration_statemachine {
       when (dtlOperationalCode_Command == 505) {
           printf("[SEQ ORCHESTRATION] Request for No Accelerated Beam operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to NO_ACCELERATED_BEAM stage. \n");
+          /* save last operational code command sent */
+          dtl_operation_command_prev=dtlOperationalCode_Command;
 
       } state no_accelerated_beam
 
@@ -628,8 +1650,19 @@ ss  orchestration_statemachine {
           DTL_Maintenance_Readback=DTL_Maintenance_Command;
           pvPut(DTL_Maintenance_Command);
           pvPut(DTL_Maintenance_Readback);
+          /* save last operational code command sent */
+          dtl_operation_command_prev=dtlOperationalCode_Command;
 
       } state maintenance
+
+      /* DTL Maintenance Status Request */
+      when (DTL_Maintenance_Command == 1) {
+        printf("[SEQ ORCHESTRATION] DTL request for maintenance by operator\n");
+        printf("[SEQ ORCHESTRATION] Main System goed to MAINTENANCE stage. \n");
+        DTL_Maintenance_Readback=DTL_Maintenance_Command;
+        pvPut(DTL_Maintenance_Readback);
+
+      } status maintenance
 
   }
 
@@ -638,24 +1671,366 @@ ss  orchestration_statemachine {
   state rf_conditioning {
     entry {
       printf("\n[SEQ ORCHESTRATION] Enter in RF CONDITIONING status\n");
+      dtl_operation_code_prev=dtlOperationalCode;
       dtlOperationalCode=202;
       pvPut(dtlOperationalCode);
+
+      /*
+       * Setup Tuner System
+       * - set autoControl to MANUAL [0]
+       * - set start operation command to ENABLE
+       * - DISABLE Motors
+       * - DISABLE PID control
+      */
+      /* Case sub-system in idle */
+      if (Tuners_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Tuner System in IDLE: set MANUAL control and enable operation\n");
+
+        Tuners_AutoControlCmd=0;
+        pvPut(Tuners_AutoControlCmd);
+        Tuners_StartOperationCmd=1;
+        pvPut(Tuners_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Tuners_StateMachineCode == 30) && (Tuners_AutoControl_ActualStatus == 1) ) {
+        printf("[SEQ ORCHESTRATION] Tuner System in READY FOR OPERATION: set only MANUAL control \n");
+        Tuners_AutoControlCmd=0;
+        pvPut(Tuners_AutoControlCmd);
+
+      }
+      printf("[SEQ ORCHESTRATION] Disable Tuners PID control \n");
+      Tuners_T1_M1_PID_Enable=0;
+      pvPut(Tuners_T1_M1_PID_Enable);
+      Tuners_T1_M2_PID_Enable=0;
+      pvPut(Tuners_T1_M2_PID_Enable);
+      Tuners_T1_M3_PID_Enable=0;
+      pvPut(Tuners_T1_M3_PID_Enable);
+      Tuners_T2_M1_PID_Enable=0;
+      pvPut(Tuners_T2_M1_PID_Enable);
+      Tuners_T2_M2_PID_Enable=0;
+      pvPut(Tuners_T2_M2_PID_Enable);
+      Tuners_T2_M3_PID_Enable=0;
+      pvPut(Tuners_T2_M3_PID_Enable);
+      Tuners_T3_M1_PID_Enable=0;
+      pvPut(Tuners_T3_M1_PID_Enable);
+      Tuners_T3_M2_PID_Enable=0;
+      pvPut(Tuners_T3_M2_PID_Enable);
+      Tuners_T3_M3_PID_Enable=0;
+      pvPut(Tuners_T3_M3_PID_Enable);
+      Tuners_T4_M1_PID_Enable=0;
+      pvPut(Tuners_T4_M1_PID_Enable);
+      Tuners_T4_M2_PID_Enable=0;
+      pvPut(Tuners_T4_M2_PID_Enable);
+      Tuners_T4_M3_PID_Enable=0;
+      pvPut(Tuners_T4_M3_PID_Enable);
+      Tuners_T5_M1_PID_Enable=0;
+      pvPut(Tuners_T5_M1_PID_Enable);
+      Tuners_T5_M2_PID_Enable=0;
+      pvPut(Tuners_T5_M2_PID_Enable);
+      Tuners_T5_M3_PID_Enable=0;
+      pvPut(Tuners_T5_M3_PID_Enable);
+
+      printf("[SEQ ORCHESTRATION] Disable Tuners motor axis \n");
+      Tuners_T1_M1_Axis_Enable=0;
+      pvPut(Tuners_T1_M1_Axis_Enable);
+      Tuners_T1_M2_Axis_Enable=0;
+      pvPut(Tuners_T1_M2_Axis_Enable);
+      Tuners_T1_M3_Axis_Enable=0;
+      pvPut(Tuners_T1_M3_Axis_Enable);
+      Tuners_T2_M1_Axis_Enable=0;
+      pvPut(Tuners_T2_M1_Axis_Enable);
+      Tuners_T2_M2_Axis_Enable=0;
+      pvPut(Tuners_T2_M2_Axis_Enable);
+      Tuners_T2_M3_Axis_Enable=0;
+      pvPut(Tuners_T2_M3_Axis_Enable);
+      Tuners_T3_M1_Axis_Enable=0;
+      pvPut(Tuners_T3_M1_Axis_Enable);
+      Tuners_T3_M2_Axis_Enable=0;
+      pvPut(Tuners_T3_M2_Axis_Enable);
+      Tuners_T3_M3_Axis_Enable=0;
+      pvPut(Tuners_T3_M3_Axis_Enable);
+      Tuners_T4_M1_Axis_Enable=0;
+      pvPut(Tuners_T4_M1_Axis_Enable);
+      Tuners_T4_M2_Axis_Enable=0;
+      pvPut(Tuners_T4_M2_Axis_Enable);
+      Tuners_T4_M3_Axis_Enable=0;
+      pvPut(Tuners_T4_M3_Axis_Enable);
+      Tuners_T5_M1_Axis_Enable=0;
+      pvPut(Tuners_T5_M1_Axis_Enable);
+      Tuners_T5_M2_Axis_Enable=0;
+      pvPut(Tuners_T5_M2_Axis_Enable);
+      Tuners_T5_M3_Axis_Enable=0;
+      pvPut(Tuners_T5_M3_Axis_Enable);
+
+      /*
+       * Setup Steerer System
+       * - set autoControl to MANUAL [0]
+       * - set start operation command to ENABLE
+       * - set current setpoint to 0A
+       * - DISABLE steerers
+      */
+      /* Case sub-system in idle */
+      if (Steerer_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Steerer System in IDLE: set MANUAL control and enable operation\n");
+
+        Steerer_AutoControlCmd=0;
+        pvPut(Steerer_AutoControlCmd);
+        Steerer_StartOperationCmd=1;
+        pvPut(Steerer_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Steerer_StateMachineCode == 30) && (Steerer_AutoControl_ActualStatus == 1) ) {
+        printf("[SEQ ORCHESTRATION] Steerer System in READY FOR OPERATION: set only MANUAL control \n");
+        Steerer_AutoControlCmd=0;
+        pvPut(Steerer_AutoControlCmd);
+
+      }
+      printf("[SEQ ORCHESTRATION] Set Steerers setpoint to 0A \n");
+      Steerer_T1_V1_CurrentSet = 0;
+      pvPut(Steerer_T1_V1_CurrentSet);
+      Steerer_T1_H1_CurrentSet = 0;
+      pvPut(Steerer_T1_H1_CurrentSet);
+      Steerer_T1_V2_CurrentSet = 0;
+      pvPut(Steerer_T1_V2_CurrentSet);
+      Steerer_T1_H2_CurrentSet = 0;
+      pvPut(Steerer_T1_H2_CurrentSet);
+      Steerer_T1_V3_CurrentSet = 0;
+      pvPut(Steerer_T1_V3_CurrentSet);
+      Steerer_T1_H3_CurrentSet = 0;
+      pvPut(Steerer_T1_H3_CurrentSet);
+      Steerer_T1_V4_CurrentSet = 0;
+      pvPut(Steerer_T1_V4_CurrentSet);
+      Steerer_T1_H4_CurrentSet = 0;
+      pvPut(Steerer_T1_H4_CurrentSet);
+      Steerer_T1_V5_CurrentSet = 0;
+      pvPut(Steerer_T1_V5_CurrentSet);
+      Steerer_T1_H5_CurrentSet = 0;
+      pvPut(Steerer_T1_H5_CurrentSet);
+      Steerer_T1_V6_CurrentSet = 0;
+      pvPut(Steerer_T1_V6_CurrentSet);
+      Steerer_T1_H6_CurrentSet = 0;
+      pvPut(Steerer_T1_H6_CurrentSet);
+      Steerer_T2_V1_CurrentSet = 0;
+      pvPut(Steerer_T2_V1_CurrentSet);
+      Steerer_T2_H1_CurrentSet = 0;
+      pvPut(Steerer_T2_H1_CurrentSet);
+      Steerer_T2_V2_CurrentSet = 0;
+      pvPut(Steerer_T2_V2_CurrentSet);
+      Steerer_T2_H2_CurrentSet = 0;
+      pvPut(Steerer_T2_H2_CurrentSet);
+      Steerer_T2_V3_CurrentSet = 0;
+      pvPut(Steerer_T2_V3_CurrentSet);
+      Steerer_T2_H3_CurrentSet = 0;
+      pvPut(Steerer_T2_H3_CurrentSet);
+      Steerer_T3_V1_CurrentSet = 0;
+      pvPut(Steerer_T3_V1_CurrentSet);
+      Steerer_T3_H1_CurrentSet = 0;
+      pvPut(Steerer_T3_H1_CurrentSet);
+      Steerer_T3_V2_CurrentSet = 0;
+      pvPut(Steerer_T3_V2_CurrentSet);
+      Steerer_T3_H2_CurrentSet = 0;
+      pvPut(Steerer_T3_H2_CurrentSet);
+      Steerer_T4_V1_CurrentSet = 0;
+      pvPut(Steerer_T4_V1_CurrentSet);
+      Steerer_T4_H1_CurrentSet = 0;
+      pvPut(Steerer_T4_H1_CurrentSet);
+      Steerer_T4_V2_CurrentSet = 0;
+      pvPut(Steerer_T4_V2_CurrentSet);
+      Steerer_T4_H2_CurrentSet = 0;
+      pvPut(Steerer_T4_H2_CurrentSet);
+      Steerer_T5_V1_CurrentSet = 0;
+      pvPut(Steerer_T5_V1_CurrentSet);
+      Steerer_T5_H1_CurrentSet = 0;
+      pvPut(Steerer_T5_H1_CurrentSet);
+      Steerer_T5_V2_CurrentSet = 0;
+      pvPut(Steerer_T5_V2_CurrentSet);
+      Steerer_T5_H2_CurrentSet = 0;
+      pvPut(Steerer_T5_H2_CurrentSet);
+
+      printf("[SEQ ORCHESTRATION] Disable Steerers \n");
+      Steerer_T1_V1_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V1_ChEnableCmd);
+      Steerer_T1_H1_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H1_ChEnableCmd);
+      Steerer_T1_V2_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V2_ChEnableCmd);
+      Steerer_T1_H2_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H2_ChEnableCmd);
+      Steerer_T1_V3_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V3_ChEnableCmd);
+      Steerer_T1_H3_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H3_ChEnableCmd);
+      Steerer_T1_V4_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V4_ChEnableCmd);
+      Steerer_T1_H4_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H4_ChEnableCmd);
+      Steerer_T1_V5_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V5_ChEnableCmd);
+      Steerer_T1_H5_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H5_ChEnableCmd);
+      Steerer_T1_V6_ChEnableCmd = 0;
+      pvPut(Steerer_T1_V6_ChEnableCmd);
+      Steerer_T1_H6_ChEnableCmd = 0;
+      pvPut(Steerer_T1_H6_ChEnableCmd);
+      Steerer_T2_V1_ChEnableCmd = 0;
+      pvPut(Steerer_T2_V1_ChEnableCmd);
+      Steerer_T2_H1_ChEnableCmd = 0;
+      pvPut(Steerer_T2_H1_ChEnableCmd);
+      Steerer_T2_V2_ChEnableCmd = 0;
+      pvPut(Steerer_T2_V2_ChEnableCmd);
+      Steerer_T2_H2_ChEnableCmd = 0;
+      pvPut(Steerer_T2_H2_ChEnableCmd);
+      Steerer_T2_V3_ChEnableCmd = 0;
+      pvPut(Steerer_T2_V3_ChEnableCmd);
+      Steerer_T2_H3_ChEnableCmd = 0;
+      pvPut(Steerer_T2_H3_ChEnableCmd);
+      Steerer_T3_V1_ChEnableCmd = 0;
+      pvPut(Steerer_T3_V1_ChEnableCmd);
+      Steerer_T3_H1_ChEnableCmd = 0;
+      pvPut(Steerer_T3_H1_ChEnableCmd);
+      Steerer_T3_V2_ChEnableCmd = 0;
+      pvPut(Steerer_T3_V2_ChEnableCmd);
+      Steerer_T3_H2_ChEnableCmd = 0;
+      pvPut(Steerer_T3_H2_ChEnableCmd);
+      Steerer_T4_V1_ChEnableCmd = 0;
+      pvPut(Steerer_T4_V1_ChEnableCmd);
+      Steerer_T4_H1_ChEnableCmd = 0;
+      pvPut(Steerer_T4_H1_ChEnableCmd);
+      Steerer_T4_V2_ChEnableCmd = 0;
+      pvPut(Steerer_T4_V2_ChEnableCmd);
+      Steerer_T4_H2_ChEnableCmd = 0;
+      pvPut(Steerer_T4_H2_ChEnableCmd);
+      Steerer_T5_V1_ChEnableCmd = 0;
+      pvPut(Steerer_T5_V1_ChEnableCmd);
+      Steerer_T5_H1_ChEnableCmd = 0;
+      pvPut(Steerer_T5_H1_ChEnableCmd);
+      Steerer_T5_V2_ChEnableCmd = 0;
+      pvPut(Steerer_T5_V2_ChEnableCmd);
+      Steerer_T5_H2_ChEnableCmd = 0;
+      pvPut(Steerer_T5_H2_ChEnableCmd);
+
+      /*
+       * Setup Cooling System
+       * - check if sub-system is in MANUAL or AUTO mode
+       * - set start operation command to ENABLE
+      */
+      Cooling_StartOperationCmd=1;
+      pvPut(Cooling_StartOperationCmd);
+      sleep(5);
+      /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
+      if (Cooling_StateMachineCode == 30) {
+        if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (Cooling_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          Cooling_Manual_Test_Done=1;
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+        }
+      }
+
+      /*
+       * Setup RF System
+       * - set control in Frequency Follower Mode
+      */
+      DTL_Frequency_Mode=909;
+      pvPut(DTL_Frequency_Mode);
+
+      /*
+       * Setup Temperature System
+       * - set Alarm Temperature to T0_MAX (used HIHI limit)
+      */
+      set_temperature_tank1(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank2(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank3(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank4(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank5(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+
+      /*
+       * Indicate DTL ready for RF (not BEAM)
+      */
+      DTL_T1_RF_Ready=1;
+      pvPut(DTL_T1_RF_Ready);
+      DTL_T2_RF_Ready=1;
+      pvPut(DTL_T2_RF_Ready);
+      DTL_T3_RF_Ready=1;
+      pvPut(DTL_T3_RF_Ready);
+      DTL_T4_RF_Ready=1;
+      pvPut(DTL_T4_RF_Ready);
+      DTL_T5_RF_Ready=1;
+      pvPut(DTL_T5_RF_Ready);
+      DTL_RF_Ready=1;
+      pvPut(DTL_RF_Ready);
+      DTL_T1_Beam_Ready=1;
+      pvPut(DTL_T1_Beam_Ready);
+      DTL_T2_Beam_Ready=1;
+      pvPut(DTL_T2_Beam_Ready);
+      DTL_T3_Beam_Ready=1;
+      pvPut(DTL_T3_Beam_Ready);
+      DTL_T4_Beam_Ready=1;
+      pvPut(DTL_T4_Beam_Ready);
+      DTL_T5_Beam_Ready=1;
+      pvPut(DTL_T5_Beam_Ready);
+      DTL_Beam_Ready=0;
+      pvPut(DTL_Beam_Ready);
+
     }
 
     /* If there is at least one sub-system is not ok, come back to stand_by stage */
     when ( (T1_Vacuum_OK_Status == 0) || (T2_Vacuum_OK_Status == 0) || (T3_Vacuum_OK_Status == 0) || (T4_Vacuum_OK_Status == 0) || (T5_Vacuum_OK_Status == 0) || (T0_Coolong_OK_Status == 0) || (T1_Cooling_OK_Status == 0) || (T2_Cooling_OK_Status == 0) || (T3_Cooling_OK_Status == 0) || (T4_Cooling_OK_Status == 0) || (T5_Cooling_OK_Status == 0) || (T1_RFSlow_OK_Status == 0) || (T2_RFSlow_OK_Status == 0) || (T3_RFSlow_OK_Status == 0) || (T4_RFSlow_OK_Status == 0) || (T5_RFSlow_OK_Status == 0) || (T1_Steerer_OK_Status == 0) || (T2_Steerer_OK_Status == 0) || (T3_Steerer_OK_Status == 0) || (T4_Steerer_OK_Status == 0) || (T5_Steerer_OK_Status == 0) || (T1_Tuner_OK_Status == 0) || (T2_Tuner_OK_Status == 0) || (T3_Tuner_OK_Status == 0) || (T4_Tuner_OK_Status == 0) || (T5_Tuner_OK_Status == 0) || (T1_ArcDetection_OK_Status == 0) || (T2_ArcDetection_OK_Status == 0) || (T3_ArcDetection_OK_Status == 0) || (T4_ArcDetection_OK_Status == 0) || (T5_ArcDetection_OK_Status == 0) ) {
-        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
+        printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. Check sub-systems state machine stages\n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* Stop Operations for sub-systems */
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+
         /*
-         *  Additional cmds
+         *  Additional cmds for checks
          */
 
     } state stand_by
 
+    /* Execute cooling manual start-up test on fluxes and pressures */
+    when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
+
+    } status rf_conditioning
+
+    /* Error: cooling system not in ready for operation stage */
+    when (Cooling_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
+
+    /* Error: tuner system not in ready for operation stage */
+    when (Tuners_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
+
+    /* Error: steerer system not in ready for operation stage */
+    when (Steerer_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Steerer sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
 
     /* Error in operation request  the Operator */
-    when ( dtlOperationalCode_Command != 101 ) {
+    when ( (dtlOperationalCode_Command != 101) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in RF_CONDITIONING stage. \n");
 
@@ -666,12 +2041,18 @@ ss  orchestration_statemachine {
         printf("[SEQ ORCHESTRATION] Request for Stand By operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* Stop operation commands for cooling, tuners and steerer sub-systems */
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
+
     } state stand_by
-
-    /* ... */
-    when ( ... ) {
-
-    } state rf_
 
   }
 
@@ -682,8 +2063,351 @@ state rf_start_up {
 
     entry {
       printf("\n[SEQ ORCHESTRATION] Enter in RF START-UP status\n");
+      dtl_operation_code_prev=dtlOperationalCode;
       dtlOperationalCode=303;
       pvPut(dtlOperationalCode);
+
+      /*
+       * Setup Tuner System
+       * - set autoControl to MANUAL [0]
+       * - set start operation command to ENABLE
+       * - ENABLE Motors
+       * - DISABLE PID control
+       * - set start-up working position
+      */
+      /* Case sub-system in idle */
+      if (Tuners_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Tuner System in IDLE: set MANUAL control and enable operation\n");
+
+        Tuners_AutoControlCmd=0;
+        pvPut(Tuners_AutoControlCmd);
+        Tuners_StartOperationCmd=1;
+        pvPut(Tuners_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Tuners_StateMachineCode == 30) && (Tuners_AutoControl_ActualStatus == 1) ) {
+        printf("[SEQ ORCHESTRATION] Tuner System in READY FOR OPERATION: set only MANUAL control \n");
+        Tuners_AutoControlCmd=0;
+        pvPut(Tuners_AutoControlCmd);
+
+      }
+      printf("[SEQ ORCHESTRATION] Disable Tuners PID control \n");
+      Tuners_T1_M1_PID_Enable=0;
+      pvPut(Tuners_T1_M1_PID_Enable);
+      Tuners_T1_M2_PID_Enable=0;
+      pvPut(Tuners_T1_M2_PID_Enable);
+      Tuners_T1_M3_PID_Enable=0;
+      pvPut(Tuners_T1_M3_PID_Enable);
+      Tuners_T2_M1_PID_Enable=0;
+      pvPut(Tuners_T2_M1_PID_Enable);
+      Tuners_T2_M2_PID_Enable=0;
+      pvPut(Tuners_T2_M2_PID_Enable);
+      Tuners_T2_M3_PID_Enable=0;
+      pvPut(Tuners_T2_M3_PID_Enable);
+      Tuners_T3_M1_PID_Enable=0;
+      pvPut(Tuners_T3_M1_PID_Enable);
+      Tuners_T3_M2_PID_Enable=0;
+      pvPut(Tuners_T3_M2_PID_Enable);
+      Tuners_T3_M3_PID_Enable=0;
+      pvPut(Tuners_T3_M3_PID_Enable);
+      Tuners_T4_M1_PID_Enable=0;
+      pvPut(Tuners_T4_M1_PID_Enable);
+      Tuners_T4_M2_PID_Enable=0;
+      pvPut(Tuners_T4_M2_PID_Enable);
+      Tuners_T4_M3_PID_Enable=0;
+      pvPut(Tuners_T4_M3_PID_Enable);
+      Tuners_T5_M1_PID_Enable=0;
+      pvPut(Tuners_T5_M1_PID_Enable);
+      Tuners_T5_M2_PID_Enable=0;
+      pvPut(Tuners_T5_M2_PID_Enable);
+      Tuners_T5_M3_PID_Enable=0;
+      pvPut(Tuners_T5_M3_PID_Enable);
+
+      printf("[SEQ ORCHESTRATION] Enable Tuners motor axis \n");
+      Tuners_T1_M1_Axis_Enable=1;
+      pvPut(Tuners_T1_M1_Axis_Enable);
+      Tuners_T1_M2_Axis_Enable=1;
+      pvPut(Tuners_T1_M2_Axis_Enable);
+      Tuners_T1_M3_Axis_Enable=1;
+      pvPut(Tuners_T1_M3_Axis_Enable);
+      Tuners_T2_M1_Axis_Enable=1;
+      pvPut(Tuners_T2_M1_Axis_Enable);
+      Tuners_T2_M2_Axis_Enable=1;
+      pvPut(Tuners_T2_M2_Axis_Enable);
+      Tuners_T2_M3_Axis_Enable=1;
+      pvPut(Tuners_T2_M3_Axis_Enable);
+      Tuners_T3_M1_Axis_Enable=1;
+      pvPut(Tuners_T3_M1_Axis_Enable);
+      Tuners_T3_M2_Axis_Enable=1;
+      pvPut(Tuners_T3_M2_Axis_Enable);
+      Tuners_T3_M3_Axis_Enable=1;
+      pvPut(Tuners_T3_M3_Axis_Enable);
+      Tuners_T4_M1_Axis_Enable=1;
+      pvPut(Tuners_T4_M1_Axis_Enable);
+      Tuners_T4_M2_Axis_Enable=1;
+      pvPut(Tuners_T4_M2_Axis_Enable);
+      Tuners_T4_M3_Axis_Enable=1;
+      pvPut(Tuners_T4_M3_Axis_Enable);
+      Tuners_T5_M1_Axis_Enable=1;
+      pvPut(Tuners_T5_M1_Axis_Enable);
+      Tuners_T5_M2_Axis_Enable=1;
+      pvPut(Tuners_T5_M2_Axis_Enable);
+      Tuners_T5_M3_Axis_Enable=1;
+      pvPut(Tuners_T5_M3_Axis_Enable);
+
+      printf("[SEQ ORCHESTRATION] SEt Tuners position to Start-up working position \n");
+      Tuners_T1_M1_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T1_M1_Axis_Enable);
+      Tuners_T1_M2_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T1_M2_Axis_Enable);
+      Tuners_T1_M3_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T1_M3_Axis_Enable);
+      Tuners_T2_M1_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T2_M1_Axis_Enable);
+      Tuners_T2_M2_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T2_M2_Axis_Enable);
+      Tuners_T2_M3_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T2_M3_Axis_Enable);
+      Tuners_T3_M1_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T3_M1_Axis_Enable);
+      Tuners_T3_M2_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T3_M2_Axis_Enable);
+      Tuners_T3_M3_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T3_M3_Axis_Enable);
+      Tuners_T4_M1_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T4_M1_Axis_Enable);
+      Tuners_T4_M2_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T4_M2_Axis_Enable);
+      Tuners_T4_M3_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T4_M3_Axis_Enable);
+      Tuners_T5_M1_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T5_M1_Axis_Enable);
+      Tuners_T5_M2_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T5_M2_Axis_Enable);
+      Tuners_T5_M3_Axis_Position=DTL_Tuners_RF_Startup_Working_Position;
+      pvPut(Tuners_T5_M3_Axis_Enable);
+
+      /*
+       * Setup Steerer System
+       * - set autoControl to MANUAL [0]
+       * - set start operation command to ENABLE
+       * - set current setpoint to RF Startup Working Current
+       * - ENABLE steerers
+      */
+      /* Case sub-system in idle */
+      if (Steerer_StateMachineCode == 20) {
+        printf("[SEQ ORCHESTRATION] Steerer System in IDLE: set MANUAL control and enable operation\n");
+
+        Steerer_AutoControlCmd=0;
+        pvPut(Steerer_AutoControlCmd);
+        Steerer_StartOperationCmd=1;
+        pvPut(Steerer_StartOperationCmd);
+      }
+
+      /* Case sub-system in ready for operation */
+      else if ( (Steerer_StateMachineCode == 30) && (Steerer_AutoControl_ActualStatus == 1) ) {
+        printf("[SEQ ORCHESTRATION] Steerer System in READY FOR OPERATION: set only MANUAL control \n");
+        Steerer_AutoControlCmd=0;
+        pvPut(Steerer_AutoControlCmd);
+
+      }
+
+      printf("[SEQ ORCHESTRATION] Enable Steerers \n");
+      Steerer_T1_V1_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V1_ChEnableCmd);
+      Steerer_T1_H1_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H1_ChEnableCmd);
+      Steerer_T1_V2_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V2_ChEnableCmd);
+      Steerer_T1_H2_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H2_ChEnableCmd);
+      Steerer_T1_V3_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V3_ChEnableCmd);
+      Steerer_T1_H3_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H3_ChEnableCmd);
+      Steerer_T1_V4_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V4_ChEnableCmd);
+      Steerer_T1_H4_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H4_ChEnableCmd);
+      Steerer_T1_V5_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V5_ChEnableCmd);
+      Steerer_T1_H5_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H5_ChEnableCmd);
+      Steerer_T1_V6_ChEnableCmd = 1;
+      pvPut(Steerer_T1_V6_ChEnableCmd);
+      Steerer_T1_H6_ChEnableCmd = 1;
+      pvPut(Steerer_T1_H6_ChEnableCmd);
+      Steerer_T2_V1_ChEnableCmd = 1;
+      pvPut(Steerer_T2_V1_ChEnableCmd);
+      Steerer_T2_H1_ChEnableCmd = 1;
+      pvPut(Steerer_T2_H1_ChEnableCmd);
+      Steerer_T2_V2_ChEnableCmd = 1;
+      pvPut(Steerer_T2_V2_ChEnableCmd);
+      Steerer_T2_H2_ChEnableCmd = 1;
+      pvPut(Steerer_T2_H2_ChEnableCmd);
+      Steerer_T2_V3_ChEnableCmd = 1;
+      pvPut(Steerer_T2_V3_ChEnableCmd);
+      Steerer_T2_H3_ChEnableCmd = 1;
+      pvPut(Steerer_T2_H3_ChEnableCmd);
+      Steerer_T3_V1_ChEnableCmd = 1;
+      pvPut(Steerer_T3_V1_ChEnableCmd);
+      Steerer_T3_H1_ChEnableCmd = 1;
+      pvPut(Steerer_T3_H1_ChEnableCmd);
+      Steerer_T3_V2_ChEnableCmd = 1;
+      pvPut(Steerer_T3_V2_ChEnableCmd);
+      Steerer_T3_H2_ChEnableCmd = 1;
+      pvPut(Steerer_T3_H2_ChEnableCmd);
+      Steerer_T4_V1_ChEnableCmd = 1;
+      pvPut(Steerer_T4_V1_ChEnableCmd);
+      Steerer_T4_H1_ChEnableCmd = 1;
+      pvPut(Steerer_T4_H1_ChEnableCmd);
+      Steerer_T4_V2_ChEnableCmd = 1;
+      pvPut(Steerer_T4_V2_ChEnableCmd);
+      Steerer_T4_H2_ChEnableCmd = 1;
+      pvPut(Steerer_T4_H2_ChEnableCmd);
+      Steerer_T5_V1_ChEnableCmd = 1;
+      pvPut(Steerer_T5_V1_ChEnableCmd);
+      Steerer_T5_H1_ChEnableCmd = 1;
+      pvPut(Steerer_T5_H1_ChEnableCmd);
+      Steerer_T5_V2_ChEnableCmd = 1;
+      pvPut(Steerer_T5_V2_ChEnableCmd);
+      Steerer_T5_H2_ChEnableCmd = 1;
+      pvPut(Steerer_T5_H2_ChEnableCmd);
+
+      printf("[SEQ ORCHESTRATION] Set Steerers setpoint to DTL_Steerer_RF_Startup_Working_Current \n");
+      Steerer_T1_V1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V1_CurrentSet);
+      Steerer_T1_H1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H1_CurrentSet);
+      Steerer_T1_V2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V2_CurrentSet);
+      Steerer_T1_H2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H2_CurrentSet);
+      Steerer_T1_V3_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V3_CurrentSet);
+      Steerer_T1_H3_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H3_CurrentSet);
+      Steerer_T1_V4_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V4_CurrentSet);
+      Steerer_T1_H4_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H4_CurrentSet);
+      Steerer_T1_V5_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V5_CurrentSet);
+      Steerer_T1_H5_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H5_CurrentSet);
+      Steerer_T1_V6_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_V6_CurrentSet);
+      Steerer_T1_H6_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T1_H6_CurrentSet);
+      Steerer_T2_V1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_V1_CurrentSet);
+      Steerer_T2_H1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_H1_CurrentSet);
+      Steerer_T2_V2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_V2_CurrentSet);
+      Steerer_T2_H2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_H2_CurrentSet);
+      Steerer_T2_V3_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_V3_CurrentSet);
+      Steerer_T2_H3_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T2_H3_CurrentSet);
+      Steerer_T3_V1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T3_V1_CurrentSet);
+      Steerer_T3_H1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T3_H1_CurrentSet);
+      Steerer_T3_V2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T3_V2_CurrentSet);
+      Steerer_T3_H2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T3_H2_CurrentSet);
+      Steerer_T4_V1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T4_V1_CurrentSet);
+      Steerer_T4_H1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T4_H1_CurrentSet);
+      Steerer_T4_V2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T4_V2_CurrentSet);
+      Steerer_T4_H2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T4_H2_CurrentSet);
+      Steerer_T5_V1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T5_V1_CurrentSet);
+      Steerer_T5_H1_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T5_H1_CurrentSet);
+      Steerer_T5_V2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T5_V2_CurrentSet);
+      Steerer_T5_H2_CurrentSet = DTL_Steerer_RF_Startup_Working_Current;
+      pvPut(Steerer_T5_H2_CurrentSet);
+
+
+      /*
+       * Setup Cooling System
+       * - check if sub-system is in MANUAL or AUTO mode
+       * - set start operation command to ENABLE
+      */
+      Cooling_StartOperationCmd=1;
+      pvPut(Cooling_StartOperationCmd);
+      sleep(5);
+      /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
+      if (Cooling_StateMachineCode == 30) {
+        if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (Cooling_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Cooling sub-sytem in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          Cooling_Manual_Test_Done=1;
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+        }
+      }
+
+      /*
+       * Setup RF System
+       * - set control in Frequency Follower Mode
+      */
+      DTL_Frequency_Mode=909;
+      pvPut(DTL_Frequency_Mode);
+
+      /*
+       * Setup Temperature System
+       * - set Alarm Temperature to T0_MAX (used HIHI limit)
+      */
+      set_temperature_tank1(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank2(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank3(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank4(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      set_temperature_tank5(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+
+      /*
+       * Indicate DTL ready for RF (not BEAM)
+      */
+      DTL_T1_RF_Ready=1;
+      pvPut(DTL_T1_RF_Ready);
+      DTL_T2_RF_Ready=1;
+      pvPut(DTL_T2_RF_Ready);
+      DTL_T3_RF_Ready=1;
+      pvPut(DTL_T3_RF_Ready);
+      DTL_T4_RF_Ready=1;
+      pvPut(DTL_T4_RF_Ready);
+      DTL_T5_RF_Ready=1;
+      pvPut(DTL_T5_RF_Ready);
+      DTL_RF_Ready=1;
+      pvPut(DTL_RF_Ready);
+      DTL_T1_Beam_Ready=1;
+      pvPut(DTL_T1_Beam_Ready);
+      DTL_T2_Beam_Ready=1;
+      pvPut(DTL_T2_Beam_Ready);
+      DTL_T3_Beam_Ready=1;
+      pvPut(DTL_T3_Beam_Ready);
+      DTL_T4_Beam_Ready=1;
+      pvPut(DTL_T4_Beam_Ready);
+      DTL_T5_Beam_Ready=1;
+      pvPut(DTL_T5_Beam_Ready);
+      DTL_Beam_Ready=0;
+      pvPut(DTL_Beam_Ready);
+
     }
 
     /* If there is at least one sub-system is not ok, come back to stand_by stage */
@@ -737,6 +2461,7 @@ state ready_for_operation {
 
     entry {
       printf("\n[SEQ ORCHESTRATION] Enter in READY FOR OPERATION status\n");
+      dtl_operation_code_prev=dtlOperationalCode;
       dtlOperationalCode=404;
       pvPut(dtlOperationalCode);
 
@@ -792,6 +2517,7 @@ state no_accelerated_beam {
 
     entry {
         printf("\n[SEQ ORCHESTRATION] Enter in NO ACCELERATED BEAM status\n");
+        dtl_operation_code_prev=dtlOperationalCode;
         dtlOperationalCode=505;
         pvPut(dtlOperationalCode);
 
@@ -837,6 +2563,7 @@ state no_accelerated_beam {
 
     entry {
         printf("\n[SEQ ORCHESTRATION] Enter in MAINTENANCE status\n");
+        dtl_operation_code_prev=dtlOperationalCode;
         dtlOperationalCode=606;
         pvPut(dtlOperationalCode);
     }

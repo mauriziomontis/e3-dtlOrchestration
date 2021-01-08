@@ -1,0 +1,15 @@
+# Records for Tuners Sub-System
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+# RF Start-Up Working Current Pos0
+record(ai, "DTL:PwrC-PSCV:RFStartUpWorkingCur") {
+	field(DESC, "RF Startup Working Current")
+	field(VAL, "2")
+	field(PINI, "YES")
+	field(EGU, "A")
+	field(PREC, "2")
+	field(EGUF,	"10")
+	field(EGUL,	"-10")
+}
