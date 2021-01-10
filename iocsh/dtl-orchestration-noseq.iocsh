@@ -51,26 +51,29 @@ loadIocsh("recsync.iocsh", "IOCNAME=$(IOCNAME)")
 # Databases and Template
 #
 
-# Main State Machine code
+# Main State Machine
 dbLoadRecords("StateMachineCode.db")
+dbLoadRecords("dtlMaintenance.db")
+dbLoadRecords("dtlTemporaryRecords.db")
 
 # Parameters Vacuum
-dbLoadRecords("")
+dbLoadRecords("parametersVacuum.db")
 
 # Parameters Cooling
 dbLoadRecords("parametersCooling.db")
 
 # Parameters Temperatures
-dbLoadRecords("")
+dbLoadRecords("parametersTemperature.db")
 
 # Parameters Steerers
-dbLoadRecords("")
+dbLoadRecords("parametersSteerer.db")
 
 # Parameters Tuners
-dbLoadRecords("")
+dbLoadRecords("parametersTuners.db")
 
 # Parameters RF and Arc Detection
 dbLoadRecords("parametersFrequency.db")
+dbLoadRecords("parametersArcDetection.db")
 
 
 #
