@@ -1,0 +1,22 @@
+# Records for Arc Detection Sub-System
+#
+# Defined by Maurizio Montis | INFN-LNL
+# mail: maurizio.montis@lnl.infn.it
+
+# RF Conditioning Max Number of Arcs [-]
+record(ai, "DTL:RFS-AD:RFCondArcLim") {
+	field(DESC, "RF Cond Max Arc Limit")
+	field(VAL, "3")
+	field(PINI, "YES")
+	field(EGU, "")
+	field(PREC, "0")
+}
+
+# RF Start-Up, RF Beam Operation && No Accelerated Beam Max Number of Arcs [-]
+record(ai, "DTL:VacS:RFBeamOpArcLim") {
+	field(DESC, "Beam Op Max Arc Limit")
+	field(VAL, "1")
+	field(PINI, "YES")
+	field(EGU, "")
+	field(PREC, "0")
+}

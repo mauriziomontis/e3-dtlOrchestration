@@ -73,6 +73,7 @@ dbLoadRecords("parametersTuners.db")
 
 # Parameters RF and Arc Detection
 dbLoadRecords("parametersFrequency.db")
+dbLoadRecords("parametersArcDetection.db")
 
 
 #

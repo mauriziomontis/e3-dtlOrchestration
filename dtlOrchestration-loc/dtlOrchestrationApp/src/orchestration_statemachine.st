@@ -234,6 +234,10 @@ monitor Tuners_StopOperationCmd;
 int ArcDetection_StartOperationCmd;
 assign ArcDetection_StartOperationCmd to "DTL:RFS-AD:OpRun";
 monitor ArcDetection_StartOperationCmd;
+/* Manual Test Procedure Completed Command*/
+int ArcDetection_Manual_Test_Done;
+assign ArcDetection_Manual_Test_Done to "DTL:RFS-AD:TestDone";
+monitor ArcDetection_Manual_Test_Done;
 
 
 /* -------- Maintenance and fault control -------- */
@@ -1294,6 +1298,45 @@ assign Thermosensors_T5_Max_Temp_200 to "DTL-050:EMR-TT-100:Temp.HIHI";
 monitor Thermosensors_T5_Max_Temp_200;
 
 
+/* -------- Vacuum Tank Pressures  -------- */
+double Vacuum_T1_Pressure;
+assign Vacuum_T1_Pressure to "";
+monitor Vacuum_T1_Pressure;
+double Vacuum_T2_Pressure;
+assign Vacuum_T2_Pressure to "";
+monitor Vacuum_T2_Pressure;
+double Vacuum_T3_Pressure;
+assign Vacuum_T3_Pressure to "";
+monitor Vacuum_T3_Pressure;
+double Vacuum_T4_Pressure;
+assign Vacuum_T4_Pressure to "";
+monitor Vacuum_T4_Pressure;
+double Vacuum_T5_Pressure;
+assign Vacuum_T5_Pressure to "";
+monitor Vacuum_T5_Pressure;
+
+/* -------- Vacuum inter-Tank valves   -------- */
+int Vacuum_T1_Intertank_Valve_Status;
+assign Vacuum_T1_Intertank_Valve_Status to "";
+monitor Vacuum_T1_Intertank_Valve_Status;
+int Vacuum_T2_Intertank_Valve_Status;
+assign Vacuum_T2_Intertank_Valve_Status to "";
+monitor Vacuum_T2_Intertank_Valve_Status;
+int Vacuum_T3_Intertank_Valve_Status;
+assign Vacuum_T3_Intertank_Valve_Status to "";
+monitor Vacuum_T3_Intertank_Valve_Status;
+int Vacuum_T4_Intertank_Valve_Status;
+assign Vacuum_T4_Intertank_Valve_Status to "";
+monitor Vacuum_T4_Intertank_Valve_Status;
+int Vacuum_T5_Intertank_Valve_Status;
+assign Vacuum_T5_Intertank_Valve_Status to "";
+monitor Vacuum_T5_Intertank_Valve_Status;
+
+
+
+
+
+
 /*
 # Stages Code:
 # 	0  -> INIT
@@ -1362,7 +1405,7 @@ monitor dtlOperationalCode;
 /*
   Notes:
     - stage INITIALIZATION cannot be forced to change (only automatic setup)
-    - stage MAINTENACE cannot be forced to change (only maintenance reset allowed)
+    - stage MAINTENANCE cannot be forced to change (only maintenance reset allowed)
 */
 int dtlOperationalCode_Command;
 assign dtlOperationalCode_Command to "DTL::Operation";
@@ -1559,7 +1602,7 @@ ss  orchestration_statemachine {
       /* DTL Maintenance Status Request */
       when (DTL_Maintenance_Command == 1) {
         printf("[SEQ ORCHESTRATION] DTL request for maintenance by operator\n");
-        printf("[SEQ ORCHESTRATION] Main System goed to MAINTENANCE stage. \n");
+        printf("[SEQ ORCHESTRATION] Main System goes to MAINTENANCE stage. \n");
         DTL_Maintenance_Readback=DTL_Maintenance_Command;
         pvPut(DTL_Maintenance_Readback);
 
@@ -1575,6 +1618,9 @@ ss  orchestration_statemachine {
           DTL_Maintenance_Readback=DTL_Maintenance_Command;
           pvPut(DTL_Maintenance_Command);
           pvPut(DTL_Maintenance_Readback);
+
+          /* save last operational code command sent */
+          dtl_operation_command_prev=dtlOperationalCode_Command;
 
       } state maintenance
 
@@ -1607,14 +1653,14 @@ ss  orchestration_statemachine {
       } state initialization
 
       /* Error in operation request  the Operator */
-      when ( (dtlOperationalCode_Command != 202) || (dtlOperationalCode_Command != 303) || (dtlOperationalCode_Command != 505) || (dtlOperationalCode_Command != 606) ) {
+      when ( ( (dtlOperationalCode_Command != 202) || (dtlOperationalCode_Command != 303) || (dtlOperationalCode_Command != 505) || (dtlOperationalCode_Command != 606) ) && (dtlOperationalCode_Command != dtl_operation_code_prev) ) {
           printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
           printf("[SEQ ORCHESTRATION] Main system remains in STAND_BY stage. \n");
 
       } state stand_by
 
       /* Request for RF Conditioning stage by the Operator */
-      when (dtlOperationalCode_Command == 202) {
+      when ( (dtlOperationalCode_Command == 202) && (Vacuum_T1_Pressure <= DTL_Vacuum_RF_Conditioning_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_RF_Conditioning_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_RF_Conditioning_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_RF_Conditioning_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_RF_Conditioning_Working_Pressure) ) {
           printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to RF_CONDITIONING stage. \n");
           /* save last operational code command sent */
@@ -1623,7 +1669,7 @@ ss  orchestration_statemachine {
       } state rf_conditioning
 
       /* Request for RF Startup stage by the Operator */
-      when (dtlOperationalCode_Command == 303) {
+      when ( (dtlOperationalCode_Command == 303) && (Vacuum_T1_Pressure <= DTL_Vacuum_StartUp_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_StartUp_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_StartUp_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_StartUp_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_StartUp_Working_Pressure) ) {
           printf("[SEQ ORCHESTRATION] Request for RF Start-up operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to RF STARTUP stage. \n");
           /* save last operational code command sent */
@@ -1632,7 +1678,7 @@ ss  orchestration_statemachine {
       } state rf_start_up
 
       /* Request for No Accelerated Beam stage by the Operator */
-      when (dtlOperationalCode_Command == 505) {
+      when ( (dtlOperationalCode_Command == 505) && (Vacuum_T1_Pressure <= DTL_Vacuum_no_Operation_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) )  {
           printf("[SEQ ORCHESTRATION] Request for No Accelerated Beam operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to NO_ACCELERATED_BEAM stage. \n");
           /* save last operational code command sent */
@@ -1658,7 +1704,7 @@ ss  orchestration_statemachine {
       /* DTL Maintenance Status Request */
       when (DTL_Maintenance_Command == 1) {
         printf("[SEQ ORCHESTRATION] DTL request for maintenance by operator\n");
-        printf("[SEQ ORCHESTRATION] Main System goed to MAINTENANCE stage. \n");
+        printf("[SEQ ORCHESTRATION] Main System goes to MAINTENANCE stage. \n");
         DTL_Maintenance_Readback=DTL_Maintenance_Command;
         pvPut(DTL_Maintenance_Readback);
 
@@ -1931,11 +1977,38 @@ ss  orchestration_statemachine {
         else if (Cooling_AutoControlCmd == 1) {
           printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
           Cooling_Manual_Test_Done=1;
+          pvPut(Cooling_Manual_Test_Done);
         }
         else {
-          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
         }
       }
+
+      /*
+       * Setup Arc Detection System
+       * -check if sub-system is in MANUAL or AUTO mode
+       * - set start operation command to ENABLE
+      */
+      ArcDetection_StartOperationCmd=1;
+      pvPut(ArcDetection_StartOperationCmd);
+
+      if (ArcDetection_StateMachineCode == 30) {
+        if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          ArcDetection_Manual_Test_Done=1;
+          pvPut(ArcDetection_Manual_Test_Done);
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
+        }
+      }
+
 
       /*
        * Setup RF System
@@ -1996,6 +2069,8 @@ ss  orchestration_statemachine {
         pvPut(Tuners_StopOperationCmd);
         Cooling_StopOperationCmd=1;
         pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
 
         /*
          *  Additional cmds for checks
@@ -2049,6 +2124,8 @@ ss  orchestration_statemachine {
         pvPut(Steerer_StopOperationCmd);
         Cooling_StopOperationCmd=1;
         pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
 
         /* save last operational code command sent */
         dtl_operation_command_prev=dtlOperationalCode_Command;
@@ -2359,9 +2436,35 @@ state rf_start_up {
         else if (Cooling_AutoControlCmd == 1) {
           printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
           Cooling_Manual_Test_Done=1;
+          pvPut(Cooling_Manual_Test_Done);
         }
         else {
-          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
+        }
+      }
+
+      /*
+       * Setup Arc Detection System
+       * -check if sub-system is in MANUAL or AUTO mode
+       * - set start operation command to ENABLE
+      */
+      ArcDetection_StartOperationCmd=1;
+      pvPut(ArcDetection_StartOperationCmd);
+
+      if (ArcDetection_StateMachineCode == 30) {
+        if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          ArcDetection_Manual_Test_Done=1;
+          pvPut(ArcDetection_Manual_Test_Done);
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
         }
       }
 
@@ -2424,6 +2527,8 @@ state rf_start_up {
         pvPut(Tuners_StopOperationCmd);
         Cooling_StopOperationCmd=1;
         pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
 
         /*
          *  Additional cmds
@@ -2477,6 +2582,8 @@ state rf_start_up {
         pvPut(Steerer_StopOperationCmd);
         Cooling_StopOperationCmd=1;
         pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
 
         /* save last operational code command sent */
         dtl_operation_command_prev=dtlOperationalCode_Command;
@@ -2484,8 +2591,8 @@ state rf_start_up {
     } state stand_by
 
     /* Request for Ready for Operation by the Operator */
-    /* Error if request is done when the frequency error (detuning) is less the Low Threshold Δf1: | f | >= | Δf1 |  */
-    when ( (dtlOperationalCode_Command == 404) && (DTL_Frequency_Detuning >= Freq_Low_Delta) ) {
+    /* Error if request is done when vacuum pressure is not under P2 [mBar] or frequency error (detuning) is less the Low Threshold Δf1: | f | >= | Δf1 |  */
+    when ( (dtlOperationalCode_Command == 404) && ( (DTL_Frequency_Detuning >= Freq_Low_Delta) || (Vacuum_T1_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) || (Vacuum_T1_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) || (Vacuum_T2_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) || (Vacuum_T3_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) || (Vacuum_T4_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) || (Vacuum_T5_Pressure > DTL_Vacuum_RF_Beam_Operation_Working_Pressure) ) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: frequency error higher than threshold. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in RF START-UP stage. \n");
 
@@ -2494,8 +2601,8 @@ state rf_start_up {
 
     } state rf_start_up
 
-    /* it is mandatory the frequency error (detuning) is lower than the Low Threshold Δf1: | f | < | Δf1 | */
-    when ( (dtlOperationalCode_Command == 404) && (DTL_Frequency_Detuning < Freq_Low_Delta) ) {
+    /* it is mandatory the tanks vacuum pressure is below P2 pressure and the frequency error (detuning) is lower than the Low Threshold Δf1: | f | < | Δf1 | */
+    when ( (dtlOperationalCode_Command == 404) && (DTL_Frequency_Detuning < Freq_Low_Delta) && (Vacuum_T1_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) ) {
         printf("[SEQ ORCHESTRATION] Request for Ready for Operation operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to READY_FOR_OPERATION stage. \n");
 
@@ -2619,7 +2726,30 @@ state ready_for_operation {
           Cooling_Manual_Test_Done=1;
         }
         else {
-          printf("[SEQ ORCHESTRATION] This message should not be showed :) \n");
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
+        }
+      }
+
+      /*
+       * Setup Arc Detection System
+       * -check if sub-system is in MANUAL or AUTO mode
+       * - set start operation command already ENABLE
+      */
+      /* To Be Checked */
+      if (ArcDetection_StateMachineCode == 30) {
+        if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 0) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+        }
+        else if (ArcDetection_AutoControlCmd == 1) {
+          printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+          ArcDetection_Manual_Test_Done=1;
+          pvPut(ArcDetection_Manual_Test_Done);
+        }
+        else {
+          printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
         }
       }
 
@@ -2672,6 +2802,8 @@ state ready_for_operation {
         pvPut(Tuners_StopOperationCmd);
         Cooling_StopOperationCmd=1;
         pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
 
         /*
          *  Additional cmds
@@ -2772,6 +2904,340 @@ state no_accelerated_beam {
         dtlOperationalCode=505;
         pvPut(dtlOperationalCode);
 
+
+        /*
+         * Setup Tuner System
+         * - no conditions required
+         * - keep the configuration user for RF conditioning
+        */
+        /* Case sub-system in idle */
+        if (Tuners_StateMachineCode == 20) {
+          printf("[SEQ ORCHESTRATION] Tuner System in IDLE: set MANUAL control and enable operation\n");
+
+          Tuners_AutoControlCmd=0;
+          pvPut(Tuners_AutoControlCmd);
+          Tuners_StartOperationCmd=1;
+          pvPut(Tuners_StartOperationCmd);
+        }
+
+        /* Case sub-system in ready for operation */
+        else if ( (Tuners_StateMachineCode == 30) && (Tuners_AutoControl_ActualStatus == 1) ) {
+          printf("[SEQ ORCHESTRATION] Tuner System in READY FOR OPERATION: set only MANUAL control \n");
+          Tuners_AutoControlCmd=0;
+          pvPut(Tuners_AutoControlCmd);
+
+        }
+        printf("[SEQ ORCHESTRATION] Disable Tuners PID control \n");
+        Tuners_T1_M1_PID_Enable=0;
+        pvPut(Tuners_T1_M1_PID_Enable);
+        Tuners_T1_M2_PID_Enable=0;
+        pvPut(Tuners_T1_M2_PID_Enable);
+        Tuners_T1_M3_PID_Enable=0;
+        pvPut(Tuners_T1_M3_PID_Enable);
+        Tuners_T2_M1_PID_Enable=0;
+        pvPut(Tuners_T2_M1_PID_Enable);
+        Tuners_T2_M2_PID_Enable=0;
+        pvPut(Tuners_T2_M2_PID_Enable);
+        Tuners_T2_M3_PID_Enable=0;
+        pvPut(Tuners_T2_M3_PID_Enable);
+        Tuners_T3_M1_PID_Enable=0;
+        pvPut(Tuners_T3_M1_PID_Enable);
+        Tuners_T3_M2_PID_Enable=0;
+        pvPut(Tuners_T3_M2_PID_Enable);
+        Tuners_T3_M3_PID_Enable=0;
+        pvPut(Tuners_T3_M3_PID_Enable);
+        Tuners_T4_M1_PID_Enable=0;
+        pvPut(Tuners_T4_M1_PID_Enable);
+        Tuners_T4_M2_PID_Enable=0;
+        pvPut(Tuners_T4_M2_PID_Enable);
+        Tuners_T4_M3_PID_Enable=0;
+        pvPut(Tuners_T4_M3_PID_Enable);
+        Tuners_T5_M1_PID_Enable=0;
+        pvPut(Tuners_T5_M1_PID_Enable);
+        Tuners_T5_M2_PID_Enable=0;
+        pvPut(Tuners_T5_M2_PID_Enable);
+        Tuners_T5_M3_PID_Enable=0;
+        pvPut(Tuners_T5_M3_PID_Enable);
+
+        printf("[SEQ ORCHESTRATION] Disable Tuners motor axis \n");
+        Tuners_T1_M1_Axis_Enable=0;
+        pvPut(Tuners_T1_M1_Axis_Enable);
+        Tuners_T1_M2_Axis_Enable=0;
+        pvPut(Tuners_T1_M2_Axis_Enable);
+        Tuners_T1_M3_Axis_Enable=0;
+        pvPut(Tuners_T1_M3_Axis_Enable);
+        Tuners_T2_M1_Axis_Enable=0;
+        pvPut(Tuners_T2_M1_Axis_Enable);
+        Tuners_T2_M2_Axis_Enable=0;
+        pvPut(Tuners_T2_M2_Axis_Enable);
+        Tuners_T2_M3_Axis_Enable=0;
+        pvPut(Tuners_T2_M3_Axis_Enable);
+        Tuners_T3_M1_Axis_Enable=0;
+        pvPut(Tuners_T3_M1_Axis_Enable);
+        Tuners_T3_M2_Axis_Enable=0;
+        pvPut(Tuners_T3_M2_Axis_Enable);
+        Tuners_T3_M3_Axis_Enable=0;
+        pvPut(Tuners_T3_M3_Axis_Enable);
+        Tuners_T4_M1_Axis_Enable=0;
+        pvPut(Tuners_T4_M1_Axis_Enable);
+        Tuners_T4_M2_Axis_Enable=0;
+        pvPut(Tuners_T4_M2_Axis_Enable);
+        Tuners_T4_M3_Axis_Enable=0;
+        pvPut(Tuners_T4_M3_Axis_Enable);
+        Tuners_T5_M1_Axis_Enable=0;
+        pvPut(Tuners_T5_M1_Axis_Enable);
+        Tuners_T5_M2_Axis_Enable=0;
+        pvPut(Tuners_T5_M2_Axis_Enable);
+        Tuners_T5_M3_Axis_Enable=0;
+        pvPut(Tuners_T5_M3_Axis_Enable);
+
+        /*
+         * Setup Steerer System
+         * - set autoControl to MANUAL [0]
+         * - set start operation command to ENABLE
+         * - set current setpoint to 0A
+         * - steerers can be ENABLED (default: DISABLED)
+        */
+        /* Case sub-system in idle */
+        if (Steerer_StateMachineCode == 20) {
+          printf("[SEQ ORCHESTRATION] Steerer System in IDLE: set MANUAL control and enable operation\n");
+
+          Steerer_AutoControlCmd=0;
+          pvPut(Steerer_AutoControlCmd);
+          Steerer_StartOperationCmd=1;
+          pvPut(Steerer_StartOperationCmd);
+        }
+
+        /* Case sub-system in ready for operation */
+        else if ( (Steerer_StateMachineCode == 30) && (Steerer_AutoControl_ActualStatus == 1) ) {
+          printf("[SEQ ORCHESTRATION] Steerer System in READY FOR OPERATION: set only MANUAL control \n");
+          Steerer_AutoControlCmd=0;
+          pvPut(Steerer_AutoControlCmd);
+
+        }
+        printf("[SEQ ORCHESTRATION] Set Steerers setpoint to 0A \n");
+        Steerer_T1_V1_CurrentSet = 0;
+        pvPut(Steerer_T1_V1_CurrentSet);
+        Steerer_T1_H1_CurrentSet = 0;
+        pvPut(Steerer_T1_H1_CurrentSet);
+        Steerer_T1_V2_CurrentSet = 0;
+        pvPut(Steerer_T1_V2_CurrentSet);
+        Steerer_T1_H2_CurrentSet = 0;
+        pvPut(Steerer_T1_H2_CurrentSet);
+        Steerer_T1_V3_CurrentSet = 0;
+        pvPut(Steerer_T1_V3_CurrentSet);
+        Steerer_T1_H3_CurrentSet = 0;
+        pvPut(Steerer_T1_H3_CurrentSet);
+        Steerer_T1_V4_CurrentSet = 0;
+        pvPut(Steerer_T1_V4_CurrentSet);
+        Steerer_T1_H4_CurrentSet = 0;
+        pvPut(Steerer_T1_H4_CurrentSet);
+        Steerer_T1_V5_CurrentSet = 0;
+        pvPut(Steerer_T1_V5_CurrentSet);
+        Steerer_T1_H5_CurrentSet = 0;
+        pvPut(Steerer_T1_H5_CurrentSet);
+        Steerer_T1_V6_CurrentSet = 0;
+        pvPut(Steerer_T1_V6_CurrentSet);
+        Steerer_T1_H6_CurrentSet = 0;
+        pvPut(Steerer_T1_H6_CurrentSet);
+        Steerer_T2_V1_CurrentSet = 0;
+        pvPut(Steerer_T2_V1_CurrentSet);
+        Steerer_T2_H1_CurrentSet = 0;
+        pvPut(Steerer_T2_H1_CurrentSet);
+        Steerer_T2_V2_CurrentSet = 0;
+        pvPut(Steerer_T2_V2_CurrentSet);
+        Steerer_T2_H2_CurrentSet = 0;
+        pvPut(Steerer_T2_H2_CurrentSet);
+        Steerer_T2_V3_CurrentSet = 0;
+        pvPut(Steerer_T2_V3_CurrentSet);
+        Steerer_T2_H3_CurrentSet = 0;
+        pvPut(Steerer_T2_H3_CurrentSet);
+        Steerer_T3_V1_CurrentSet = 0;
+        pvPut(Steerer_T3_V1_CurrentSet);
+        Steerer_T3_H1_CurrentSet = 0;
+        pvPut(Steerer_T3_H1_CurrentSet);
+        Steerer_T3_V2_CurrentSet = 0;
+        pvPut(Steerer_T3_V2_CurrentSet);
+        Steerer_T3_H2_CurrentSet = 0;
+        pvPut(Steerer_T3_H2_CurrentSet);
+        Steerer_T4_V1_CurrentSet = 0;
+        pvPut(Steerer_T4_V1_CurrentSet);
+        Steerer_T4_H1_CurrentSet = 0;
+        pvPut(Steerer_T4_H1_CurrentSet);
+        Steerer_T4_V2_CurrentSet = 0;
+        pvPut(Steerer_T4_V2_CurrentSet);
+        Steerer_T4_H2_CurrentSet = 0;
+        pvPut(Steerer_T4_H2_CurrentSet);
+        Steerer_T5_V1_CurrentSet = 0;
+        pvPut(Steerer_T5_V1_CurrentSet);
+        Steerer_T5_H1_CurrentSet = 0;
+        pvPut(Steerer_T5_H1_CurrentSet);
+        Steerer_T5_V2_CurrentSet = 0;
+        pvPut(Steerer_T5_V2_CurrentSet);
+        Steerer_T5_H2_CurrentSet = 0;
+        pvPut(Steerer_T5_H2_CurrentSet);
+
+        printf("[SEQ ORCHESTRATION] Disable Steerers \n");
+        Steerer_T1_V1_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V1_ChEnableCmd);
+        Steerer_T1_H1_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H1_ChEnableCmd);
+        Steerer_T1_V2_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V2_ChEnableCmd);
+        Steerer_T1_H2_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H2_ChEnableCmd);
+        Steerer_T1_V3_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V3_ChEnableCmd);
+        Steerer_T1_H3_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H3_ChEnableCmd);
+        Steerer_T1_V4_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V4_ChEnableCmd);
+        Steerer_T1_H4_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H4_ChEnableCmd);
+        Steerer_T1_V5_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V5_ChEnableCmd);
+        Steerer_T1_H5_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H5_ChEnableCmd);
+        Steerer_T1_V6_ChEnableCmd = 0;
+        pvPut(Steerer_T1_V6_ChEnableCmd);
+        Steerer_T1_H6_ChEnableCmd = 0;
+        pvPut(Steerer_T1_H6_ChEnableCmd);
+        Steerer_T2_V1_ChEnableCmd = 0;
+        pvPut(Steerer_T2_V1_ChEnableCmd);
+        Steerer_T2_H1_ChEnableCmd = 0;
+        pvPut(Steerer_T2_H1_ChEnableCmd);
+        Steerer_T2_V2_ChEnableCmd = 0;
+        pvPut(Steerer_T2_V2_ChEnableCmd);
+        Steerer_T2_H2_ChEnableCmd = 0;
+        pvPut(Steerer_T2_H2_ChEnableCmd);
+        Steerer_T2_V3_ChEnableCmd = 0;
+        pvPut(Steerer_T2_V3_ChEnableCmd);
+        Steerer_T2_H3_ChEnableCmd = 0;
+        pvPut(Steerer_T2_H3_ChEnableCmd);
+        Steerer_T3_V1_ChEnableCmd = 0;
+        pvPut(Steerer_T3_V1_ChEnableCmd);
+        Steerer_T3_H1_ChEnableCmd = 0;
+        pvPut(Steerer_T3_H1_ChEnableCmd);
+        Steerer_T3_V2_ChEnableCmd = 0;
+        pvPut(Steerer_T3_V2_ChEnableCmd);
+        Steerer_T3_H2_ChEnableCmd = 0;
+        pvPut(Steerer_T3_H2_ChEnableCmd);
+        Steerer_T4_V1_ChEnableCmd = 0;
+        pvPut(Steerer_T4_V1_ChEnableCmd);
+        Steerer_T4_H1_ChEnableCmd = 0;
+        pvPut(Steerer_T4_H1_ChEnableCmd);
+        Steerer_T4_V2_ChEnableCmd = 0;
+        pvPut(Steerer_T4_V2_ChEnableCmd);
+        Steerer_T4_H2_ChEnableCmd = 0;
+        pvPut(Steerer_T4_H2_ChEnableCmd);
+        Steerer_T5_V1_ChEnableCmd = 0;
+        pvPut(Steerer_T5_V1_ChEnableCmd);
+        Steerer_T5_H1_ChEnableCmd = 0;
+        pvPut(Steerer_T5_H1_ChEnableCmd);
+        Steerer_T5_V2_ChEnableCmd = 0;
+        pvPut(Steerer_T5_V2_ChEnableCmd);
+        Steerer_T5_H2_ChEnableCmd = 0;
+        pvPut(Steerer_T5_H2_ChEnableCmd);
+
+        /*
+         * Setup Cooling System
+         * - check if sub-system is in MANUAL or AUTO mode
+         * - set start operation command to ENABLE
+         * - working temperature set in cooling state machine (ready for operations stage)
+        */
+        Cooling_StartOperationCmd=1;
+        pvPut(Cooling_StartOperationCmd);
+        sleep(5);
+        /* Case sub-system in start-up stage: system requires pressures and fluxes check  */
+        if (Cooling_StateMachineCode == 30) {
+          if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 0) {
+            printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+          }
+          else if (Cooling_AutoControlCmd == 0 && Cooling_Manual_Test_Done == 1) {
+            printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+          }
+          else if (Cooling_AutoControlCmd == 1) {
+            printf("[SEQ ORCHESTRATION] Cooling sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+            Cooling_Manual_Test_Done=1;
+            pvPut(Cooling_Manual_Test_Done);
+          }
+          else {
+            printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
+          }
+        }
+
+        /*
+         * Setup Arc Detection System
+         * - check if sub-system is in MANUAL or AUTO mode
+         * - set start operation command to ENABLE
+        */
+        ArcDetection_StartOperationCmd=1;
+        pvPut(ArcDetection_StartOperationCmd);
+
+        if (ArcDetection_StateMachineCode == 30) {
+          if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 0) {
+            printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Wait for test parameters control \n");
+          }
+          else if (ArcDetection_AutoControlCmd == 0 && ArcDetection_Manual_Test_Done == 1) {
+            printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and MANUAL control. Test check already set on DONE \n");
+          }
+          else if (ArcDetection_AutoControlCmd == 1) {
+            printf("[SEQ ORCHESTRATION] Arc Detection sub-system in start-up stage and AUTO control. Execute fluxes and pressures check \n");
+            ArcDetection_Manual_Test_Done=1;
+            pvPut(ArcDetection_Manual_Test_Done);
+          }
+          else {
+            printf("[SEQ ORCHESTRATION] This message should not appear :) \n");
+          }
+        }
+
+
+        /*
+         * Setup RF System
+         * - no requests for RF Control Mode
+         * - left on the last setting used
+        */
+
+        /*
+         * Setup Temperature System
+         * - set Alarm Temperature to T0_MAX (used HIHI limit)
+        */
+        set_temperature_tank1(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+        set_temperature_tank2(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+        set_temperature_tank3(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+        set_temperature_tank4(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+        set_temperature_tank5(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+
+        /*
+         * Indicate DTL ready for RF (not BEAM)
+        */
+        /* To be updated */
+        DTL_T1_RF_Ready=1;
+        pvPut(DTL_T1_RF_Ready);
+        DTL_T2_RF_Ready=1;
+        pvPut(DTL_T2_RF_Ready);
+        DTL_T3_RF_Ready=1;
+        pvPut(DTL_T3_RF_Ready);
+        DTL_T4_RF_Ready=1;
+        pvPut(DTL_T4_RF_Ready);
+        DTL_T5_RF_Ready=1;
+        pvPut(DTL_T5_RF_Ready);
+        DTL_RF_Ready=1;
+        pvPut(DTL_RF_Ready);
+        DTL_T1_Beam_Ready=0;
+        pvPut(DTL_T1_Beam_Ready);
+        DTL_T2_Beam_Ready=0;
+        pvPut(DTL_T2_Beam_Ready);
+        DTL_T3_Beam_Ready=0;
+        pvPut(DTL_T3_Beam_Ready);
+        DTL_T4_Beam_Ready=0;
+        pvPut(DTL_T4_Beam_Ready);
+        DTL_T5_Beam_Ready=0;
+        pvPut(DTL_T5_Beam_Ready);
+        DTL_Beam_Ready=0;
+        pvPut(DTL_Beam_Ready);
+
+
     }
 
     /* If there is at least one sub-system is not ok, come back to stand_by stage */
@@ -2779,32 +3245,51 @@ state no_accelerated_beam {
         printf("[SEQ ORCHESTRATION] One or more sub-systems are NOT OK. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* Stop Operations for sub-systems */
+        Steerer_StopOperationCmd=1;
+        pvPut(Steerer_StopOperationCmd);
+        Tuners_StopOperationCmd=1;
+        pvPut(Tuners_StopOperationCmd);
+        Cooling_StopOperationCmd=1;
+        pvPut(Cooling_StopOperationCmd);
+        ArcDetection_StartOperationCmd=0;
+        pvPut(ArcDetection_StartOperationCmd);
+
         /*
          *  Additional cmds
          */
 
     } state stand_by
 
+    /* Execute cooling manual start-up test on fluxes and pressures */
+    when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
+
+    } status rf_start_up
+
+    /* Error: cooling system not in ready for operation stage */
+    when (Cooling_StateMachineCode != 40) {
+        printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
+        printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
+
+    } status stand_by
 
     /* Error in operation request  the Operator */
-    when ( (dtlOperationalCode_Command != 101) ) {
+    when ( (dtlOperationalCode_Command != 101) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
         printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
         printf("[SEQ ORCHESTRATION] Main system remains in NO_ACCELERATED_BEAM stage. \n");
 
-    } state ready_for_operation
+    } state no_accelerated_beam
 
     /* Request for Stand By stage by the Operator */
     when (dtlOperationalCode_Command == 101) {
         printf("[SEQ ORCHESTRATION] Request for RF Conditioning operation by the user. \n");
         printf("[SEQ ORCHESTRATION] Main system goes to STAND_BY stage. \n");
 
+        /* save last operational code command sent */
+        dtl_operation_command_prev=dtlOperationalCode_Command;
+
     } state stand_by
-
-    /* ... */
-    when ( .. ) {
-
-
-    } state maintenance
 
   }
 
@@ -2817,7 +3302,16 @@ state no_accelerated_beam {
         dtl_operation_code_prev=dtlOperationalCode;
         dtlOperationalCode=606;
         pvPut(dtlOperationalCode);
+
+        /* additional commands */
     }
+
+    /* Error in operation request  the Operator */
+    when ( (dtlOperationalCode_Command != 606) ) {
+        printf("[SEQ ORCHESTRATION] Error in operation request by the user: operation transition not allowed. \n");
+        printf("[SEQ ORCHESTRATION] Main system remains in MAINTENANCE stage. \n");
+
+    } state stand_by
 
     /* DTL Maintenance Status Reset */
     when (DTL_Maintenance_Command == 0) {
@@ -2825,6 +3319,8 @@ state no_accelerated_beam {
       printf("[SEQ ORCHESTRATION] Main System goes to INITIALIZATION stage. \n");
       DTL_Maintenance_Readback=DTL_Maintenance_Command;
       pvPut(DTL_Maintenance_Readback);
+
+
 
     } status initialization
 
