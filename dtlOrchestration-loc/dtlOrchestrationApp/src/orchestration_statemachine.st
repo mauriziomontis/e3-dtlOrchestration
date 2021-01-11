@@ -1082,7 +1082,7 @@ monitor DTL_Maintenance_Readback;
 /* Internal Variables */
 int dtl_operation_code_prev=0;
 int dtl_operation_command_prev=0;
-int index;
+int sensor_index;
 
 /* -------- Debug Mode: -------- */
 double DEBUG=1;
@@ -1585,29 +1585,29 @@ ss  orchestration_statemachine {
        * - set Alarm Temperature to T0_MAX (used HIHI limit)
       */
       /* Tank 1 */
-      for (index = 0; index < 62; index++) {
-        Thermosensors_T1_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T1_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 62; sensor_index++) {
+        Thermosensors_T1_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T1_Max_Temp[sensor_index]);
       }
       /* Tank 2 */
-      for (index = 0; index < 35; index++) {
-        Thermosensors_T2_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T2_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 35; sensor_index++) {
+        Thermosensors_T2_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T2_Max_Temp[sensor_index]);
       }
       /* Tank 3 */
-      for (index = 0; index < 30; index++) {
-        Thermosensors_T3_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T3_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 30; sensor_index++) {
+        Thermosensors_T3_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T3_Max_Temp[sensor_index]);
       }
       /* Tank 4 */
-      for (index = 0; index < 27; index++) {
-        Thermosensors_T4_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T4_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 27; sensor_index++) {
+        Thermosensors_T4_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T4_Max_Temp[sensor_index]);
       }
       /* Tank 5 */
-      for (index = 0; index < 24; index++) {
-        Thermosensors_T5_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T5_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 24; sensor_index++) {
+        Thermosensors_T5_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T5_Max_Temp[sensor_index]);
       }
 
       /*
@@ -2063,29 +2063,29 @@ state rf_start_up {
        * - set Alarm Temperature to T1_MAX (used HIHI limit)
       */
       /* Tank 1 */
-      for (index = 0; index < 62; index++) {
-        Thermosensors_T1_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T1_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 62; sensor_index++) {
+        Thermosensors_T1_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T1_Max_Temp[sensor_index]);
       }
       /* Tank 2 */
-      for (index = 0; index < 35; index++) {
-        Thermosensors_T2_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T2_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 35; sensor_index++) {
+        Thermosensors_T2_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T2_Max_Temp[sensor_index]);
       }
       /* Tank 3 */
-      for (index = 0; index < 30; index++) {
-        Thermosensors_T3_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T3_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 30; sensor_index++) {
+        Thermosensors_T3_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T3_Max_Temp[sensor_index]);
       }
       /* Tank 4 */
-      for (index = 0; index < 27; index++) {
-        Thermosensors_T4_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T4_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 27; sensor_index++) {
+        Thermosensors_T4_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T4_Max_Temp[sensor_index]);
       }
       /* Tank 5 */
-      for (index = 0; index < 24; index++) {
-        Thermosensors_T5_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-        pvPut(Thermosensors_T5_Max_Temp[index]);
+      for (sensor_index = 0; sensor_index < 24; sensor_index++) {
+        Thermosensors_T5_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T5_Max_Temp[sensor_index]);
       }
 
       /*
@@ -2806,29 +2806,29 @@ state no_accelerated_beam {
          * - set Alarm Temperature to T0_MAX (used HIHI limit)
         */
         /* Tank 1 */
-        for (index = 0; index < 62; index++) {
-          Thermosensors_T1_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T1_Max_Temp[index]);
+        for (sensor_index = 0; sensor_index < 62; sensor_index++) {
+          Thermosensors_T1_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T1_Max_Temp[sensor_index]);
         }
         /* Tank 2 */
-        for (index = 0; index < 35; index++) {
-          Thermosensors_T2_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T2_Max_Temp[index]);
+        for (sensor_index = 0; sensor_index < 35; sensor_index++) {
+          Thermosensors_T2_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T2_Max_Temp[sensor_index]);
         }
         /* Tank 3 */
-        for (index = 0; index < 30; index++) {
-          Thermosensors_T3_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T3_Max_Temp[index]);
+        for (sensor_index = 0; sensor_index < 30; sensor_index++) {
+          Thermosensors_T3_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T3_Max_Temp[sensor_index]);
         }
         /* Tank 4 */
-        for (index = 0; index < 27; index++) {
-          Thermosensors_T4_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T4_Max_Temp[index]);
+        for (sensor_index = 0; sensor_index < 27; sensor_index++) {
+          Thermosensors_T4_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T4_Max_Temp[sensor_index]);
         }
         /* Tank 5 */
-        for (index = 0; index < 24; index++) {
-          Thermosensors_T5_Max_Temp[index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T5_Max_Temp[index]);
+        for (sensor_index = 0; sensor_index < 24; sensor_index++) {
+          Thermosensors_T5_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T5_Max_Temp[sensor_sensor_index]);
         }
 
         /*
