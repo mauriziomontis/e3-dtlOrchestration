@@ -1606,7 +1606,7 @@ ss  orchestration_statemachine {
         DTL_Maintenance_Readback=DTL_Maintenance_Command;
         pvPut(DTL_Maintenance_Readback);
 
-      } status maintenance
+      } state maintenance
 
       /* Request for Maintenance stage by the Operator */
       when (dtlOperationalCode_Command == 606) {
@@ -1708,7 +1708,7 @@ ss  orchestration_statemachine {
         DTL_Maintenance_Readback=DTL_Maintenance_Command;
         pvPut(DTL_Maintenance_Readback);
 
-      } status maintenance
+      } state maintenance
 
   }
 
@@ -2082,28 +2082,28 @@ ss  orchestration_statemachine {
     when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
 
-    } status rf_conditioning
+    } state rf_conditioning
 
     /* Error: cooling system not in ready for operation stage */
     when (Cooling_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error: tuner system not in ready for operation stage */
     when (Tuners_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error: steerer system not in ready for operation stage */
     when (Steerer_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Steerer sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error in operation request by the Operator */
     when ( (dtlOperationalCode_Command != 101) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
@@ -2540,28 +2540,28 @@ state rf_start_up {
     when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
 
-    } status rf_start_up
+    } state rf_start_up
 
     /* Error: cooling system not in ready for operation stage */
     when (Cooling_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error: tuner system not in ready for operation stage */
     when (Tuners_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error: steerer system not in ready for operation stage */
     when (Steerer_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Steerer sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error in operation request by the Operator */
     when ( ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 404) ) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
@@ -2816,14 +2816,14 @@ state ready_for_operation {
         printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to RF STARTUP stage. \n");
 
-    } status rf_start_up
+    } state rf_start_up
 
     /* Error: tuner system not in ready for operation stage */
     when (Tuners_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Tuner sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to RF STARTUP stage. \n");
 
-    } status rf_start_up
+    } state rf_start_up
 
     /* Error in operation request  the Operator */
     when ( ( (dtlOperationalCode_Command != 101) || (dtlOperationalCode_Command != 303) ) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
@@ -3265,14 +3265,14 @@ state no_accelerated_beam {
     when ( (Cooling_StateMachineCode == 30) && (Cooling_AutoControlCmd == 0) && (Cooling_Manual_Test_Done == 1)  ) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system: executed start-up procedure. \n");
 
-    } status rf_start_up
+    } state rf_start_up
 
     /* Error: cooling system not in ready for operation stage */
     when (Cooling_StateMachineCode != 40) {
         printf("[SEQ ORCHESTRATION] Cooling sub-system error: system not in ready for operation stage. \n");
         printf("[SEQ ORCHESTRATION] Main system reset to STAND_BY stage. \n");
 
-    } status stand_by
+    } state stand_by
 
     /* Error in operation request  the Operator */
     when ( (dtlOperationalCode_Command != 101) && (dtlOperationalCode_Command != dtl_operation_command_prev) ) {
@@ -3322,7 +3322,7 @@ state no_accelerated_beam {
 
 
 
-    } status initialization
+    } state initialization
 
   }
 
