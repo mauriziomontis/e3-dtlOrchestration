@@ -762,540 +762,194 @@ monitor Steerer_T5_H2_CurrentSet;
 
 
 /* -------- Temperature Max level -------- */
-double Thermosensors_T1_Max_Temp_001;
-assign Thermosensors_T1_Max_Temp_001  to "DTL-010:EMR-TT-001:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_001;
-double Thermosensors_T1_Max_Temp_002;
-assign Thermosensors_T1_Max_Temp_002 to "DTL-010:EMR-TT-002:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_002;
-double Thermosensors_T1_Max_Temp_003;
-assign Thermosensors_T1_Max_Temp_003 to "DTL-010:EMR-TT-003:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_003;
-double Thermosensors_T1_Max_Temp_004;
-assign Thermosensors_T1_Max_Temp_004 to "DTL-010:EMR-TT-004:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_004;
-double Thermosensors_T1_Max_Temp_005;
-assign Thermosensors_T1_Max_Temp_005 to "DTL-010:EMR-TT-005:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_005;
-double Thermosensors_T1_Max_Temp_006;
-assign Thermosensors_T1_Max_Temp_006 to "DTL-010:EMR-TT-006:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_006;
-double Thermosensors_T1_Max_Temp_007;
-assign Thermosensors_T1_Max_Temp_007 to "DTL-010:EMR-TT-007:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_007;
-double Thermosensors_T1_Max_Temp_008;
-assign Thermosensors_T1_Max_Temp_008 to "DTL-010:EMR-TT-008:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_008;
-double Thermosensors_T1_Max_Temp_009;
-assign Thermosensors_T1_Max_Temp_009 to "DTL-010:EMR-TT-009:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_009;
-double Thermosensors_T1_Max_Temp_010;
-assign Thermosensors_T1_Max_Temp_010 to "DTL-010:EMR-TT-010:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_010;
-double Thermosensors_T1_Max_Temp_011;
-assign Thermosensors_T1_Max_Temp_011 to "DTL-010:EMR-TT-011:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_011;
-double Thermosensors_T1_Max_Temp_012;
-assign Thermosensors_T1_Max_Temp_012 to "DTL-010:EMR-TT-012:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_012;
-double Thermosensors_T1_Max_Temp_013;
-assign Thermosensors_T1_Max_Temp_013 to "DTL-010:EMR-TT-013:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_013;
-double Thermosensors_T1_Max_Temp_014;
-assign Thermosensors_T1_Max_Temp_014 to "DTL-010:EMR-TT-014:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_014;
-double Thermosensors_T1_Max_Temp_015;
-assign Thermosensors_T1_Max_Temp_015  to "DTL-010:EMR-TT-015:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_015;
-double Thermosensors_T1_Max_Temp_016;
-assign Thermosensors_T1_Max_Temp_016 to "DTL-010:EMR-TT-016:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_016;
-double Thermosensors_T1_Max_Temp_017;
-assign Thermosensors_T1_Max_Temp_017 to "DTL-010:EMR-TT-017:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_017;
-double Thermosensors_T1_Max_Temp_018;
-assign Thermosensors_T1_Max_Temp_018 to "DTL-010:EMR-TT-018:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_018;
-double Thermosensors_T1_Max_Temp_019;
-assign Thermosensors_T1_Max_Temp_019 to "DTL-010:EMR-TT-019:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_019;
-double Thermosensors_T1_Max_Temp_020;
-assign Thermosensors_T1_Max_Temp_020 to "DTL-010:EMR-TT-020:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_020;
-double Thermosensors_T1_Max_Temp_021;
-assign Thermosensors_T1_Max_Temp_021 to "DTL-010:EMR-TT-021:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_021;
-double Thermosensors_T1_Max_Temp_022;
-assign Thermosensors_T1_Max_Temp_022 to "DTL-010:EMR-TT-022:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_022;
-double Thermosensors_T1_Max_Temp_023;
-assign Thermosensors_T1_Max_Temp_023 to "DTL-010:EMR-TT-023:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_023;
-double Thermosensors_T1_Max_Temp_024;
-assign Thermosensors_T1_Max_Temp_024 to "DTL-010:EMR-TT-024:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_024;
-double Thermosensors_T1_Max_Temp_025;
-assign Thermosensors_T1_Max_Temp_025 to "DTL-010:EMR-TT-025:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_025;
-double Thermosensors_T1_Max_Temp_026;
-assign Thermosensors_T1_Max_Temp_026 to "DTL-010:EMR-TT-026:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_026;
-double Thermosensors_T1_Max_Temp_027;
-assign Thermosensors_T1_Max_Temp_027 to "DTL-010:EMR-TT-027:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_027;
-double Thermosensors_T1_Max_Temp_028;
-assign Thermosensors_T1_Max_Temp_028 to "DTL-010:EMR-TT-028:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_028;
-double Thermosensors_T1_Max_Temp_029;
-assign Thermosensors_T1_Max_Temp_029 to "DTL-010:EMR-TT-029:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_029;
-double Thermosensors_T1_Max_Temp_030;
-assign Thermosensors_T1_Max_Temp_030 to "DTL-010:EMR-TT-030:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_030;
-double Thermosensors_T1_Max_Temp_031;
-assign Thermosensors_T1_Max_Temp_031 to "DTL-010:EMR-TT-031:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_031;
-double Thermosensors_T1_Max_Temp_032;
-assign Thermosensors_T1_Max_Temp_032 to "DTL-010:EMR-TT-032:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_032;
-double Thermosensors_T1_Max_Temp_033;
-assign Thermosensors_T1_Max_Temp_033 to "DTL-010:EMR-TT-033:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_033;
-double Thermosensors_T1_Max_Temp_034;
-assign Thermosensors_T1_Max_Temp_034 to "DTL-010:EMR-TT-034:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_034;
-double Thermosensors_T1_Max_Temp_035;
-assign Thermosensors_T1_Max_Temp_035 to "DTL-010:EMR-TT-035:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_035;
-double Thermosensors_T1_Max_Temp_036;
-assign Thermosensors_T1_Max_Temp_036 to "DTL-010:EMR-TT-036:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_036;
-double Thermosensors_T1_Max_Temp_037;
-assign Thermosensors_T1_Max_Temp_037 to "DTL-010:EMR-TT-037:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_037;
-double Thermosensors_T1_Max_Temp_038;
-assign Thermosensors_T1_Max_Temp_038 to "DTL-010:EMR-TT-038:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_038;
-double Thermosensors_T1_Max_Temp_039;
-assign Thermosensors_T1_Max_Temp_039 to "DTL-010:EMR-TT-039:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_039;
-double Thermosensors_T1_Max_Temp_040;
-assign Thermosensors_T1_Max_Temp_040 to "DTL-010:EMR-TT-040:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_040;
-double Thermosensors_T1_Max_Temp_041;
-assign Thermosensors_T1_Max_Temp_041 to "DTL-010:EMR-TT-041:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_041;
-double Thermosensors_T1_Max_Temp_042;
-assign Thermosensors_T1_Max_Temp_042 to "DTL-010:EMR-TT-042:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_042;
-double Thermosensors_T1_Max_Temp_043;
-assign Thermosensors_T1_Max_Temp_043 to "DTL-010:EMR-TT-043:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_043;
-double Thermosensors_T1_Max_Temp_044;
-assign Thermosensors_T1_Max_Temp_044 to "DTL-010:EMR-TT-044:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_044;
-double Thermosensors_T1_Max_Temp_045;
-assign Thermosensors_T1_Max_Temp_045  to "DTL-010:EMR-TT-045:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_045;
-double Thermosensors_T1_Max_Temp_046;
-assign Thermosensors_T1_Max_Temp_046  to "DTL-010:EMR-TT-046:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_046;
-double Thermosensors_T1_Max_Temp_047;
-assign Thermosensors_T1_Max_Temp_047 to "DTL-010:EMR-TT-047:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_047;
-double Thermosensors_T1_Max_Temp_048;
-assign Thermosensors_T1_Max_Temp_048 to "DTL-010:EMR-TT-048:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_048;
-double Thermosensors_T1_Max_Temp_049;
-assign Thermosensors_T1_Max_Temp_049 to "DTL-010:EMR-TT-049:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_049;
-double Thermosensors_T1_Max_Temp_050;
-assign Thermosensors_T1_Max_Temp_050 to "DTL-010:EMR-TT-050:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_050;
-double Thermosensors_T1_Max_Temp_051;
-assign Thermosensors_T1_Max_Temp_051 to "DTL-010:EMR-TT-051:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_051;
-double Thermosensors_T1_Max_Temp_052;
-assign Thermosensors_T1_Max_Temp_052 to "DTL-010:EMR-TT-052:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_052;
-double Thermosensors_T1_Max_Temp_053;
-assign Thermosensors_T1_Max_Temp_053 to "DTL-010:EMR-TT-053:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_053;
-double Thermosensors_T1_Max_Temp_054;
-assign Thermosensors_T1_Max_Temp_054 to "DTL-010:EMR-TT-054:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_054;
-double Thermosensors_T1_Max_Temp_055;
-assign Thermosensors_T1_Max_Temp_055 to "DTL-010:EMR-TT-055:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_055;
-double Thermosensors_T1_Max_Temp_056;
-assign Thermosensors_T1_Max_Temp_056 to "DTL-010:EMR-TT-056:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_056;
-double Thermosensors_T1_Max_Temp_057;
-assign Thermosensors_T1_Max_Temp_057 to "DTL-010:EMR-TT-057:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_057;
-double Thermosensors_T1_Max_Temp_058;
-assign Thermosensors_T1_Max_Temp_058 to "DTL-010:EMR-TT-058:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_058;
-double Thermosensors_T1_Max_Temp_059;
-assign Thermosensors_T1_Max_Temp_059 to "DTL-010:EMR-TT-059:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_059;
-double Thermosensors_T1_Max_Temp_060;
-assign Thermosensors_T1_Max_Temp_060 to "DTL-010:EMR-TT-060:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_060;
-double Thermosensors_T1_Max_Temp_100;
-assign Thermosensors_T1_Max_Temp_100 to "DTL-010:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_100;
-double Thermosensors_T1_Max_Temp_200;
-assign Thermosensors_T1_Max_Temp_200 to "DTL-010:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T1_Max_Temp_200;
-double Thermosensors_T2_Max_Temp_001;
-assign Thermosensors_T2_Max_Temp_001  to "DTL-020:EMR-TT-001:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_001;
-double Thermosensors_T2_Max_Temp_002;
-assign Thermosensors_T2_Max_Temp_002 to "DTL-020:EMR-TT-002:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_002;
-double Thermosensors_T2_Max_Temp_003;
-assign Thermosensors_T2_Max_Temp_003 to "DTL-020:EMR-TT-003:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_003;
-double Thermosensors_T2_Max_Temp_004;
-assign Thermosensors_T2_Max_Temp_004 to "DTL-020:EMR-TT-004:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_004;
-double Thermosensors_T2_Max_Temp_005;
-assign Thermosensors_T2_Max_Temp_005 to "DTL-020:EMR-TT-005:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_005;
-double Thermosensors_T2_Max_Temp_006;
-assign Thermosensors_T2_Max_Temp_006 to "DTL-020:EMR-TT-006:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_006;
-double Thermosensors_T2_Max_Temp_007;
-assign Thermosensors_T2_Max_Temp_007 to "DTL-020:EMR-TT-007:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_007;
-double Thermosensors_T2_Max_Temp_008;
-assign Thermosensors_T2_Max_Temp_008 to "DTL-020:EMR-TT-008:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_008;
-double Thermosensors_T2_Max_Temp_009;
-assign Thermosensors_T2_Max_Temp_009 to "DTL-020:EMR-TT-009:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_009;
-double Thermosensors_T2_Max_Temp_010;
-assign Thermosensors_T2_Max_Temp_010 to "DTL-020:EMR-TT-010:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_010;
-double Thermosensors_T2_Max_Temp_011;
-assign Thermosensors_T2_Max_Temp_011 to "DTL-020:EMR-TT-011:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_011;
-double Thermosensors_T2_Max_Temp_012;
-assign Thermosensors_T2_Max_Temp_012 to "DTL-020:EMR-TT-012:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_012;
-double Thermosensors_T2_Max_Temp_013;
-assign Thermosensors_T2_Max_Temp_013 to "DTL-020:EMR-TT-013:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_013;
-double Thermosensors_T2_Max_Temp_014;
-assign Thermosensors_T2_Max_Temp_014 to "DTL-020:EMR-TT-014:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_014;
-double Thermosensors_T2_Max_Temp_015;
-assign Thermosensors_T2_Max_Temp_015  to "DTL-020:EMR-TT-015:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_015;
-double Thermosensors_T2_Max_Temp_016;
-assign Thermosensors_T2_Max_Temp_016 to "DTL-020:EMR-TT-016:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_016;
-double Thermosensors_T2_Max_Temp_017;
-assign Thermosensors_T2_Max_Temp_017 to "DTL-020:EMR-TT-017:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_017;
-double Thermosensors_T2_Max_Temp_018;
-assign Thermosensors_T2_Max_Temp_018 to "DTL-020:EMR-TT-018:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_018;
-double Thermosensors_T2_Max_Temp_019;
-assign Thermosensors_T2_Max_Temp_019 to "DTL-020:EMR-TT-019:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_019;
-double Thermosensors_T2_Max_Temp_020;
-assign Thermosensors_T2_Max_Temp_020 to "DTL-020:EMR-TT-020:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_020;
-double Thermosensors_T2_Max_Temp_021;
-assign Thermosensors_T2_Max_Temp_021 to "DTL-020:EMR-TT-021:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_021;
-double Thermosensors_T2_Max_Temp_022;
-assign Thermosensors_T2_Max_Temp_022 to "DTL-020:EMR-TT-022:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_022;
-double Thermosensors_T2_Max_Temp_023;
-assign Thermosensors_T2_Max_Temp_023 to "DTL-020:EMR-TT-023:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_023;
-double Thermosensors_T2_Max_Temp_024;
-assign Thermosensors_T2_Max_Temp_024 to "DTL-020:EMR-TT-024:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_024;
-double Thermosensors_T2_Max_Temp_025;
-assign Thermosensors_T2_Max_Temp_025 to "DTL-020:EMR-TT-025:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_025;
-double Thermosensors_T2_Max_Temp_026;
-assign Thermosensors_T2_Max_Temp_026 to "DTL-020:EMR-TT-026:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_026;
-double Thermosensors_T2_Max_Temp_027;
-assign Thermosensors_T2_Max_Temp_027 to "DTL-020:EMR-TT-027:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_027;
-double Thermosensors_T2_Max_Temp_028;
-assign Thermosensors_T2_Max_Temp_028 to "DTL-020:EMR-TT-028:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_028;
-double Thermosensors_T2_Max_Temp_029;
-assign Thermosensors_T2_Max_Temp_029 to "DTL-020:EMR-TT-029:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_029;
-double Thermosensors_T2_Max_Temp_030;
-assign Thermosensors_T2_Max_Temp_030 to "DTL-020:EMR-TT-030:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_030;
-double Thermosensors_T2_Max_Temp_031;
-assign Thermosensors_T2_Max_Temp_031 to "DTL-020:EMR-TT-031:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_031;
-double Thermosensors_T2_Max_Temp_032;
-assign Thermosensors_T2_Max_Temp_032 to "DTL-020:EMR-TT-032:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_032;
-double Thermosensors_T2_Max_Temp_033;
-assign Thermosensors_T2_Max_Temp_033 to "DTL-020:EMR-TT-033:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_033;
-double Thermosensors_T2_Max_Temp_100;
-assign Thermosensors_T2_Max_Temp_100 to "DTL-020:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_100;
-double Thermosensors_T2_Max_Temp_200;
-assign Thermosensors_T2_Max_Temp_200 to "DTL-020:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T2_Max_Temp_200;
-double Thermosensors_T3_Max_Temp_001;
-assign Thermosensors_T3_Max_Temp_001  to "DTL-030:EMR-TT-001:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_001;
-double Thermosensors_T3_Max_Temp_002;
-assign Thermosensors_T3_Max_Temp_002 to "DTL-030:EMR-TT-002:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_002;
-double Thermosensors_T3_Max_Temp_003;
-assign Thermosensors_T3_Max_Temp_003 to "DTL-030:EMR-TT-003:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_003;
-double Thermosensors_T3_Max_Temp_004;
-assign Thermosensors_T3_Max_Temp_004 to "DTL-030:EMR-TT-004:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_004;
-double Thermosensors_T3_Max_Temp_005;
-assign Thermosensors_T3_Max_Temp_005 to "DTL-030:EMR-TT-005:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_005;
-double Thermosensors_T3_Max_Temp_006;
-assign Thermosensors_T3_Max_Temp_006 to "DTL-030:EMR-TT-006:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_006;
-double Thermosensors_T3_Max_Temp_007;
-assign Thermosensors_T3_Max_Temp_007 to "DTL-030:EMR-TT-007:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_007;
-double Thermosensors_T3_Max_Temp_008;
-assign Thermosensors_T3_Max_Temp_008 to "DTL-030:EMR-TT-008:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_008;
-double Thermosensors_T3_Max_Temp_009;
-assign Thermosensors_T3_Max_Temp_009 to "DTL-030:EMR-TT-009:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_009;
-double Thermosensors_T3_Max_Temp_010;
-assign Thermosensors_T3_Max_Temp_010 to "DTL-030:EMR-TT-010:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_010;
-double Thermosensors_T3_Max_Temp_011;
-assign Thermosensors_T3_Max_Temp_011 to "DTL-030:EMR-TT-011:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_011;
-double Thermosensors_T3_Max_Temp_012;
-assign Thermosensors_T3_Max_Temp_012 to "DTL-030:EMR-TT-012:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_012;
-double Thermosensors_T3_Max_Temp_013;
-assign Thermosensors_T3_Max_Temp_013 to "DTL-030:EMR-TT-013:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_013;
-double Thermosensors_T3_Max_Temp_014;
-assign Thermosensors_T3_Max_Temp_014 to "DTL-030:EMR-TT-014:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_014;
-double Thermosensors_T3_Max_Temp_015;
-assign Thermosensors_T3_Max_Temp_015  to "DTL-030:EMR-TT-015:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_015;
-double Thermosensors_T3_Max_Temp_016;
-assign Thermosensors_T3_Max_Temp_016 to "DTL-030:EMR-TT-016:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_016;
-double Thermosensors_T3_Max_Temp_017;
-assign Thermosensors_T3_Max_Temp_017 to "DTL-030:EMR-TT-017:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_017;
-double Thermosensors_T3_Max_Temp_018;
-assign Thermosensors_T3_Max_Temp_018 to "DTL-030:EMR-TT-018:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_018;
-double Thermosensors_T3_Max_Temp_019;
-assign Thermosensors_T3_Max_Temp_019 to "DTL-030:EMR-TT-019:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_019;
-double Thermosensors_T3_Max_Temp_020;
-assign Thermosensors_T3_Max_Temp_020 to "DTL-030:EMR-TT-020:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_020;
-double Thermosensors_T3_Max_Temp_021;
-assign Thermosensors_T3_Max_Temp_021 to "DTL-030:EMR-TT-021:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_021;
-double Thermosensors_T3_Max_Temp_022;
-assign Thermosensors_T3_Max_Temp_022 to "DTL-030:EMR-TT-022:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_022;
-double Thermosensors_T3_Max_Temp_023;
-assign Thermosensors_T3_Max_Temp_023 to "DTL-030:EMR-TT-023:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_023;
-double Thermosensors_T3_Max_Temp_024;
-assign Thermosensors_T3_Max_Temp_024 to "DTL-030:EMR-TT-024:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_024;
-double Thermosensors_T3_Max_Temp_025;
-assign Thermosensors_T3_Max_Temp_025 to "DTL-030:EMR-TT-025:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_025;
-double Thermosensors_T3_Max_Temp_026;
-assign Thermosensors_T3_Max_Temp_026 to "DTL-030:EMR-TT-026:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_026;
-double Thermosensors_T3_Max_Temp_027;
-assign Thermosensors_T3_Max_Temp_027 to "DTL-030:EMR-TT-027:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_027;
-double Thermosensors_T3_Max_Temp_028;
-assign Thermosensors_T3_Max_Temp_028 to "DTL-030:EMR-TT-028:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_028;
-double Thermosensors_T3_Max_Temp_100;
-assign Thermosensors_T3_Max_Temp_100 to "DTL-030:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_100;
-double Thermosensors_T3_Max_Temp_200;
-assign Thermosensors_T3_Max_Temp_200 to "DTL-030:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T3_Max_Temp_200;
-double Thermosensors_T4_Max_Temp_001;
-assign Thermosensors_T4_Max_Temp_001  to "DTL-040:EMR-TT-001:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_001;
-double Thermosensors_T4_Max_Temp_002;
-assign Thermosensors_T4_Max_Temp_002 to "DTL-040:EMR-TT-002:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_002;
-double Thermosensors_T4_Max_Temp_003;
-assign Thermosensors_T4_Max_Temp_003 to "DTL-040:EMR-TT-003:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_003;
-double Thermosensors_T4_Max_Temp_004;
-assign Thermosensors_T4_Max_Temp_004 to "DTL-040:EMR-TT-004:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_004;
-double Thermosensors_T4_Max_Temp_005;
-assign Thermosensors_T4_Max_Temp_005 to "DTL-040:EMR-TT-005:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_005;
-double Thermosensors_T4_Max_Temp_006;
-assign Thermosensors_T4_Max_Temp_006 to "DTL-040:EMR-TT-006:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_006;
-double Thermosensors_T4_Max_Temp_007;
-assign Thermosensors_T4_Max_Temp_007 to "DTL-040:EMR-TT-007:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_007;
-double Thermosensors_T4_Max_Temp_008;
-assign Thermosensors_T4_Max_Temp_008 to "DTL-040:EMR-TT-008:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_008;
-double Thermosensors_T4_Max_Temp_009;
-assign Thermosensors_T4_Max_Temp_009 to "DTL-040:EMR-TT-009:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_009;
-double Thermosensors_T4_Max_Temp_010;
-assign Thermosensors_T4_Max_Temp_010 to "DTL-040:EMR-TT-010:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_010;
-double Thermosensors_T4_Max_Temp_011;
-assign Thermosensors_T4_Max_Temp_011 to "DTL-040:EMR-TT-011:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_011;
-double Thermosensors_T4_Max_Temp_012;
-assign Thermosensors_T4_Max_Temp_012 to "DTL-040:EMR-TT-012:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_012;
-double Thermosensors_T4_Max_Temp_013;
-assign Thermosensors_T4_Max_Temp_013 to "DTL-040:EMR-TT-013:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_013;
-double Thermosensors_T4_Max_Temp_014;
-assign Thermosensors_T4_Max_Temp_014 to "DTL-040:EMR-TT-014:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_014;
-double Thermosensors_T4_Max_Temp_015;
-assign Thermosensors_T4_Max_Temp_015  to "DTL-040:EMR-TT-015:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_015;
-double Thermosensors_T4_Max_Temp_016;
-assign Thermosensors_T4_Max_Temp_016 to "DTL-040:EMR-TT-016:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_016;
-double Thermosensors_T4_Max_Temp_017;
-assign Thermosensors_T4_Max_Temp_017 to "DTL-040:EMR-TT-017:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_017;
-double Thermosensors_T4_Max_Temp_018;
-assign Thermosensors_T4_Max_Temp_018 to "DTL-040:EMR-TT-018:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_018;
-double Thermosensors_T4_Max_Temp_019;
-assign Thermosensors_T4_Max_Temp_019 to "DTL-040:EMR-TT-019:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_019;
-double Thermosensors_T4_Max_Temp_020;
-assign Thermosensors_T4_Max_Temp_020 to "DTL-040:EMR-TT-020:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_020;
-double Thermosensors_T4_Max_Temp_021;
-assign Thermosensors_T4_Max_Temp_021 to "DTL-040:EMR-TT-021:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_021;
-double Thermosensors_T4_Max_Temp_022;
-assign Thermosensors_T4_Max_Temp_022 to "DTL-040:EMR-TT-022:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_022;
-double Thermosensors_T4_Max_Temp_023;
-assign Thermosensors_T4_Max_Temp_023 to "DTL-040:EMR-TT-023:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_023;
-double Thermosensors_T4_Max_Temp_024;
-assign Thermosensors_T4_Max_Temp_024 to "DTL-040:EMR-TT-024:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_024;
-double Thermosensors_T4_Max_Temp_025;
-assign Thermosensors_T4_Max_Temp_025 to "DTL-040:EMR-TT-025:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_025;
-double Thermosensors_T4_Max_Temp_100;
-assign Thermosensors_T4_Max_Temp_100 to "DTL-040:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_100;
-double Thermosensors_T4_Max_Temp_200;
-assign Thermosensors_T4_Max_Temp_200 to "DTL-040:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T4_Max_Temp_200;
-double Thermosensors_T5_Max_Temp_001;
-assign Thermosensors_T5_Max_Temp_001  to "DTL-050:EMR-TT-001:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_001;
-double Thermosensors_T5_Max_Temp_002;
-assign Thermosensors_T5_Max_Temp_002 to "DTL-050:EMR-TT-002:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_002;
-double Thermosensors_T5_Max_Temp_003;
-assign Thermosensors_T5_Max_Temp_003 to "DTL-050:EMR-TT-003:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_003;
-double Thermosensors_T5_Max_Temp_004;
-assign Thermosensors_T5_Max_Temp_004 to "DTL-050:EMR-TT-004:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_004;
-double Thermosensors_T5_Max_Temp_005;
-assign Thermosensors_T5_Max_Temp_005 to "DTL-050:EMR-TT-005:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_005;
-double Thermosensors_T5_Max_Temp_006;
-assign Thermosensors_T5_Max_Temp_006 to "DTL-050:EMR-TT-006:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_006;
-double Thermosensors_T5_Max_Temp_007;
-assign Thermosensors_T5_Max_Temp_007 to "DTL-050:EMR-TT-007:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_007;
-double Thermosensors_T5_Max_Temp_008;
-assign Thermosensors_T5_Max_Temp_008 to "DTL-050:EMR-TT-008:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_008;
-double Thermosensors_T5_Max_Temp_009;
-assign Thermosensors_T5_Max_Temp_009 to "DTL-050:EMR-TT-009:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_009;
-double Thermosensors_T5_Max_Temp_010;
-assign Thermosensors_T5_Max_Temp_010 to "DTL-050:EMR-TT-010:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_010;
-double Thermosensors_T5_Max_Temp_011;
-assign Thermosensors_T5_Max_Temp_011 to "DTL-050:EMR-TT-011:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_011;
-double Thermosensors_T5_Max_Temp_012;
-assign Thermosensors_T5_Max_Temp_012 to "DTL-050:EMR-TT-012:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_012;
-double Thermosensors_T5_Max_Temp_013;
-assign Thermosensors_T5_Max_Temp_013 to "DTL-050:EMR-TT-013:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_013;
-double Thermosensors_T5_Max_Temp_014;
-assign Thermosensors_T5_Max_Temp_014 to "DTL-050:EMR-TT-014:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_014;
-double Thermosensors_T5_Max_Temp_015;
-assign Thermosensors_T5_Max_Temp_015  to "DTL-050:EMR-TT-015:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_015;
-double Thermosensors_T5_Max_Temp_016;
-assign Thermosensors_T5_Max_Temp_016 to "DTL-050:EMR-TT-016:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_016;
-double Thermosensors_T5_Max_Temp_017;
-assign Thermosensors_T5_Max_Temp_017 to "DTL-050:EMR-TT-017:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_017;
-double Thermosensors_T5_Max_Temp_018;
-assign Thermosensors_T5_Max_Temp_018 to "DTL-050:EMR-TT-018:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_018;
-double Thermosensors_T5_Max_Temp_019;
-assign Thermosensors_T5_Max_Temp_019 to "DTL-050:EMR-TT-019:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_019;
-double Thermosensors_T5_Max_Temp_020;
-assign Thermosensors_T5_Max_Temp_020 to "DTL-050:EMR-TT-020:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_020;
-double Thermosensors_T5_Max_Temp_021;
-assign Thermosensors_T5_Max_Temp_021 to "DTL-050:EMR-TT-021:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_021;
-double Thermosensors_T5_Max_Temp_022;
-assign Thermosensors_T5_Max_Temp_022 to "DTL-050:EMR-TT-022:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_022;
-double Thermosensors_T5_Max_Temp_100;
-assign Thermosensors_T5_Max_Temp_100 to "DTL-050:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_100;
-double Thermosensors_T5_Max_Temp_200;
-assign Thermosensors_T5_Max_Temp_200 to "DTL-050:EMR-TT-100:Temp.HIHI";
-monitor Thermosensors_T5_Max_Temp_200;
+double Thermosensors_T1_Max_Temp[62];
+assign Thermosensors_T1_Max_Temp[0] to "DTL-010:EMR-TT-001:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[1] to "DTL-010:EMR-TT-002:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[2] to "DTL-010:EMR-TT-003:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[3] to "DTL-010:EMR-TT-004:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[4] to "DTL-010:EMR-TT-005:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[5] to "DTL-010:EMR-TT-006:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[6] to "DTL-010:EMR-TT-007:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[7] to "DTL-010:EMR-TT-008:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[8] to "DTL-010:EMR-TT-009:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[9] to "DTL-010:EMR-TT-010:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[10] to "DTL-010:EMR-TT-011:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[11] to "DTL-010:EMR-TT-012:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[12] to "DTL-010:EMR-TT-013:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[13] to "DTL-010:EMR-TT-014:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[14] to "DTL-010:EMR-TT-015:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[15] to "DTL-010:EMR-TT-016:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[16] to "DTL-010:EMR-TT-017:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[17] to "DTL-010:EMR-TT-018:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[18] to "DTL-010:EMR-TT-019:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[19] to "DTL-010:EMR-TT-020:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[20] to "DTL-010:EMR-TT-021:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[21] to "DTL-010:EMR-TT-022:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[22] to "DTL-010:EMR-TT-023:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[23] to "DTL-010:EMR-TT-024:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[24] to "DTL-010:EMR-TT-025:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[25] to "DTL-010:EMR-TT-026:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[26] to "DTL-010:EMR-TT-027:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[27] to "DTL-010:EMR-TT-028:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[28] to "DTL-010:EMR-TT-029:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[29] to "DTL-010:EMR-TT-030:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[30] to "DTL-010:EMR-TT-031:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[31] to "DTL-010:EMR-TT-032:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[32] to "DTL-010:EMR-TT-033:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[33] to "DTL-010:EMR-TT-034:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[34] to "DTL-010:EMR-TT-035:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[35] to "DTL-010:EMR-TT-036:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[36] to "DTL-010:EMR-TT-037:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[37] to "DTL-010:EMR-TT-038:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[38] to "DTL-010:EMR-TT-039:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[39] to "DTL-010:EMR-TT-040:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[40] to "DTL-010:EMR-TT-041:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[41] to "DTL-010:EMR-TT-042:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[42] to "DTL-010:EMR-TT-043:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[43] to "DTL-010:EMR-TT-044:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[44] to "DTL-010:EMR-TT-045:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[45] to "DTL-010:EMR-TT-046:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[46] to "DTL-010:EMR-TT-047:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[47] to "DTL-010:EMR-TT-048:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[48] to "DTL-010:EMR-TT-049:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[49] to "DTL-010:EMR-TT-050:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[50] to "DTL-010:EMR-TT-051:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[51] to "DTL-010:EMR-TT-052:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[52] to "DTL-010:EMR-TT-053:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[53] to "DTL-010:EMR-TT-054:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[54] to "DTL-010:EMR-TT-055:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[55] to "DTL-010:EMR-TT-056:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[56] to "DTL-010:EMR-TT-057:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[57] to "DTL-010:EMR-TT-058:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[58] to "DTL-010:EMR-TT-059:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[59] to "DTL-010:EMR-TT-060:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[60] to "DTL-010:EMR-TT-100:Temp.HIHI";
+assign Thermosensors_T1_Max_Temp[61] to "DTL-010:EMR-TT-200:Temp.HIHI";
+monitor Thermosensors_T1_Max_Temp;
+double Thermosensors_T2_Max_Temp[35];
+assign Thermosensors_T2_Max_Temp[0] to "DTL-020:EMR-TT-001:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[1] to "DTL-020:EMR-TT-002:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[2] to "DTL-020:EMR-TT-003:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[3] to "DTL-020:EMR-TT-004:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[4] to "DTL-020:EMR-TT-005:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[5] to "DTL-020:EMR-TT-006:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[6] to "DTL-020:EMR-TT-007:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[7] to "DTL-020:EMR-TT-008:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[8] to "DTL-020:EMR-TT-009:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[9] to "DTL-020:EMR-TT-010:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[10] to "DTL-020:EMR-TT-011:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[11] to "DTL-020:EMR-TT-012:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[12] to "DTL-020:EMR-TT-013:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[13] to "DTL-020:EMR-TT-014:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[14] to "DTL-020:EMR-TT-015:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[15] to "DTL-020:EMR-TT-016:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[16] to "DTL-020:EMR-TT-017:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[17] to "DTL-020:EMR-TT-018:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[18] to "DTL-020:EMR-TT-019:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[19] to "DTL-020:EMR-TT-020:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[20] to "DTL-020:EMR-TT-021:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[21] to "DTL-020:EMR-TT-022:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[22] to "DTL-020:EMR-TT-023:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[23] to "DTL-020:EMR-TT-024:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[24] to "DTL-020:EMR-TT-025:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[25] to "DTL-020:EMR-TT-026:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[26] to "DTL-020:EMR-TT-027:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[27] to "DTL-020:EMR-TT-028:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[28] to "DTL-020:EMR-TT-029:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[29] to "DTL-020:EMR-TT-030:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[30] to "DTL-020:EMR-TT-031:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[31] to "DTL-020:EMR-TT-032:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[32] to "DTL-020:EMR-TT-033:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[33] to "DTL-020:EMR-TT-100:Temp.HIHI";
+assign Thermosensors_T2_Max_Temp[34] to "DTL-020:EMR-TT-200:Temp.HIHI";
+monitor Thermosensors_T2_Max_Temp;
+double Thermosensors_T3_Max_Temp[30];
+assign Thermosensors_T3_Max_Temp[0] to "DTL-030:EMR-TT-001:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[1] to "DTL-030:EMR-TT-002:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[2] to "DTL-030:EMR-TT-003:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[3] to "DTL-030:EMR-TT-004:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[4] to "DTL-030:EMR-TT-005:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[5] to "DTL-030:EMR-TT-006:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[6] to "DTL-030:EMR-TT-007:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[7] to "DTL-030:EMR-TT-008:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[8] to "DTL-030:EMR-TT-009:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[9] to "DTL-030:EMR-TT-010:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[10] to "DTL-030:EMR-TT-011:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[11] to "DTL-030:EMR-TT-012:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[12] to "DTL-030:EMR-TT-013:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[13] to "DTL-030:EMR-TT-014:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[14] to "DTL-030:EMR-TT-015:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[15] to "DTL-030:EMR-TT-016:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[16] to "DTL-030:EMR-TT-017:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[17] to "DTL-030:EMR-TT-018:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[18] to "DTL-030:EMR-TT-019:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[19] to "DTL-030:EMR-TT-020:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[20] to "DTL-030:EMR-TT-021:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[21] to "DTL-030:EMR-TT-022:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[22] to "DTL-030:EMR-TT-023:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[23] to "DTL-030:EMR-TT-024:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[24] to "DTL-030:EMR-TT-025:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[25] to "DTL-030:EMR-TT-026:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[26] to "DTL-030:EMR-TT-027:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[27] to "DTL-030:EMR-TT-028:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[28] to "DTL-030:EMR-TT-100:Temp.HIHI";
+assign Thermosensors_T3_Max_Temp[29] to "DTL-030:EMR-TT-200:Temp.HIHI";
+monitor Thermosensors_T3_Max_Temp;
+double Thermosensors_T4_Max_Temp[27];
+assign Thermosensors_T4_Max_Temp[0] to "DTL-040:EMR-TT-001:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[1] to "DTL-040:EMR-TT-002:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[2] to "DTL-040:EMR-TT-003:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[3] to "DTL-040:EMR-TT-004:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[4] to "DTL-040:EMR-TT-005:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[5] to "DTL-040:EMR-TT-006:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[6] to "DTL-040:EMR-TT-007:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[7] to "DTL-040:EMR-TT-008:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[8] to "DTL-040:EMR-TT-009:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[9] to "DTL-040:EMR-TT-010:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[10] to "DTL-040:EMR-TT-011:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[11] to "DTL-040:EMR-TT-012:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[12] to "DTL-040:EMR-TT-013:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[13] to "DTL-040:EMR-TT-014:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[14] to "DTL-040:EMR-TT-015:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[15] to "DTL-040:EMR-TT-016:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[16] to "DTL-040:EMR-TT-017:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[17] to "DTL-040:EMR-TT-018:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[18] to "DTL-040:EMR-TT-019:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[19] to "DTL-040:EMR-TT-020:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[20] to "DTL-040:EMR-TT-021:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[21] to "DTL-040:EMR-TT-022:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[22] to "DTL-040:EMR-TT-023:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[23] to "DTL-040:EMR-TT-024:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[24] to "DTL-040:EMR-TT-025:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[25] to "DTL-040:EMR-TT-100:Temp.HIHI";
+assign Thermosensors_T4_Max_Temp[26] to "DTL-040:EMR-TT-200:Temp.HIHI";
+monitor Thermosensors_T4_Max_Temp;
+double Thermosensors_T5_Max_Temp[24];
+assign Thermosensors_T5_Max_Temp[0] to "DTL-050:EMR-TT-001:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[1] to "DTL-050:EMR-TT-002:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[2] to "DTL-050:EMR-TT-003:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[3] to "DTL-050:EMR-TT-004:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[4] to "DTL-050:EMR-TT-005:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[5] to "DTL-050:EMR-TT-006:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[6] to "DTL-050:EMR-TT-007:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[7] to "DTL-050:EMR-TT-008:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[8] to "DTL-050:EMR-TT-009:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[9] to "DTL-050:EMR-TT-010:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[10] to "DTL-050:EMR-TT-011:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[11] to "DTL-050:EMR-TT-012:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[12] to "DTL-050:EMR-TT-013:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[13] to "DTL-050:EMR-TT-014:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[14] to "DTL-050:EMR-TT-015:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[15] to "DTL-050:EMR-TT-016:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[16] to "DTL-050:EMR-TT-017:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[17] to "DTL-050:EMR-TT-018:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[18] to "DTL-050:EMR-TT-019:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[19] to "DTL-050:EMR-TT-020:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[20] to "DTL-050:EMR-TT-021:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[21] to "DTL-050:EMR-TT-022:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[22] to "DTL-050:EMR-TT-100:Temp.HIHI";
+assign Thermosensors_T5_Max_Temp[23] to "DTL-050:EMR-TT-200:Temp.HIHI";
+monitor Thermosensors_T5_Max_Temp;
 
 
 /* -------- Vacuum Tank Pressures  -------- */
@@ -1429,100 +1083,9 @@ monitor DTL_Maintenance_Readback;
 int dtl_operation_code_prev=0;
 int dtl_operation_command_prev=0;
 
+
 /* -------- Debug Mode: -------- */
 double DEBUG=1;
-
-
-/* -------- Internal Functions -------- */
-%{
-
-static void set_temperature_tank1(float value) {
-    char prefix_name[30]="Thermosensors_T1_Max_Temp_0";
-    for (int i=1; i <= 60; i++) {
-      char pv_name[30];
-      if (i<10) {
-        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
-      }
-      else {
-        sprintf(pv_name, "%s%d", prefix_name, i);
-      }
-      seq_pvPut(pv_name, value);
-      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
-      seq_pvPut("Thermosensors_T1_Max_Temp_100", value);
-      seq_pvPut("Thermosensors_T1_Max_Temp_200", value);
-    }
-}
-
-static void set_temperature_tank2(float value) {
-    char prefix_name[30]="Thermosensors_T2_Max_Temp_0";
-    for (int i=1; i <= 33; i++) {
-      char pv_name[30];
-      if (i<10) {
-        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
-      }
-      else {
-        sprintf(pv_name, "%s%d", prefix_name, i);
-      }
-      seq_pvPut(pv_name, value);
-      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
-      seq_pvPut("Thermosensors_T2_Max_Temp_100", value);
-      seq_pvPut("Thermosensors_T2_Max_Temp_200", value);
-    }
-}
-
-static void set_temperature_tank3(float value) {
-    char prefix_name[30]="Thermosensors_T3_Max_Temp_0";
-    for (int i=1; i <= 28; i++) {
-      char pv_name[30];
-      if (i<10) {
-        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
-      }
-      else {
-        sprintf(pv_name, "%s%d", prefix_name, i);
-      }
-      seq_pvPut(pv_name, value);
-      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
-      seq_pvPut("Thermosensors_T3_Max_Temp_100", value);
-      seq_pvPut("Thermosensors_T3_Max_Temp_200", value);
-    }
-}
-
-static void set_temperature_tank4(float value) {
-    char prefix_name[30]="Thermosensors_T4_Max_Temp_0";
-    for (int i=1; i <= 25; i++) {
-      char pv_name[30];
-      if (i<10) {
-        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
-      }
-      else {
-        sprintf(pv_name, "%s%d", prefix_name, i);
-      }
-      seq_pvPut(pv_name, value);
-      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
-      seq_pvPut("Thermosensors_T4_Max_Temp_100", value);
-      seq_pvPut("Thermosensors_T4_Max_Temp_200", value);
-    }
-}
-
-static void set_temperature_tank5(float value) {
-    char prefix_name[30]="Thermosensors_T5_Max_Temp_0";
-    for (int i=1; i <= 22; i++) {
-      char pv_name[30];
-      if (i<10) {
-        sprintf(pv_name, "%s%s%d", prefix_name, "0", i);
-      }
-      else {
-        sprintf(pv_name, "%s%d", prefix_name, i);
-      }
-      seq_pvPut(pv_name, value);
-      if (DEBUG) { printf("Element: %s\t Value: %f\n", pv_name, value); }
-      seq_pvPut("Thermosensors_T5_Max_Temp_100", value);
-      seq_pvPut("Thermosensors_T5_Max_Temp_200", value);
-    }
-}
-
-
-}%
 
 
 
@@ -2021,11 +1584,31 @@ ss  orchestration_statemachine {
        * Setup Temperature System
        * - set Alarm Temperature to T0_MAX (used HIHI limit)
       */
-      set_temperature_tank1(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank2(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank3(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank4(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
-      set_temperature_tank5(DTL_Thermosensors_RF_Conditioning_Max_Temperature);
+      /* Tank 1 */
+      for (int i = 0; i < 62; i++) {
+        Thermosensors_T1_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T1_Max_Temp[i]);
+      }
+      /* Tank 2 */
+      for (int i = 0; i < 35; i++) {
+        Thermosensors_T2_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T2_Max_Temp[i]);
+      }
+      /* Tank 3 */
+      for (int i = 0; i < 30; i++) {
+        Thermosensors_T3_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T3_Max_Temp[i]);
+      }
+      /* Tank 4 */
+      for (int i = 0; i < 27; i++) {
+        Thermosensors_T4_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T4_Max_Temp[i]);
+      }
+      /* Tank 5 */
+      for (int i = 0; i < 24; i++) {
+        Thermosensors_T5_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T5_Max_Temp[i]);
+      }
 
       /*
        * Indicate DTL ready for RF (not BEAM)
@@ -2479,11 +2062,31 @@ state rf_start_up {
        * Setup Temperature System
        * - set Alarm Temperature to T1_MAX (used HIHI limit)
       */
-      set_temperature_tank1(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
-      set_temperature_tank2(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
-      set_temperature_tank3(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
-      set_temperature_tank4(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
-      set_temperature_tank5(DTL_Thermosensors_RF_Beam_Operation_Max_Temperature);
+      /* Tank 1 */
+      for (int i = 0; i < 62; i++) {
+        Thermosensors_T1_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T1_Max_Temp[i]);
+      }
+      /* Tank 2 */
+      for (int i = 0; i < 35; i++) {
+        Thermosensors_T2_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T2_Max_Temp[i]);
+      }
+      /* Tank 3 */
+      for (int i = 0; i < 30; i++) {
+        Thermosensors_T3_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T3_Max_Temp[i]);
+      }
+      /* Tank 4 */
+      for (int i = 0; i < 27; i++) {
+        Thermosensors_T4_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T4_Max_Temp[i]);
+      }
+      /* Tank 5 */
+      for (int i = 0; i < 24; i++) {
+        Thermosensors_T5_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+        pvPut(Thermosensors_T5_Max_Temp[i]);
+      }
 
       /*
        * Indicate DTL ready for RF (not BEAM)
@@ -3202,11 +2805,31 @@ state no_accelerated_beam {
          * Setup Temperature System
          * - set Alarm Temperature to T0_MAX (used HIHI limit)
         */
-        set_temperature_tank1(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
-        set_temperature_tank2(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
-        set_temperature_tank3(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
-        set_temperature_tank4(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
-        set_temperature_tank5(DTL_Thermosensors_RF_No_Beam_Max_Temperature);
+        /* Tank 1 */
+        for (int i = 0; i < 62; i++) {
+          Thermosensors_T1_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T1_Max_Temp[i]);
+        }
+        /* Tank 2 */
+        for (int i = 0; i < 35; i++) {
+          Thermosensors_T2_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T2_Max_Temp[i]);
+        }
+        /* Tank 3 */
+        for (int i = 0; i < 30; i++) {
+          Thermosensors_T3_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T3_Max_Temp[i]);
+        }
+        /* Tank 4 */
+        for (int i = 0; i < 27; i++) {
+          Thermosensors_T4_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T4_Max_Temp[i]);
+        }
+        /* Tank 5 */
+        for (int i = 0; i < 24; i++) {
+          Thermosensors_T5_Max_Temp[i]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
+          pvPut(Thermosensors_T5_Max_Temp[i]);
+        }
 
         /*
          * Indicate DTL ready for RF (not BEAM)
