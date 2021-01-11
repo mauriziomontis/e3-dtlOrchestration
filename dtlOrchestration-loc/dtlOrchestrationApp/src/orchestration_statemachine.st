@@ -57,39 +57,39 @@ monitor T5_Vacuum_OK_Status;
 
 // Cooling System
 int T0_Coolong_OK_Status;
-assign T0_Coolong_OK_Status to "CWM-CWS04:Ctrl-Intf-001:OkStat-RB"
+assign T0_Coolong_OK_Status to "CWM-CWS04:Ctrl-Intf-001:OkStat-RB";
 monitor T0_Coolong_OK_Status;
 int T1_Cooling_OK_Status;
-assign T1_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-010Ok-RB"
+assign T1_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-010Ok-RB";
 monitor T1_Cooling_OK_Status;
 int T2_Cooling_OK_Status;
-assign T2_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-020Ok-RB"
+assign T2_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-020Ok-RB";
 monitor T2_Cooling_OK_Status;
 int T3_Cooling_OK_Status;
-assign T3_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-030Ok-RB"
+assign T3_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-030Ok-RB";
 monitor T3_Cooling_OK_Status;
 int T4_Cooling_OK_Status;
-assign T4_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-040Ok-RB"
+assign T4_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-040Ok-RB";
 monitor T4_Cooling_OK_Status;
 int T5_Cooling_OK_Status;
-assign T5_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-050Ok-RB"
+assign T5_Cooling_OK_Status to "CWM-CWS04:Ctrl-Intf-001:DTL-050Ok-RB";
 monitor T5_Cooling_OK_Status;
 
 // Temperature --> RF
 int T1_RFSlow_OK_Status;
-assign T1_RFSlow_OK_Status to "DTL-010:EMR-Cav-001:WrtC_OkStatS"
+assign T1_RFSlow_OK_Status to "DTL-010:EMR-Cav-001:WrtC_OkStatS";
 monitor T1_RFSlow_OK_Status;
 int T2_RFSlow_OK_Status;
-assign T2_RFSlow_OK_Status to "DTL-020:EMR-Cav-001:WrtC_OkStatS"
+assign T2_RFSlow_OK_Status to "DTL-020:EMR-Cav-001:WrtC_OkStatS";
 monitor T2_RFSlow_OK_Status;
 int T3_RFSlow_OK_Status;
-assign T3_RFSlow_OK_Status to "DTL-030:EMR-Cav-001:WrtC_OkStatS"
+assign T3_RFSlow_OK_Status to "DTL-030:EMR-Cav-001:WrtC_OkStatS";
 monitor T3_RFSlow_OK_Status;
 int T4_RFSlow_OK_Status;
-assign T4_RFSlow_OK_Status to "DTL-040:EMR-Cav-001:WrtC_OkStatS"
+assign T4_RFSlow_OK_Status to "DTL-040:EMR-Cav-001:WrtC_OkStatS";
 monitor T4_RFSlow_OK_Status;
 int T5_RFSlow_OK_Status;
-assign T5_RFSlow_OK_Status to "DTL-050:EMR-Cav-001:WrtC_OkStatS"
+assign T5_RFSlow_OK_Status to "DTL-050:EMR-Cav-001:WrtC_OkStatS";
 monitor T5_RFSlow_OK_Status;
 
 // Steerer System   -- TBD in steerere ST
@@ -149,7 +149,7 @@ double EPICS_Message;
 assign EPICS_Message to "CWM-CWS04:Ctrl-Intf-001:EPICSCommMsg";
 monitor EPICS_Message;
 double PLC_Message;
-assign PLC_Message to "CWM-CWS04:Ctrl-Intf-001:PLCCommMsg"
+assign PLC_Message to "CWM-CWS04:Ctrl-Intf-001:PLCCommMsg";
 monitor PLC_Message;
 
 
@@ -291,10 +291,10 @@ monitor ArcDetection_FaultReset;
  * | Δf1 | < | Δf2 |
 */
 double Freq_High_Delta;
-assign Freq_High_Delta to "DTL:RFS:BeamOpHDeltaFreq"
+assign Freq_High_Delta to "DTL:RFS:BeamOpHDeltaFreq";
 monitor Freq_High_Delta;
 double Freq_Low_Delta;
-assign Freq_Low_Delta to "DTL:RFS:BeamOpHDeltaFreq"
+assign Freq_Low_Delta to "DTL:RFS:BeamOpHDeltaFreq";
 monitor Freq_Low_Delta;
 
 /* DTL Frequency Detuning  */
