@@ -1241,7 +1241,7 @@ ss  orchestration_statemachine {
       } state rf_start_up
 
       /* Request for No Accelerated Beam stage by the Operator */
-      when ( (dtlOperationalCode_Command == 505) && (Vacuum_T1_Pressure <= DTL_Vacuum_no_Operation_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) )  {
+      when ( (dtlOperationalCode_Command == 505) && (Vacuum_T1_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T2_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T3_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T4_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) && (Vacuum_T5_Pressure <= DTL_Vacuum_RF_Beam_Operation_Working_Pressure) )  {
           printf("[SEQ ORCHESTRATION] Request for No Accelerated Beam operation by the user. \n");
           printf("[SEQ ORCHESTRATION] Main system goes to NO_ACCELERATED_BEAM stage. \n");
           /* save last operational code command sent */
@@ -2828,7 +2828,7 @@ state no_accelerated_beam {
         /* Tank 5 */
         for (sensor_index = 0; sensor_index < 24; sensor_index++) {
           Thermosensors_T5_Max_Temp[sensor_index]=DTL_Thermosensors_RF_Conditioning_Max_Temperature;
-          pvPut(Thermosensors_T5_Max_Temp[sensor_sensor_index]);
+          pvPut(Thermosensors_T5_Max_Temp[sensor_index]);
         }
 
         /*
