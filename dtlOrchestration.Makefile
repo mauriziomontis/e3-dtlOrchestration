@@ -56,7 +56,7 @@ endif
 
 # USR_INCLUDES += -I$(where_am_I)$(APPSRC)
 
-# USR_CFLAGS   += -Wno-unused-variable
+ USR_CFLAGS   += -std=c99
 # USR_CFLAGS   += -Wno-unused-function
 # USR_CFLAGS   += -Wno-unused-but-set-variable
 # USR_CPPFLAGS += -Wno-unused-variable
