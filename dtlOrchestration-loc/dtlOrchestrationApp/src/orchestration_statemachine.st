@@ -191,7 +191,7 @@ assign ArcDetection_AutoControl_ActualStatus to "DTL:RFS-AD:AutoCmd-RB";
 monitor ArcDetection_AutoControl_ActualStatus;
 
 
-/* -------- Cooling Manual Test Procedure Completed Command -------- */ --- TBD
+/* -------- Cooling Manual Test Procedure Completed Command -------- */ //--- TBD
 int Manual_Test_Done;
 assign Manual_Test_Done to "DTL:WtrC:TestDone";
 monitor Manual_Test_Done;
