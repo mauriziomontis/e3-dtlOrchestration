@@ -52,7 +52,7 @@ loadIocsh("recsync.iocsh", "IOCNAME=$(IOCNAME)")
 #
 
 # Main State Machine
-dbLoadRecords("StateMachineCode.db")
+dbLoadRecords("stateMachineCode.db")
 dbLoadRecords("dtlMaintenance.db")
 dbLoadRecords("dtlTemporaryRecords.db")
 

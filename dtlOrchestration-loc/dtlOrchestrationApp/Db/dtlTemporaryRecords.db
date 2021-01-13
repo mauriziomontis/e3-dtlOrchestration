@@ -35,7 +35,7 @@ record(bo, "DTL::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank1
 record(bo, "DTL-010::RFOKStat") {
@@ -43,7 +43,7 @@ record(bo, "DTL-010::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank2
 record(bo, "DTL-020::RFOKStat") {
@@ -51,7 +51,7 @@ record(bo, "DTL-020::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank3
 record(bo, "DTL-030::RFOKStat") {
@@ -59,7 +59,7 @@ record(bo, "DTL-030::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank4
 record(bo, "DTL-040::RFOKStat") {
@@ -67,7 +67,7 @@ record(bo, "DTL-040::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank5
 record(bo, "DTL-050::RFOKStat") {
@@ -75,7 +75,7 @@ record(bo, "DTL-050::RFOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 
 
@@ -87,7 +87,7 @@ record(bo, "DTL::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank1
 record(bo, "DTL-010::BeamOKStat") {
@@ -95,7 +95,7 @@ record(bo, "DTL-010::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank2
 record(bo, "DTL-020::BeamOKStat") {
@@ -103,7 +103,7 @@ record(bo, "DTL-020::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank3
 record(bo, "DTL-030::BeamOKStat") {
@@ -111,7 +111,7 @@ record(bo, "DTL-030::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank4
 record(bo, "DTL-040::BeamOKStat") {
@@ -119,7 +119,7 @@ record(bo, "DTL-040::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
 # Tank5
 record(bo, "DTL-050::BeamOKStat") {
@@ -127,5 +127,5 @@ record(bo, "DTL-050::BeamOKStat") {
 	field(VAL, "0")
 	field(PINI, "YES")
 	field(ONAM,	"ACCEPTED")
-	field(ZANM,	"NOT ACCEPTED")
+	field(ZNAM,	"NOT ACCEPTED")
 }
