@@ -7,7 +7,7 @@
 # mail: maurizio.montis@lnl.infn.it
 
 # RF Freq Low Threshold Δf1
-record(ai, "DTL:RFS:BeamOpLDeltaFreq") {
+record(ai, "DTL::RFS-BeamOpLDeltaFreq") {
 	field(DESC, "RF Freq Low Threshold Δf1")
 	field(VAL, "0")
 	field(PINI, "YES")
@@ -16,7 +16,7 @@ record(ai, "DTL:RFS:BeamOpLDeltaFreq") {
 }
 
 # RF Freq High Threshold Δf2
-record(ai, "DTL:RFS:BeamOpHDeltaFreq") {
+record(ai, "DTL::RFS-BeamOpHDeltaFreq") {
 	field(DESC, "RF Freq High Threshold Δf2")
 	field(VAL, "0")
 	field(PINI, "YES")
@@ -28,7 +28,7 @@ record(ai, "DTL:RFS:BeamOpHDeltaFreq") {
 # 909 --> Frequency Following Mode (FF Mode)
 # 808 --> Fixed Frequency
 #
-record(ai, "DTL:RFS:FreqMode") {
+record(ai, "DTL::RFS-FreqMode") {
 	field(DESC,	"RF Frequency Mode")
 	field(VAL,	"0")
 	field(PINI,	"YES")

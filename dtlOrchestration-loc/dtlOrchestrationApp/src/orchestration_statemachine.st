@@ -1,4 +1,4 @@
-/* DTL Orchestration State Machine
+CWM-CWS04:/* DTL Orchestration State Machine
 # State Machine devoted to control and manage DTL apparatus:
 #
 # Principal States:
@@ -92,7 +92,7 @@ int T5_RFSlow_OK_Status;
 assign T5_RFSlow_OK_Status to "DTL-050:EMR-Cav-001:WrtC_OkStatS";
 monitor T5_RFSlow_OK_Status;
 
-// Steerer System   -- TBD in steerere ST
+// Steerer System   -- TBD in steerer ST
 int T1_Steerer_OK_Status;
 assign T1_Steerer_OK_Status to "";
 monitor T1_Steerer_OK_Status;
@@ -158,10 +158,10 @@ monitor PLC_Message;
 
 // Cooling System
 int Cooling_AutoControlCmd;
-assign Cooling_AutoControlCmd to "DTL:WtrC:AutoCmd";
+assign Cooling_AutoControlCmd to "CWM-CWS04::AutoCmd";
 monitor Cooling_AutoControlCmd;
 int Cooling_AutoControl_ActualStatus;
-assign Cooling_AutoControl_ActualStatus to "DTL:WtrC:AutoCmd-RB";
+assign Cooling_AutoControl_ActualStatus to "CWM-CWS04::AutoCmd-RB";
 monitor Cooling_AutoControl_ActualStatus;
 
 // Temperature System - no MAN|AUTO control
@@ -191,25 +191,20 @@ assign ArcDetection_AutoControl_ActualStatus to "DTL:RFS-AD:AutoCmd-RB";
 monitor ArcDetection_AutoControl_ActualStatus;
 
 
-/* -------- Cooling Manual Test Procedure Completed Command -------- */ //--- TBD
-int Manual_Test_Done;
-assign Manual_Test_Done to "DTL:WtrC:TestDone";
-monitor Manual_Test_Done;
-
 
 /* -------- Start and Stop Operations -------- */
 // Vacuum System - not defined
 
 // Cooling System
 int Cooling_StartOperationCmd;
-assign Cooling_StartOperationCmd to "DTL:WtrC:OpRun";
+assign Cooling_StartOperationCmd to "CWM-CWS04::OpRun";
 monitor Cooling_StartOperationCmd;
 int Cooling_StopOperationCmd;
-assign Cooling_StopOperationCmd to "DTL:WtrC:OpStop";
+assign Cooling_StopOperationCmd to "CWM-CWS04::OpStop";
 monitor Cooling_StopOperationCmd;
 /* Manual Test Procedure Completed Command*/
 int Cooling_Manual_Test_Done;
-assign Cooling_Manual_Test_Done to "DTL:WtrC:TestDone";
+assign Cooling_Manual_Test_Done to "CWM-CWS04::TestDone";
 monitor Cooling_Manual_Test_Done;
 
 // Temperatures System - not defined
@@ -245,10 +240,10 @@ monitor ArcDetection_Manual_Test_Done;
 
 // Cooling System
 int Cooling_MaintenanceReset;
-assign Cooling_MaintenanceReset to "DTL:WtrC:MaintenanceRst";
+assign Cooling_MaintenanceReset to "CWM-CWS04::MaintenanceRst";
 monitor Cooling_MaintenanceReset;
 int Cooling_FaultReset;
-assign Cooling_FaultReset to "DTL:WtrC:FaultRst";
+assign Cooling_FaultReset to "CWM-CWS04::FaultRst";
 monitor Cooling_FaultReset;
 
 // Temperature System
@@ -338,16 +333,16 @@ monitor DTL_Vacuum_RF_Beam_Operation_Working_Pressure;
  * Delta Temperature Δt
 */
 double DTL_Cooling_RF_Conditioning_Working_Temperature;
-assign DTL_Cooling_RF_Conditioning_Working_Temperature to "DTL:WtrC:RFCondWorkingTmp";
+assign DTL_Cooling_RF_Conditioning_Working_Temperature to "CWM-CWS04::RFCondWorkingTmp";
 monitor DTL_Cooling_RF_Conditioning_Working_Temperature;
 double DTL_Cooling_RF_Beam_Operation_Working_Temperature;
-assign DTL_Cooling_RF_Beam_Operation_Working_Temperature to "DTL:WtrC:BeamOpWorkingTmp";
+assign DTL_Cooling_RF_Beam_Operation_Working_Temperature to "CWM-CWS04::BeamOpWorkingTmp";
 monitor DTL_Cooling_RF_Beam_Operation_Working_Temperature;
 double DTL_Cooling_RF_No_Beam_Working_Temperature;
-assign DTL_Cooling_RF_No_Beam_Working_Temperature to "DTL:WtrC:NoBeamWorkingTmp";
+assign DTL_Cooling_RF_No_Beam_Working_Temperature to "CWM-CWS04::NoBeamWorkingTmp";
 monitor DTL_Cooling_RF_No_Beam_Working_Temperature;
 double DTL_Cooling_RF_Delta_Working_Temperature;
-assign DTL_Cooling_RF_Delta_Working_Temperature to "DTL:WtrC:DeltaWorkingTmp";
+assign DTL_Cooling_RF_Delta_Working_Temperature to "CWM-CWS04::DeltaWorkingTmp";
 monitor DTL_Cooling_RF_Delta_Working_Temperature;
 
 
@@ -1005,7 +1000,7 @@ monitor Vacuum_T5_Intertank_Valve_Status;
 
 // Cooling System
 int Cooling_StateMachineCode;
-assign Cooling_StateMachineCode to "DTL:WtrC:StateMachine";
+assign Cooling_StateMachineCode to "CWM-CWS04::StateMachine";
 monitor Cooling_StateMachineCode;
 
 // Temperature System
